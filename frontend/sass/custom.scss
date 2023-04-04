@@ -1,0 +1,495 @@
+@import 'layout';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;1,400&display=swap');
+@font-face {
+    font-family: "GutenbergA";
+    src: url('../sass/fonts/font.woff2') format('woff2'), url('../sass/fonts/font.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+$black: #1D211D;
+$white: #FBFBFB;
+$darkBlue: #1C1D82;
+$midBlue: #2427E6;
+$lightBlue: #8D91FF;
+$offWhite: #F1F7FF;
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+body{
+    background-color: $white;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    cursor: url('http://www.rw-designer.com/cursor-extern.php?id=188059');
+    
+}
+
+h1{
+    font-family: "GutenbergA";
+}
+
+h2, h3, h4, h5, p{
+    font-family: 'Poppins', sans-serif;
+    color: #1D211D;
+    letter-spacing: 0.5px;
+}
+
+
+
+@mixin prevent-select{
+
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+    
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+
+// SIDEBAR STYLING
+
+.sidebar{
+    display: flex;
+    @include flex-column;
+    height: 100vh;
+}
+
+.hamburger-menu{
+    margin-top: 10px;
+    font-size: 30px;
+    height: 10%;
+    width: 40%;
+    padding-left: 3vw;
+    @include center-items;
+    justify-content: space-around;
+
+    img{
+        height: 12vh;
+        padding-left: 3vw;
+        @include prevent-select();
+    }
+
+}
+
+.links-container{
+    position: relative;
+    @include flex-column;
+    
+    padding-top: 70px;
+    margin-left: 20%;
+
+    h5::before{
+        content: "+ ";
+    }
+    
+    
+}
+.top-link{
+    margin-bottom: 0.5rem;
+    @include prevent-select();
+}
+
+.link{
+    
+    background-color: $white;
+    border: none;
+@include prevent-select();
+  
+}
+.category-link{
+   
+    
+    background-color: $white;
+    border: none;
+@include prevent-select();
+    h5{
+    font-size: 16px;
+}
+  
+}
+.inner-links{
+    
+    @include prevent-select();
+
+    li{
+        list-style: none;
+        padding-bottom: 10px;
+        font-size: 16px;
+        font-family:  'Poppins', sans-serif;;
+    }
+
+    ul li::before {
+        content: "+ ";
+      }
+
+      .accordion-header{
+        margin-bottom: none;
+        padding-left: 5%;
+      }
+}
+
+
+.accordion{
+    // max-width: 50%;
+    --bs-accordion-bg: $white;
+    --bs-accordion-border-color: none;
+}
+
+// ---------------- SIDEBAR STYLING ENDS ------------
+
+
+
+.content-container{
+
+    height: 100vh;
+
+}
+
+
+// ------------ LOGO STYLING ---------------
+.logo-container-desktop{
+    
+   
+    font-family: "GutenbergA";
+    position: fixed;
+    // border: 2px solid black;
+    height: 20vh;
+    width: 100vw;
+    top: 83vh;
+    
+    
+
+}
+.marquee{
+    color: #1D211D;
+    
+    font-size: 120px;
+    // width: 100vw;
+
+    overflow: hidden;
+    position: relative;
+    // border: 2px solid black;
+    height: 100%;  
+
+    img{
+        position: relative;
+        height: 100px;
+    }
+}
+
+.marquee div {
+    position: absolute;
+    // width: 100%;
+    left: 100%;
+   
+    display: flex;
+    // justify-content: space-around;
+  }
+
+.marquee .logo1{
+    animation: marquee 10s linear infinite
+}
+.marquee .logo2{
+    animation: marquee 10s linear 1s infinite 
+}
+.marquee .logo3{
+    animation: marquee 10s linear 2s infinite
+}
+.marquee .logo4{
+    animation: marquee 10s linear 3s infinite
+}
+.marquee .logo5{
+    animation: marquee 10s linear 4s infinite
+}
+.marquee .logo6{
+    animation: marquee 10s linear 5s infinite
+}
+.marquee .logo7{
+    animation: marquee 10s linear 6s infinite
+}
+.marquee .logo8{
+    animation: marquee 10s linear 7s infinite
+}
+.marquee .logo9{
+    animation: marquee 10s linear 8s infinite
+}
+.marquee .logo10{
+    animation: marquee 10s linear 9s infinite
+}
+
+// ------------ LOGO STYLING ENDS ---------------
+
+// ------------ OFF CANVAS STYLING ---------------
+.off-canvas-left{
+    z-index: 10;
+    @include flex-column;
+    background-color: $white;
+    position: fixed;
+    height: 100vh;
+    transition: all 0.5s ease;
+    --start-pos: -30vw;
+
+
+
+}
+
+.off-canvas-right{
+    z-index: 10;
+    @include flex-column;
+    position: fixed;
+    width: 100vw;
+    background-color: $white;
+    height: 100vh;
+    transition: all 0.5s ease;
+    right: 130vw;
+    ---start-pos: 130vw;
+
+}
+
+.closed {
+
+}
+
+.open{
+
+}
+
+.background-overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(36, 39, 230, 0.25);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+}
+
+@keyframes blurIn {
+    0%{
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+        background: rgba(36, 39, 230, 0);
+
+    }
+    100%{
+        backdrop-filter: blur(6.6px);
+        -webkit-backdrop-filter: blur(6.6px);
+        background: rgba(36, 39, 230, 0.25);
+
+    }
+    
+}
+@keyframes blurOut {
+    0%{
+      
+        backdrop-filter: blur(6.6px);
+        -webkit-backdrop-filter: blur(6.6px);
+        background: rgba(36, 39, 230, 0.25);
+
+    }
+    100%{
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+        background: rgba(36, 39, 230, 0);
+
+    }
+    
+}
+
+// ------------ OFF CANVAS STYLING ENDS ---------------
+
+
+// ------------ HOME PAGE STYLE -----------
+
+.info-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10%;
+    text-align: end;
+
+}
+
+.image-container{
+    position: absolute;
+    border: 2px solid black;
+    // width: 100%;
+    @include flex-row;
+    flex-wrap: wrap;
+    height: fit-content;
+    overflow-x: scroll;
+}
+
+// ----------- LISTING PAGE STYLE ------------
+
+
+.listing-info{
+    @include flex-column;
+    text-align: right;
+    padding: 40px;
+
+}
+
+.listing-title{
+    font-family: "GutenbergA";
+}
+
+.listing-bio{
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+
+
+
+
+
+
+
+@keyframes marquee {
+    0% { left: 100%; }
+    50% { left: -100%; }
+    100% {left: -100%}
+  }
+
+
+
+
+// ------------------ BREAK POINTS --------------------
+
+@media screen and (min-width: 320px) {
+
+    body{
+        @include flex-column;
+        overflow-y: scroll;
+    }
+
+    .sidebar{
+        display: none;
+    }
+
+    .mobile-nav{
+        @include flex-row;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-right: 20px;
+       
+    }
+    .content-container{
+        width: 100vw;
+    }
+    .logo-container-desktop{
+        display: none;
+    }
+    .image-container{
+        position: relative;
+        
+
+    }
+
+    .listing-info-container{
+        @include flex-column;
+        
+        @include center-items;
+        
+        
+        .listing-image{
+            width: 90%;
+            border: 2px solid black;
+            padding: 10%;
+        
+        }
+    }
+
+    .off-canvas-left{
+        left: -100vw;
+        width: 100vw;
+    }
+
+    
+}
+
+
+@media only screen and (min-width: 768px){
+    body{
+        @include flex-row;
+        overflow-y: hidden;
+    }
+
+    .sidebar{
+        display: flex;
+        width: 25vw;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+
+    .content-container{
+        width: 75vw;
+    }
+    .image-container{
+        position: absolute;
+        @include flex-row;
+        flex-wrap: wrap;
+        top: 60vh;
+        height: 30vh;
+        width: 75vw;
+
+    }
+
+    .listing-info-container{
+        @include flex-row;
+        height: 60vh;
+        
+        .listing-image{
+           
+            border: 2px solid black;
+            
+        
+        }
+        
+        
+    }
+
+
+    
+
+    .logo-container-desktop{
+        display: block;
+    }
+    .off-canvas-right{
+        display: none;
+    }
+    .off-canvas-left{
+        width: 40vw;
+        left: -40vw;
+    }
+
+  
+}
+
