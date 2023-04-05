@@ -48,10 +48,13 @@ h1{
     font-family: "GutenbergA";
 }
 
-h2, h3, h4, h5, p{
+h2, h3, h4, h5, h6, p{
     font-family: 'Poppins', sans-serif;
     color: #1D211D;
     letter-spacing: 0.5px;
+}
+p{
+    font-size: 14px;
 }
 
 
@@ -92,6 +95,7 @@ h2, h3, h4, h5, p{
         @include prevent-select();
     }
 
+    cursor: pointer;
 }
 
 .links-container{
@@ -101,6 +105,9 @@ h2, h3, h4, h5, p{
     padding-top: 70px;
     margin-left: 20%;
 
+    h6::before{
+        content: "+ ";
+    }
     h5::before{
         content: "+ ";
     }
@@ -110,6 +117,7 @@ h2, h3, h4, h5, p{
 .top-link{
     margin-bottom: 0.5rem;
     @include prevent-select();
+    cursor: pointer;
 }
 
 .link{
@@ -176,7 +184,7 @@ h2, h3, h4, h5, p{
     font-family: "GutenbergA";
     position: fixed;
     // border: 2px solid black;
-    height: 20vh;
+    height: 30vh;
     width: 100vw;
     top: 83vh;
     
@@ -196,7 +204,7 @@ h2, h3, h4, h5, p{
 
     img{
         position: relative;
-        height: 100px;
+        height: 120px;
     }
 }
 
@@ -240,20 +248,47 @@ h2, h3, h4, h5, p{
     animation: marquee 10s linear 9s infinite
 }
 
+.marquee:hover div {
+    animation-play-state: paused;
+  }
+
 // ------------ LOGO STYLING ENDS ---------------
 
 // ------------ OFF CANVAS STYLING ---------------
 .off-canvas-left{
     z-index: 10;
     @include flex-column;
+    
     background-color: $white;
     position: fixed;
     height: 100vh;
     transition: all 0.5s ease;
     --start-pos: -30vw;
 
+    .hamburger-menu{
+        position: relative;
+        left: 0;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: none;
+        padding: 5%;
+        img{
+        padding-left: 0;
+        }
+    }
 
+}
 
+.logo-offcanvas{
+   
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    font-family: "GutenbergA";
+    font-size: 30px;
+    justify-content: center;
+    width: 100%;
+    
 }
 
 .off-canvas-right{
@@ -282,7 +317,7 @@ h2, h3, h4, h5, p{
     width: 100vw;
     height: 100vh;
     background: rgba(36, 39, 230, 0.25);
-border-radius: 16px;
+
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(5px);
 -webkit-backdrop-filter: blur(5px);
@@ -323,6 +358,111 @@ backdrop-filter: blur(5px);
 // ------------ OFF CANVAS STYLING ENDS ---------------
 
 
+
+// ------------ REUSED ELEMENTS -----------------
+
+
+.listing-image{
+    display: flex;
+  
+
+   
+    .image-overlay{
+        z-index: 5;
+        position: absolute;
+        background: rgba(36, 39, 230, 0.25);
+
+      
+        transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+    img{
+        // height: 100%;
+        width: 100%;
+        filter: contrast(150%) saturate(0%);
+       
+       
+    }
+
+   
+
+}
+
+.listing-image:hover{
+
+    .image-overlay{
+        z-index: 5;
+        position: absolute;
+        background: rgba(36, 39, 230, 0);
+        height: 100%;
+        width: 30vh;
+        transition: all 0.5s ease;
+    }
+
+    img{
+        filter: saturate(100%);
+        transition: all 0.5s ease;
+    }
+
+}
+
+.submit-button{
+    background: #8D91FF;
+border-radius: 10px;
+width: 150px;
+height: 45px;
+border: none;
+font-family: 'Poppins', sans-serif;
+color: $white;
+letter-spacing: 0.5px;
+margin: 10px 0px 10px 10px;
+transition: all 0.3s ease;
+font-weight: 500;
+
+
+}
+.submit-button:hover{
+    background: $white;
+    color: $darkBlue;
+    border: 3px solid $lightBlue;
+    transition: all 0.3s ease;
+
+}
+textarea{
+    font-family: 'Poppins', sans-serif;
+    color: $darkBlue;
+    border: none;
+    background-color: $offWhite;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    resize: none;
+
+    :focus, ::selection, :focus-visible{
+        outline: none;
+        border: none;
+    }
+   
+}
+
+input{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: $darkBlue;
+    border: none;
+    background-color: $offWhite;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    height: 50px;
+
+
+}
+
+// -------- REUSED ELEMENTS ENDS -----------------
+
+
 // ------------ HOME PAGE STYLE -----------
 
 .info-container{
@@ -336,12 +476,13 @@ backdrop-filter: blur(5px);
 
 .image-container{
     position: absolute;
-    border: 2px solid black;
+   
     // width: 100%;
     @include flex-row;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     height: fit-content;
     overflow-x: scroll;
+    
 }
 
 // ----------- LISTING PAGE STYLE ------------
@@ -350,7 +491,7 @@ backdrop-filter: blur(5px);
 .listing-info{
     @include flex-column;
     text-align: right;
-    padding: 40px;
+    padding-right: 100px;
 
 }
 
@@ -359,11 +500,126 @@ backdrop-filter: blur(5px);
 }
 
 .listing-bio{
-    padding: 10px;
+    padding:20px;
     font-size: 0.9rem;
+    max-width: 70vw;
 }
 
 
+
+// ------------- ARTIST PAGE -----------
+
+.artist-info-container{
+    @include flex-column;
+    text-align: right;
+    padding-right: 50px;
+}
+
+// COMMENTS STYLING 
+
+.comments-container{
+    display: flex;
+    background-color: $white;
+    position: fixed;
+    width: 70vw;
+    // height: 55vh;
+    bottom: 40vh;
+
+     @include flex-column;
+    
+
+}
+
+.all-comments{
+    position: relative;
+    @include flex-column;
+    width: 100%;
+    height: 60%;
+    
+    margin: 20px;
+    overflow-y: scroll;
+
+}
+
+.comment-input-container{
+    position: relative;
+    @include flex-column;
+    width: 100%;
+    height: 40%;
+    
+    margin: 20px;
+    @include flex-row;
+    text-align: right;
+  
+    justify-content: space-between;
+    align-items: baseline;
+   
+    .submit-button{
+        position: relative;
+        bottom: 0;
+    }
+
+    textarea{
+        width: 60%;
+        height: 80%;
+        border: none;
+        background-color: $offWhite;
+        padding: 10px;
+
+        :focus, ::selection, :focus-visible{
+            outline: none;
+            border: none;
+        }
+       
+    }
+   
+
+}
+
+.comment{
+    position: relative;
+    background-color: $offWhite;
+
+    height: 300px;
+    margin-bottom: 20px;
+    @include flex-row;
+    text-align: right;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.comment-content{
+    width: 40vw;
+    overflow-y: scroll;
+}
+
+// COMMENTS STYLING ENDS
+
+// ENQUIRE STYLING
+.enquire-container{
+    @include flex-row;
+    flex-wrap: wrap;
+    background-color: $white;
+    position: fixed;
+    width: 70vw;
+    // height: 55vh;
+    bottom: 40vh;
+
+   
+}
+#enquiryFirstName{
+    width: 48%;
+}
+#enquiryLastName{
+    width: 48%;
+}
+#enquiryEmail{
+    width: 100%;
+}
+#enquiryMessage{
+    width: 80%;
+}
 
 
 
@@ -376,6 +632,14 @@ backdrop-filter: blur(5px);
     100% {left: -100%}
   }
 
+  @keyframes slideUp{
+    0% {height: 0vh;}
+    100% {height: 55vh;}
+  }
+  @keyframes slideDown{
+    0% {height: 55vh;}
+    100% {height: 0vh;}
+  }
 
 
 
@@ -407,7 +671,8 @@ backdrop-filter: blur(5px);
     }
     .image-container{
         position: relative;
-        
+        @include flex-column;
+       
 
     }
 
@@ -417,17 +682,30 @@ backdrop-filter: blur(5px);
         @include center-items;
         
         
-        .listing-image{
-            width: 90%;
-            border: 2px solid black;
-            padding: 10%;
-        
+       
+    }
+    .listing-hero-image{
+        width: 90%;
+     
+        img{
+            width: 100%;
+        }
+    
+    }
+
+    .image-overlay{
+        height: 100vw;
+        width: 100%;
+        &:hover{
+            height: 100vw;
+        width: 100%;
         }
     }
 
     .off-canvas-left{
         left: -100vw;
         width: 100vw;
+
     }
 
     
@@ -455,7 +733,7 @@ backdrop-filter: blur(5px);
     .image-container{
         position: absolute;
         @include flex-row;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         top: 60vh;
         height: 30vh;
         width: 75vw;
@@ -466,14 +744,41 @@ backdrop-filter: blur(5px);
         @include flex-row;
         height: 60vh;
         
-        .listing-image{
-           
-            border: 2px solid black;
-            
         
+        
+        
+    }
+
+    .listing-hero-image{
+        
+        width: 500px;
+        
+        img{
+           width: 100%;
+        }
+    }
+
+    .listing-image{
+           
+        height: 100%;
+        // width: 30vh;
+            
+        .image-overlay{
+            height: 100%;
+            width: 30vh;
+            
         }
         
-        
+    }
+
+    .listing-image:hover{
+
+        .image-overlay{
+            height: 100%;
+            
+        }
+
+    
     }
 
 

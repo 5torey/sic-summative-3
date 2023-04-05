@@ -19,12 +19,12 @@
 
 <!-- NAVIGATION LINKS  -->
     <div class="links-container">
-        <h5 class="top-link"> shop all</h5>
+        <h6 class="top-link"> shop all</h6>
         <div class="accordion accordion-flush" id="outerAccordian">
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#artistLinks" aria-expanded="false" aria-controls="flush-collapseOne">
-                  <h5> artists</h5>
+                  <h6> artists</h6>
                 </button>
               </h2>
               <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
@@ -44,7 +44,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks" aria-expanded="false" aria-controls="flush-collapseTwo">
-                  <h5> discipline</h5>
+                  <h6> discipline</h6>
                 </button>
               </h2>
               <!-- CATEGORY ACCORDION -->
@@ -204,20 +204,107 @@
     <!-- HOME PAGE ENDS -->
 
     <!-- PRODUCT PAGE -->
+
      <div class="listing-info-container">
-           <div class="listing-image">an image</div>
+      <div class="listing-hero-image">
+             
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
            <div class="listing-info">
-            <h3 class="listing-title">Listing title</h3>
+           
+            <h1 class="listing-title">Listing title</h1>
             <h5 class="artist-name">Artist name</h5>
             <p class="listing-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
             <h4 class="price">$$</h4>
+            <div class="buttons-container">
+              <button class="submit-button" id="reviewBtn">review</button>
+              <button class="submit-button" id="orderBtn">order</button>
+            </div>
+           </div>
+
+     </div>
+     <div class="image-container">
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+
+      <div class="comments-container" id="commentsContainer">
+        <!-- <div class="all-comments">
+          <div class="comment">
+            <p class="username">username</p>
+            <p class="date">19/03/23</p>
+            <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+          </div>
+          <div class="comment"></div>
+          <div class="comment"></div>
+        
+      
+        </div>
+        <div class="comment-input-container">
+          <textarea placeholder="add a comment..."></textarea>
+          <button class="submit-button" id="commentSubmit">submit</button>
+
+        </div> -->
+
+
+      </div>
+      <div class="enquire-container" id="enquireContainer">
+        
+          <!-- <input type="text" placeholder="first name" name="" id="enquiryFirstName">
+          <input type="text" name="" placeholder="last name" id="enquiryLastName">
+          <input type="email" placeholder="email" name="" id="enquiryEmail">
+          <textarea name="" placeholder="message..." id="" cols="30" rows="10" id="enquiryMessage"></textarea>
+          <button class="submit-button" id="enquireSubmit">submit</button>
+         -->
+
+      </div>
+
+     </div>
+
+     <!-- PRODUCT PAGE ENDS-->
+
+     <!-- ARTIST PAGE  -->
+     
+     <!-- <div class="listing-info-container">
+ 
+           <div class="listing-info">
+           
+            <h1 class="listing-title">Artist Name</h1>
+            <h5>Discipline</h5>
+            <p class="listing-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <h5 >Instagram</h5>
             <div class="buttons-container"></div>
            </div>
 
      </div>
      <div class="image-container">
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
 
-     </div>
+     </div>  -->
+   
+
+
  </div>
 
 
@@ -243,7 +330,15 @@
  <div class="logo-container-mobile"></div>
 
 
- <div class="off-canvas-left closed" id="offCanvasLeft" ></div>
+ <div class="off-canvas-left closed" id="offCanvasLeft" >
+  <div class="hamburger-menu">
+  
+    <img src="./sass/assets/aesthete-a.png" alt="">
+    <i class="fa-solid fa-arrow-left"></i>
+
+</div>
+  <div class="logo-offcanvas">aesthete</div>
+ </div>
  <div class="off-canvas-right closed" id="offCanvasRight" ></div>
 
 <div class="background-overlay hidden" id="backgroundOverlay"></div>
