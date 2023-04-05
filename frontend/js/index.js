@@ -1,3 +1,8 @@
+// ------------- LOADING PAGE ANIMATION -----------------
+
+
+
+
 $(document).ready(function () {  
 
     $.ajax({
@@ -310,6 +315,17 @@ function deleteProduct(id){
 
     $("#mobileOffcanvasOpen").click(function(){
         offCanvasRight();
+    })
+
+    setTimeout(() => {
+        $("#enterText").css('animation', 'fadeIn 3s ease');
+        $("#enterText").css('opacity', '1');
+    }, 2000)
+
+    $('#enterText').click(function(){
+        $("#loadingScreen").css('animation', 'fadeOut 1.5s ease');
+        setTimeout(() => {$("#loadingScreen").css('display', 'none');}, 1500)
+        
     })
 
 

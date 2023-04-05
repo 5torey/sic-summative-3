@@ -81,6 +81,45 @@ p {
     visibility: hidden;
 }
 
+.loading-screen{
+    @include flex-column;
+    position: fixed;
+    z-index: 20;
+    width: 100vw;
+    height: 100vh;
+    background-color: $white;
+    @include center-items;
+
+    img{
+        height: 40vh;
+    }
+    h6{
+        
+        position: relative;
+        transition: all 5s ease;
+        top: -5vh;
+        font-size: 16px;
+        &:hover{
+            border-bottom: 1px solid black;
+    transition: all 0.5s ease;
+    cursor: pointer;
+        }
+    }
+}
+
+.enter-text{
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0%{ opacity: 0;}
+    100%{ opacity: 1;}
+}
+@keyframes fadeOut {
+    0%{ opacity: 1;}
+    100%{ opacity: 0;}
+}
+
 
 // SIDEBAR STYLING
 
