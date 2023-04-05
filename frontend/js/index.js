@@ -1,5 +1,141 @@
 $(document).ready(function () {  
 
+    $.ajax({
+        url: 'config.json',
+        type: 'GET',
+        dataType: 'json',
+        success: function (configData) {
+            console.log(configData.SERVER_URL, configData.SERVER_PORT);
+            url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+
+
+// -------------- AJAX FUNCTIONS -------------------
+
+function getAllProducts(){
+
+    $.ajax({
+        url: `http://${url}/allProducts`,
+        type: 'GET',
+        dataType: 'json',
+
+        success: function(productsFromDB){
+
+            return productsFromDB;
+
+        },
+        error: function(){
+            alert('Unable to get products from database')
+        }
+    })
+
+}
+
+function getSingleProduct(id){
+    $.ajax({
+        url: `http://${url}/singleProcuct/${id}`,
+        type: 'GET',
+        dataType: 'json',
+
+        success: function(product) {
+
+            return product;
+        },
+        error: function(){
+            alert('Unable to get this product')
+        }
+    })
+}
+
+async function getSingleVendor(id){
+
+        let vendor;
+
+        try {
+            vendor = await $.ajax({
+                url: `http://${url}/singleVendor/${id}`,
+                type: 'GET',
+                dataType: 'json',
+
+            })
+
+            return vendor;
+        } catch(error) {
+            console.error(error)
+        }
+}
+
+function addProduct(){
+    $.ajax({
+        url: `http://${url}/addProduct`,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            name: newTitle,
+            price: newPrice,
+            image: newImage,
+            description: newDescription,
+            category: newCategory,
+            sub_category: newSubCategory
+
+        },
+        success: function (result){
+
+        },
+        error: function(){
+            console.log("Unable to update product")
+        }
+    })
+
+}
+
+function updateProduct(id){
+
+    $.ajax({
+        url: `http://${url}/updateProduct/${id}`,
+        type: 'PATCH',
+        dataType: 'json',
+        data: {
+            name: newTitle,
+            price: newPrice,
+            image: newImage,
+            description: newDescription,
+            category: newCategory,
+            sub_category: newSubCategory
+
+        },
+        success: function (result){
+
+        },
+        error: function(){
+            console.log("Unable to update product")
+        }
+    })
+}
+
+function deleteProduct(id){
+    $.ajax({
+        url: `http://${url}/deleteProduct/${id}`,
+        type: 'DELETE',
+        success: function () {
+            
+            
+        },
+        error: function () {
+            console.log('error: cannot delete due to call on api');
+        } // error                
+    }); // ajax
+
+}
+
+
+// ---------- POPULATE DOM FUNCTIONS ---------------
 
     function populateEnquireForm(){
         console.log('in populate')
