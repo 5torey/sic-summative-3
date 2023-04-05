@@ -58,6 +58,7 @@ $(document).ready(function () {
     function offCanvasLeft(){
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
+        let close = $('#closeOffcanvasLeft')
 
 
         if (offcanvas.hasClass('closed')){
@@ -78,6 +79,17 @@ $(document).ready(function () {
 
 
         }
+
+        close.click(function(){
+            offcanvas.css('left', '-100vw')
+            offcanvas.addClass('closed');
+            offcanvas.addClass('closed');
+            background.css ('animation', 'blurOut .5s linear')
+            offcanvas.removeClass('open')
+            background.addClass('hidden')
+            offcanvas.removeClass('open')
+            
+           })
         
 
     }
@@ -85,17 +97,30 @@ $(document).ready(function () {
     function offCanvasRight(){
         let offcanvas = $("#offCanvasRight")
         let background = $('#backgroundOverlay')
+        let close = $('#closeOffcanvasRight')
 
         if (offcanvas.hasClass('closed')){
             console.log('opening')
-            offcanvas.css('right', '0vw')
+            offcanvas.css('left', '0vw')
+            offcanvas.removeClass('closed');
+            background.css ('animation', 'blurIn .5s linear')
+            background.removeClass('hidden')
+            // offcanvas.addClass('open');
+          
 
+           
 
 
         }
-        if (offcanvas.hasClass('open')){
-            offcanvas.css('right', '130vw')
-        }
+        close.click(function(){
+            offcanvas.css('left', '130vw')
+            offcanvas.addClass('closed');
+           
+            offcanvas.removeClass('open')
+            background.css ('animation', 'blurOut .5s linear')
+            background.addClass('hidden')
+            
+           })
 
     }
 
@@ -141,6 +166,10 @@ $(document).ready(function () {
     $('#commentSubmit').click(function(){
         slideDown($("#commentsContainer"))
         
+    })
+
+    $("#mobileOffcanvasOpen").click(function(){
+        offCanvasRight();
     })
 
 

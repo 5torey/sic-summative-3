@@ -192,7 +192,7 @@
     <img src="./sass/assets/aesthete-a.png" alt="">
 
 </div>
-<h3>SHOP</h3>
+<h3 id="mobileOffcanvasOpen">+ shop</h3>
 
  </div>
 
@@ -334,12 +334,192 @@
   <div class="hamburger-menu">
   
     <img src="./sass/assets/aesthete-a.png" alt="">
-    <i class="fa-solid fa-arrow-left"></i>
+    <i id="closeOffcanvasLeft"class="fa-solid fa-arrow-left"></i>
 
 </div>
   <div class="logo-offcanvas">aesthete</div>
  </div>
- <div class="off-canvas-right closed" id="offCanvasRight" ></div>
+
+
+ <div class="off-canvas-right closed" id="offCanvasRight" >
+  <div class="hamburger-menu">
+    <i id="closeOffcanvasRight" class="fa-solid fa-arrow-right">
+    </i>
+    <img src="./sass/assets/aesthete-a.png" alt="">
+    
+
+</div>
+
+<div class="links-container">
+  <h6 class="top-link"> shop all</h6>
+  <div class="accordion accordion-flush" id="outerAccordian">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#artistLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+            <h6> artists</h6>
+          </button>
+        </h2>
+        <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
+          <div class="inner-links">
+      <ul>
+          <li class="category-link">artist 1</li>
+          <li class="category-link">artist 2</li>
+          <li class="category-link">artist 2</li>
+          <li class="category-link">artist 2</li>
+          <li class="category-link">artist 2</li>
+
+      </ul>
+
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks" aria-expanded="false" aria-controls="flush-collapseTwo">
+            <h6> discipline</h6>
+          </button>
+        </h2>
+        <!-- CATEGORY ACCORDION -->
+        <div id="categoryLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
+          <div class="inner-links">
+
+            <!-- ART CATEGORY LINK -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="category-link  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#artLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5> art</h5>
+                </button>
+              </h2>
+              <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
+              <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
+                <div class="inner-links">
+            <ul>
+                <li>paintings</li>
+                <li>prints</li>
+                <li>ceramics</li>
+                <li>sculpture</li>
+            
+
+            </ul>
+
+                </div>
+              </div>
+              
+            </div>
+            <!-- ART CATEGORY LINKS ENDS -->
+            <!-- GARMENT CATEGORY LINKS -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="category-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#garmentLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5>garments</h5>
+                </button>
+              </h2>
+              <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
+              <div id="garmentLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
+                <div class="inner-links">
+            <ul>
+                <li>dresses</li>
+                <li>tops</li>
+                <li>bottoms</li>
+                <li>intimates</li>
+                <li>outerwear</li>
+            
+
+            </ul>
+
+                </div>
+              </div>
+              
+            </div>
+            <!-- GARMENT CATEGORY LINKS END -->
+            <!-- HOMEWARES CATEGORY LINKS -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="category-link  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#homewareLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5>homewares</h5>
+                </button>
+              </h2>
+              <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
+              <div id="homewareLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
+                <div class="inner-links">
+            <ul>
+                <li>ceramics</li>
+                <li>glass</li>
+                <li>linen</li>
+                <li>soft furnishings</li>
+                <li>decor</li>
+                <li>rugs</li>
+                <li>kitchen and dining</li>
+            
+
+            </ul>
+
+                </div>
+              </div>
+              
+            </div>
+            <!-- HOMEWARES CATEGORY LINKS END -->
+
+            <!-- JEWELLERY CATEGORY LINKS -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="category-link  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jewelleryLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5>jewellery</h5>
+                </button>
+              </h2>
+              <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
+              <div id="jewelleryLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
+                <div class="inner-links">
+            <ul>
+                <li>earrings</li>
+                <li>necklaces</li>
+                <li>rings</li>
+                <li>bracelets</li>
+               
+            </ul>
+
+                </div>
+              </div>
+
+              <!-- JEWELLERY CATEGORY LINKS END -->
+              
+              
+
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="category-link  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accessoriesLinks" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5>accessories</h5>
+                </button>
+              </h2>
+              <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
+              <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
+                <div class="inner-links">
+            <ul>
+                <li>hats</li>
+                <li>bag</li>
+                <li>glasses</li>
+
+               
+            </ul>
+
+                </div>
+              </div>
+
+          </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+</div>
+
+<div class="logo-offcanvas">aesthete</div>
+
+ </div>
 
 <div class="background-overlay hidden" id="backgroundOverlay"></div>
 
