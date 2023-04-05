@@ -59,6 +59,7 @@ $(document).ready(function () {
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
+        let screenWidth = $(window).width();
 
 
         if (offcanvas.hasClass('closed')){
@@ -81,13 +82,16 @@ $(document).ready(function () {
         }
 
         close.click(function(){
-            offcanvas.css('left', '-100vw')
-            offcanvas.addClass('closed');
+
+            if (screenWidth <= 425){
+                offcanvas.css('left', '-100vw')
+            } else {
+                offcanvas.css('left', '-40vw')
+            }
             offcanvas.addClass('closed');
             background.css ('animation', 'blurOut .5s linear')
             offcanvas.removeClass('open')
             background.addClass('hidden')
-            offcanvas.removeClass('open')
             
            })
         
