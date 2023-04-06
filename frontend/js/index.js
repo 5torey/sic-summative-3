@@ -3,7 +3,8 @@
 
 
 
-$(document).ready(function () {  
+$(document).ready(function () {
+    let url;
 
     $.ajax({
         url: 'config.json',
@@ -21,44 +22,66 @@ $(document).ready(function () {
 
 
 
-// -------------- AJAX FUNCTIONS -------------------
+    // -------------- AJAX FUNCTIONS -------------------
 
-function getAllProducts(){
+    async function getAllProducts() {
 
-    $.ajax({
-        url: `http://${url}/allProducts`,
-        type: 'GET',
-        dataType: 'json',
+        let products;
 
-        success: function(productsFromDB){
+        try {
+            products = await $.ajax({
+                url: `http://${url}/allProducts`,
+                type: 'GET',
+                dataType: 'json',
 
-            return productsFromDB;
+            })
 
-        },
-        error: function(){
-            alert('Unable to get products from database')
+            console.log(products);
+            return products;
+        } catch (error) {
+            console.error(error)
         }
-    })
 
-}
+    }
 
-function getSingleProduct(id){
-    $.ajax({
-        url: `http://${url}/singleProcuct/${id}`,
-        type: 'GET',
-        dataType: 'json',
+    async function getAllVendors() {
 
-        success: function(product) {
+        let vendors;
 
-            return product;
-        },
-        error: function(){
-            alert('Unable to get this product')
+        try {
+            vendors = await $.ajax({
+                url: `http://${url}/allVendors`,
+                type: 'GET',
+                dataType: 'json',
+
+            })
+
+            return vendors;
+        } catch (error) {
+            console.error(error)
         }
-    })
-}
 
-async function getSingleVendor(id){
+    }
+
+
+
+    function getSingleProduct(id) {
+        $.ajax({
+            url: `http://${url}/singleProcuct/${id}`,
+            type: 'GET',
+            dataType: 'json',
+
+            success: function (product) {
+
+                return product;
+            },
+            error: function () {
+                alert('Unable to get this product')
+            }
+        })
+    }
+
+    async function getSingleVendor(id) {
 
         let vendor;
 
@@ -71,81 +94,212 @@ async function getSingleVendor(id){
             })
 
             return vendor;
-        } catch(error) {
+        } catch (error) {
             console.error(error)
         }
-}
+    }
 
-function addProduct(){
-    $.ajax({
-        url: `http://${url}/addProduct`,
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            name: newTitle,
-            price: newPrice,
-            image: newImage,
-            description: newDescription,
-            category: newCategory,
-            sub_category: newSubCategory
+    async function getVendorProducts(id){
 
-        },
-        success: function (result){
+        let products = [];
 
-        },
-        error: function(){
-            console.log("Unable to update product")
+        try {
+
+            allProducts = await $.ajax({
+                url: `http://${url}/allProducts`,
+                type: 'GET',
+                dataType: 'json',
+
+            })
+
+
+            allProducts.forEach(product => {
+               
+                if (id == product.user_id){
+                   
+                    products.push(product);
+                } 
+            })
+
+            return products;
+        } catch (error) {
+            console.error(error)
         }
-    })
+    }
 
-}
+    function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
+        $.ajax({
+            url: `http://${url}/addProduct`,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                name: newTitle,
+                price: newPrice,
+                image: newImage,
+                description: newDescription,
+                category: newCategory,
+                sub_category: newSubCategory
 
-function updateProduct(id){
+            },
+            success: function (result) {
 
-    $.ajax({
-        url: `http://${url}/updateProduct/${id}`,
-        type: 'PATCH',
-        dataType: 'json',
-        data: {
-            name: newTitle,
-            price: newPrice,
-            image: newImage,
-            description: newDescription,
-            category: newCategory,
-            sub_category: newSubCategory
+            },
+            error: function () {
+                console.log("Unable to update product")
+            }
+        })
 
-        },
-        success: function (result){
+    }
 
-        },
-        error: function(){
-            console.log("Unable to update product")
-        }
-    })
-}
+    function updateProduct(id) {
 
-function deleteProduct(id){
-    $.ajax({
-        url: `http://${url}/deleteProduct/${id}`,
-        type: 'DELETE',
-        success: function () {
-            
-            
-        },
-        error: function () {
-            console.log('error: cannot delete due to call on api');
-        } // error                
-    }); // ajax
+        $.ajax({
+            url: `http://${url}/updateProduct/${id}`,
+            type: 'PATCH',
+            dataType: 'json',
+            data: {
+                name: newTitle,
+                price: newPrice,
+                image: newImage,
+                description: newDescription,
+                category: newCategory,
+                sub_category: newSubCategory
 
-}
+            },
+            success: function (result) {
+
+            },
+            error: function () {
+                console.log("Unable to update product")
+            }
+        })
+    }
+
+    function deleteProduct(id) {
+        $.ajax({
+            url: `http://${url}/deleteProduct/${id}`,
+            type: 'DELETE',
+            success: function () {
 
 
-// ---------- POPULATE DOM FUNCTIONS ---------------
+            },
+            error: function () {
+                console.log('error: cannot delete due to call on api');
+            } // error                
+        }); // ajax
 
-    function populateEnquireForm(){
+    }
+
+
+    function login(userType){
+
+    }
+
+    // ---------- POPULATE DOM FUNCTIONS ---------------
+
+    async function populateArtistMenu() {
+        let vendors = await getAllVendors();
+
+       vendors.forEach(vendor => {
+        let vendorName = vendor.name;
+        let artistList = $('#artistList');
+        let artistListMobile = $('#artistListMobile');
+        
+        artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`)
+        artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`)
+
+        
+
+        
+       });
+       openArtistPage()
+
+        console.log(vendors);
+
+    }
+
+    function openArtistPage(){
+        console.log('in open artist page function');
+        let artistLinks = document.querySelectorAll('.vendor-link');
+        let links = Array.from(artistLinks);
+        console.log(links);
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                console.log('link clicked');
+                let vendorID = link.dataset.vendorid;
+                console.log(vendorID);
+                populateArtistPage(vendorID)
+            })
+              
+            })
+       
+
+    }
+
+    async function populateArtistPage(id){
+        let products = await getVendorProducts(id);
+        let vendor = await getSingleVendor(id);
+        console.log(products);
+        let contentContainer = $('#contentContainer');
+
+        contentContainer.html(`
+
+        <div class="listing-info-container">
+ 
+        <div class="listing-info">
+        
+         <h1 class="listing-title">${vendor.name}</h1>
+     
+         <p class="listing-bio">${vendor.bio}</p>
+         <h5 ><a href="${vendor.instagram}">Instagram</a></h5>
+         
+        </div>
+        </div>
+
+        <div class="image-container" id="artistImageContainer"></div>
+
+        
+        
+        `)
+
+        let imageContainer = $('#artistImageContainer');
+
+        products.forEach(product => {
+            imageContainer.append(
+                `
+                <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="${product.image}" alt="">
+      </div>`
+            )
+        })
+
+
+    }
+
+
+    async function populateHomeImages(){
+        let products = await getAllProducts();
+        console.log(products);
+        let imageContainer = $("#imageContainerHome");
+
+        products.forEach(product => {
+            imageContainer.append(
+                `
+                <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="${product.image}" alt="">
+      </div>`
+            )
+        })
+
+    }
+
+    function populateEnquireForm() {
         console.log('in populate')
         let enquireContainer = $("#enquireContainer");
-        
+
 
         enquireContainer.html(`
         <i class="fa-solid fa-xmark" id="closeEnquire"></i>
@@ -156,20 +310,21 @@ function deleteProduct(id){
         <button class="submit-button" id="enquireSubmit">submit</button>
         `)
 
-        
-        $('#closeEnquire').click(function(){
+
+        $('#closeEnquire').click(function () {
             slideDown($("#enquireContainer"));
-            
+
         })
-        $('#enquireSubmit').click(function(){
+        $('#enquireSubmit').click(function () {
             slideDown($("#enquireContainer"));
-            
+
         })
     }
-    function populateCommentContainer(){
+
+    function populateCommentContainer() {
         console.log('in populate 2')
         let commentContainer = $("#commentsContainer");
-        
+
 
         commentContainer.html(`
         <i class="fa-solid fa-xmark" id="closeComments"></i>
@@ -192,138 +347,138 @@ function deleteProduct(id){
       </div> 
 
         `)
-        $("#closeComments").click(function(){
+        $("#closeComments").click(function () {
             slideDown($("#commentsContainer"))
         })
 
-        $('#commentSubmit').click(function(){
-           
-            
+        $('#commentSubmit').click(function () {
+
+
         })
     }
 
-    function submitEnquiry(){
+    function submitEnquiry() {
 
     }
-//    Function to open/close left side off canvas
-    function offCanvasLeft(){
+    //    Function to open/close left side off canvas
+    function offCanvasLeft() {
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
         let screenWidth = $(window).width();
 
 
-        if (offcanvas.hasClass('closed')){
+        if (offcanvas.hasClass('closed')) {
             console.log('opening')
             offcanvas.css('left', '0vw')
             offcanvas.removeClass('closed');
             // offcanvas.addClass('open');
-            background.css ('animation', 'blurIn .5s linear')
+            background.css('animation', 'blurIn .5s linear')
             background.removeClass('hidden')
 
-           background.click(function(){
-            offcanvas.css('left', '-40vw')
-            offcanvas.addClass('closed');
-            background.css ('animation', 'blurOut .5s linear')
-            offcanvas.removeClass('open')
-            background.addClass('hidden')
-           })
+            background.click(function () {
+                offcanvas.css('left', '-40vw')
+                offcanvas.addClass('closed');
+                background.css('animation', 'blurOut .5s linear')
+                offcanvas.removeClass('open')
+                background.addClass('hidden')
+            })
 
 
         }
 
-        close.click(function(){
+        close.click(function () {
 
-            if (screenWidth <= 425){
+            if (screenWidth <= 425) {
                 offcanvas.css('left', '-100vw')
             } else {
                 offcanvas.css('left', '-40vw')
             }
             offcanvas.addClass('closed');
-            background.css ('animation', 'blurOut .5s linear')
+            background.css('animation', 'blurOut .5s linear')
             offcanvas.removeClass('open')
             background.addClass('hidden')
-            
-           })
-        
+
+        })
+
 
     }
 
-    function offCanvasRight(){
+    function offCanvasRight() {
         let offcanvas = $("#offCanvasRight")
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasRight')
 
-        if (offcanvas.hasClass('closed')){
+        if (offcanvas.hasClass('closed')) {
             console.log('opening')
             offcanvas.css('left', '0vw')
             offcanvas.removeClass('closed');
-            background.css ('animation', 'blurIn .5s linear')
+            background.css('animation', 'blurIn .5s linear')
             background.removeClass('hidden')
             // offcanvas.addClass('open');
-          
 
-           
+
+
 
 
         }
-        close.click(function(){
+        close.click(function () {
             offcanvas.css('left', '130vw')
             offcanvas.addClass('closed');
-           
+
             offcanvas.removeClass('open')
-            background.css ('animation', 'blurOut .5s linear')
+            background.css('animation', 'blurOut .5s linear')
             background.addClass('hidden')
-            
-           })
+
+        })
 
     }
 
-    function slideUp(element){
-       element.css ('border-top','1px solid black');
-        element.css ('animation','slideUp 1.5s ease');
-        element.css ('height','55vh');
-        
-        
+    function slideUp(element) {
+        element.css('border-top', '1px solid black');
+        element.css('animation', 'slideUp 1.5s ease');
+        element.css('height', '55vh');
+
+
 
     }
 
-    function slideDown(element){
+    function slideDown(element) {
         console.log('in slidedown');
-        element.css ('border-top','none');
-        element.css ('animation','slideDown 1.5s ease');
-        element.css ('height','0vh');
+        element.css('border-top', 'none');
+        element.css('animation', 'slideDown 1.5s ease');
+        element.css('height', '0vh');
         element.html('')
     }
 
 
     // ------------- CLICK EVENTS ------------
 
-    $("#hamburgerIcon").click(function(){
+    $("#hamburgerIcon").click(function () {
         offCanvasLeft()
     })
-    $("#hamburgerIconMobile").click(function(){
+    $("#hamburgerIconMobile").click(function () {
         offCanvasLeft()
     })
-    $("#reviewBtn").click(function(){
+    $("#reviewBtn").click(function () {
         slideUp($("#commentsContainer"))
         setTimeout(populateCommentContainer, 1500)
-       
+
     })
-    $("#orderBtn").click(function(){
+    $("#orderBtn").click(function () {
         slideUp($("#enquireContainer"))
         setTimeout(populateEnquireForm, 1500)
-        
-       
+
+
     })
 
-   
-    $('#commentSubmit').click(function(){
+
+    $('#commentSubmit').click(function () {
         slideDown($("#commentsContainer"))
-        
+
     })
 
-    $("#mobileOffcanvasOpen").click(function(){
+    $("#mobileOffcanvasOpen").click(function () {
         offCanvasRight();
     })
 
@@ -335,12 +490,18 @@ function deleteProduct(id){
         $("#enterText").css('opacity', '1');
     }, 2000)
 
-    $('#enterText').click(function(){
+    $('#enterText').click(function () {
         $("#loadingScreen").css('animation', 'fadeOut 1.5s ease');
-        setTimeout(() => {$("#loadingScreen").css('display', 'none');}, 1500)
+        setTimeout(() => {
+            $("#loadingScreen").css('display', 'none');
+        }, 1500)
+
+
+        populateArtistMenu()
+        populateHomeImages()
         
     })
 
+    
 
 });
-
