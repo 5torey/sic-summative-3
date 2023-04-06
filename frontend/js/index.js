@@ -195,6 +195,20 @@ $(document).ready(function () {
 
     }
 
+    function registerVendor(){
+
+    }
+
+    function registerCollector(){
+
+        if (name == '' || email == '' || password == ''){
+            //send error message
+        } else {
+            
+        }
+
+    }
+
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
     async function populateArtistMenu() {
@@ -259,6 +273,9 @@ $(document).ready(function () {
 
         <div class="image-container" id="artistImageContainer"></div>
 
+        </div>
+
+
         
         
         `)
@@ -275,6 +292,18 @@ $(document).ready(function () {
             )
         })
 
+
+    }
+
+    async function populateCategoryPage(category){
+
+    }
+
+    async function populateSubCategory(subcategory){
+
+    }
+
+    async function populateShopAll(){
 
     }
 
