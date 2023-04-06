@@ -1,5 +1,146 @@
+// ------------- LOADING PAGE ANIMATION -----------------
+
+
+
+
 $(document).ready(function () {  
 
+    $.ajax({
+        url: 'config.json',
+        type: 'GET',
+        dataType: 'json',
+        success: function (configData) {
+            console.log(configData.SERVER_URL, configData.SERVER_PORT);
+            url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+
+
+// -------------- AJAX FUNCTIONS -------------------
+
+function getAllProducts(){
+
+    $.ajax({
+        url: `http://${url}/allProducts`,
+        type: 'GET',
+        dataType: 'json',
+
+        success: function(productsFromDB){
+
+            return productsFromDB;
+
+        },
+        error: function(){
+            alert('Unable to get products from database')
+        }
+    })
+
+}
+
+function getSingleProduct(id){
+    $.ajax({
+        url: `http://${url}/singleProcuct/${id}`,
+        type: 'GET',
+        dataType: 'json',
+
+        success: function(product) {
+
+            return product;
+        },
+        error: function(){
+            alert('Unable to get this product')
+        }
+    })
+}
+
+async function getSingleVendor(id){
+
+        let vendor;
+
+        try {
+            vendor = await $.ajax({
+                url: `http://${url}/singleVendor/${id}`,
+                type: 'GET',
+                dataType: 'json',
+
+            })
+
+            return vendor;
+        } catch(error) {
+            console.error(error)
+        }
+}
+
+function addProduct(){
+    $.ajax({
+        url: `http://${url}/addProduct`,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            name: newTitle,
+            price: newPrice,
+            image: newImage,
+            description: newDescription,
+            category: newCategory,
+            sub_category: newSubCategory
+
+        },
+        success: function (result){
+
+        },
+        error: function(){
+            console.log("Unable to update product")
+        }
+    })
+
+}
+
+function updateProduct(id){
+
+    $.ajax({
+        url: `http://${url}/updateProduct/${id}`,
+        type: 'PATCH',
+        dataType: 'json',
+        data: {
+            name: newTitle,
+            price: newPrice,
+            image: newImage,
+            description: newDescription,
+            category: newCategory,
+            sub_category: newSubCategory
+
+        },
+        success: function (result){
+
+        },
+        error: function(){
+            console.log("Unable to update product")
+        }
+    })
+}
+
+function deleteProduct(id){
+    $.ajax({
+        url: `http://${url}/deleteProduct/${id}`,
+        type: 'DELETE',
+        success: function () {
+            
+            
+        },
+        error: function () {
+            console.log('error: cannot delete due to call on api');
+        } // error                
+    }); // ajax
+
+}
+
+
+// ---------- POPULATE DOM FUNCTIONS ---------------
 
     function populateEnquireForm(){
         console.log('in populate')
@@ -7,6 +148,7 @@ $(document).ready(function () {
         
 
         enquireContainer.html(`
+        <i class="fa-solid fa-xmark" id="closeEnquire"></i>
         <input type="text" placeholder="first name" name="" id="enquiryFirstName">
         <input type="text" name="" placeholder="last name" id="enquiryLastName">
         <input type="email" placeholder="email" name="" id="enquiryEmail">
@@ -14,6 +156,11 @@ $(document).ready(function () {
         <button class="submit-button" id="enquireSubmit">submit</button>
         `)
 
+        
+        $('#closeEnquire').click(function(){
+            slideDown($("#enquireContainer"));
+            
+        })
         $('#enquireSubmit').click(function(){
             slideDown($("#enquireContainer"));
             
@@ -25,6 +172,7 @@ $(document).ready(function () {
         
 
         commentContainer.html(`
+        <i class="fa-solid fa-xmark" id="closeComments"></i>
         <div class="all-comments">
                 <div class="comment">
                 <p class="username">username</p>
@@ -44,6 +192,9 @@ $(document).ready(function () {
       </div> 
 
         `)
+        $("#closeComments").click(function(){
+            slideDown($("#commentsContainer"))
+        })
 
         $('#commentSubmit').click(function(){
            
@@ -207,6 +358,23 @@ $(document).ready(function () {
     
     
     // ----------------------------- Add a product ----------------------------------
+
+
+    // ---------------- LOADING SCREEN --------------------------
+
+    setTimeout(() => {
+        $("#enterText").css('animation', 'fadeIn 3s ease');
+        $("#enterText").css('opacity', '1');
+    }, 2000)
+
+    $('#enterText').click(function(){
+        $("#loadingScreen").css('animation', 'fadeOut 1.5s ease');
+        setTimeout(() => {$("#loadingScreen").css('display', 'none');}, 1500)
+        
+    })
+
+
+});
 
 
     // ----------------------------- End of add a product ----------------------------------

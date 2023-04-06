@@ -51,3 +51,221 @@ mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cl
 // while using express want to listen to port and go into arrow function and ...
 // sent to nodemon
 app.listen(port, () => console.log(`my fullstack app is listening on port ${port}`));
+
+// ------------ GET ALL PRODUCTS -----------------
+app.get('/allProducts', (req, res) => {
+    Product.find().then(result => {
+        res.send(result)
+    });
+});
+
+
+// ------------ GET SINGLE PRODUCT -----------------
+app.get('/singleProduct/:id', (req, res) => {
+    const idParam = req.params.id;
+    Product.findById(idParam).then(result => {
+        res.send(result)
+    }).catch(err => res.send(err))
+})
+
+
+// ------------ ADD PRODUCT -----------------
+app.post('/addProduct', (req, res) => {
+    const dbProduct = new Product({
+        _id: new mongoose.Types.ObjectId,
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        image: req.body.image,
+        category: req.body.category,
+        sub_category: req.body.sub_category
+
+    })
+
+    dbProduct.save().then(result => {
+        res.send(result);
+    }).catch(err => res.send(err))
+})
+
+// ------------ UPDATE PRODUCT -----------------
+app.patch('updateProduct/:id', (req, res) => {
+    const idParam = req.params.id;
+    Product.findById(idParam, (err, product) => {
+        const updatedProduct = {
+            name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        image: req.body.image,
+        category: req.body.category,
+        sub_category: req.body.sub_category
+        }
+        Product.updateOne({
+            _id: idParam
+        }, updatedProduct).
+        then(result => {
+            res.send(result);
+        }).catch(err => res.send(err))
+    })
+})
+
+// ------------ DELETE PRODUCT -----------------
+app.delete('/deleteProduct/:id', (req, res) => {
+    const idParam = req.params.id;
+    Product.findOne({
+        _id: idParam
+    }, (err, product) => {
+        if (product) {
+            Product.deleteOne({
+                _id: idParam
+            }, err => {
+                console.log('deleted on backend request')
+            })
+        } else {
+            error('not found')
+        }
+    }).catch(err => res.send(err));
+});
+
+// ------------ REGISTER VENDOR -----------------
+app.post('/registerVendor', (req, res) => {
+    Vendor.findOne({
+        email: req.body.email,
+    }, (err, vendorExists) => {
+        if(vendorExists){
+            res.send('This email has already been registered. Please sign in or use a different email')
+        } else {
+            const hash = bcrypt.hashSync(req.body.password);
+            const vendor = new Vendor({
+                _id: new mongoose.Types.ObjectId,
+                name: req.body.name,
+                password: hash,
+                email: req.body.email,
+                bio: req.body.bio,
+                instagram: req.body.instagram
+            })
+            vendor.save()
+                .then(result => {
+                    console.log(vendor, result);
+                    res.send(result);
+                }).catch(err => {
+                    res.send(err)
+                })
+        }
+    })
+})
+
+// ------------ REGISTER COLLECTOR -----------------
+app.post('/registerCollector', (req, res) => {
+    User.findOne({
+        email: req.body.email,
+    }, (err, userExists) => {
+        if(userExists){
+            res.send('This email has already been registered. Please sign in or use a different email')
+        } else {
+            const hash = bcrypt.hashSync(req.body.password);
+            const user = new User({
+                _id: new mongoose.Types.ObjectId,
+                name: req.body.name,
+                password: hash,
+                email: req.body.email,
+            })
+            user.save()
+                .then(result => {
+                    console.log(vendor, result);
+                    res.send(result);
+                }).catch(err => {
+                    res.send(err)
+                })
+        }
+    })
+})
+
+// ------------ LOGIN VENDOR -----------------
+app.post('/loginVendor', (req, res) => {
+    Vendor.findOne({email:req.body.email}, (err, userResult) => {
+        if (userResult) {
+            if (bcrypt.compareSync(req.body.password, userResult.password)) {
+                res.send(userResult);
+            } else {
+                res.send('This password does not match. Please try again')
+            }
+        } else {
+            res.send('User not found. Please register')
+        }
+    })
+})
+
+// ------------ LOGIN VENDOR -----------------
+app.post('/loginCollector', (req, res) => {
+    User.findOne({email:req.body.email}, (err, userResult) => {
+        if (userResult) {
+            if (bcrypt.compareSync(req.body.password, userResult.password)) {
+                res.send(userResult);
+            } else {
+                res.send('This password does not match. Please try again')
+            }
+        } else {
+            res.send('User not found. Please register')
+        }
+    })
+})
+
+
+app.get('/singleVendor/:id', (req, res) => {
+    const idParam = req.params.id;
+    Vendor.findById(idParam).then(result => {
+        res.send(result)
+    }).catch(err => res.send(err))
+})
+
+app.get('/allComments', (req, res) => {
+    Comment.find().then(result => {
+        res.send(result);
+    })
+});
+
+app.post('/createComment', (req, res) => {
+    const newComment = new Comment({
+        _id: new mongoose.Types.ObjectId,
+        author: req.body.author,
+        text: req.body.text,
+        time: new Date(),
+        user_id: req.body.user_id,
+        product_id: req.body.product_id
+    }); // end of const
+    newComment.save()
+        .then(result => {
+            Product.updateOne({
+                _id: req.body.product_id
+            }).then(result => {
+                res.send(newComment);
+            }).catch(err => {
+                res.send(err);
+            })
+
+        })
+})
+
+app.delete('/deleteComment/:id', (req, res) => {
+    Comment.findOne({
+        _id: req.params.id
+    }, (err, comment) => {
+        if(comment && comment['user_id'] == req.body.user_id){
+            Product.updateOne({
+                _id: comment.product_id
+            }).then(result => {
+                Comment.deleteOne({
+                    _id: req.params.id
+                },err => {
+                    res.send('deleted')
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        } //end of if
+        else{
+            res.send('not found/not authorised')
+        }
+    }) 
+    
+})
