@@ -63,7 +63,9 @@ p {
 p {
     font-size: 14px;
 }
-
+.gutenberg {
+    font-family: "GutenbergA";
+}
 
 
 @mixin prevent-select {
@@ -381,10 +383,12 @@ p {
             padding-left: 0;
             height: 20vh
         }
+
         .fa-solid{
             position: relative;
             left: 10px;
         }
+
         
     }
 
@@ -441,7 +445,9 @@ p {
 
 .open {}
 
+
 .background-overlay {
+
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -588,6 +594,122 @@ input {
 
 
 }
+
+// ------- Form styling for artist and collector options ---------
+
+.form-options {
+    padding: 0 0 1vh 7vw;
+    color: $midBlue;
+}
+
+.form-buttons {
+    background: rgb(36, 39, 230, .1);
+    border-radius: 5px;
+    width: 70%;
+    height: 45px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    color: $midBlue;
+    letter-spacing: 0.5px;
+    margin: 10px 0px 10px 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.form-buttons:hover,
+.form-buttons:focus-visible {
+    // background: $white;
+    border: 3px solid $lightBlue;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.center-dropdown {
+    text-align: center; 
+    text-align-last: center;
+}
+
+::placeholder {
+    color: $midBlue;
+}
+
+.container-cb {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    margin-top: 10vh;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: $midBlue;
+}
+// *** Custom checkbox for confirm delete of listing  
+
+/* Hide the browser's default checkbox */
+.container-cb input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 3vw;
+    height: 35px;
+    width: 35px;
+    border-radius: 3px;
+    background-color: rgba(141, 145, 255, .3);
+    // border-color: $midBlue;
+    border-color:  $lightBlue;
+    border-style: solid;
+    border-width: 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.container-cb:hover input ~ .checkmark {
+    background-color: rgba(141, 145, 255, .6);
+  }
+  
+/* When the checkbox is checked, add a blue background */
+.container-cb input:checked ~ .checkmark {
+    background: $lightBlue;
+}
+  
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container-cb input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-cb .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 12px;
+    height: 20px;
+    border: solid white;
+    border-width: 0 5px 5px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+// *** End of custom checkbox for confirm delete of listing 
+  
+// ------- End of form styling for artist and collector options ---------
+
 
 // -------- REUSED ELEMENTS ENDS -----------------
 

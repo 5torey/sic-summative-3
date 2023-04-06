@@ -207,6 +207,7 @@ function deleteProduct(id){
     }
 //    Function to open/close left side off canvas
     function offCanvasLeft(){
+        console.log("clicked here");
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
@@ -232,6 +233,7 @@ function deleteProduct(id){
 
         }
 
+        // close off canvas
         close.click(function(){
 
             if (screenWidth <= 425){
@@ -246,6 +248,25 @@ function deleteProduct(id){
             
            })
         
+
+    }
+
+    function offCanvasLeftGrow(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '60vw')
+        }
+
+    }
+    function offCanvasLeftShrink(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '40vw')
+        }
 
     }
 
@@ -300,6 +321,7 @@ function deleteProduct(id){
     // ------------- CLICK EVENTS ------------
 
     $("#hamburgerIcon").click(function(){
+        console.log("hamburger clicked");
         offCanvasLeft()
     })
     $("#hamburgerIconMobile").click(function(){
@@ -328,6 +350,16 @@ function deleteProduct(id){
     })
 
 
+    // ----------------------------- Get all products ----------------------------------
+
+    // ----------------------------- End of get all products ----------------------------------
+    // const test = document.getElementById('confirmListingDelete');
+    // console.log(test.checked);
+    
+    
+    // ----------------------------- Add a product ----------------------------------
+
+
     // ---------------- LOADING SCREEN --------------------------
 
     setTimeout(() => {
@@ -344,3 +376,12 @@ function deleteProduct(id){
 
 });
 
+
+    // ----------------------------- End of add a product ----------------------------------
+
+
+
+
+
+});
+// -------------------------- End of Frontend $(document).ready() 'container' -------------------------------
