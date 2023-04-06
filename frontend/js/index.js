@@ -56,6 +56,7 @@ $(document).ready(function () {
     }
 //    Function to open/close left side off canvas
     function offCanvasLeft(){
+        console.log("clicked here");
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
@@ -81,6 +82,7 @@ $(document).ready(function () {
 
         }
 
+        // close off canvas
         close.click(function(){
 
             if (screenWidth <= 425){
@@ -95,6 +97,25 @@ $(document).ready(function () {
             
            })
         
+
+    }
+
+    function offCanvasLeftGrow(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '60vw')
+        }
+
+    }
+    function offCanvasLeftShrink(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '40vw')
+        }
 
     }
 
@@ -149,6 +170,7 @@ $(document).ready(function () {
     // ------------- CLICK EVENTS ------------
 
     $("#hamburgerIcon").click(function(){
+        console.log("hamburger clicked");
         offCanvasLeft()
     })
     $("#hamburgerIconMobile").click(function(){
@@ -177,5 +199,21 @@ $(document).ready(function () {
     })
 
 
-});
+    // ----------------------------- Get all products ----------------------------------
 
+    // ----------------------------- End of get all products ----------------------------------
+    // const test = document.getElementById('confirmListingDelete');
+    // console.log(test.checked);
+    
+    
+    // ----------------------------- Add a product ----------------------------------
+
+
+    // ----------------------------- End of add a product ----------------------------------
+
+
+
+
+
+});
+// -------------------------- End of Frontend $(document).ready() 'container' -------------------------------
