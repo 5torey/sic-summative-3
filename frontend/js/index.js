@@ -148,6 +148,7 @@ function deleteProduct(id){
         
 
         enquireContainer.html(`
+        <i class="fa-solid fa-xmark" id="closeEnquire"></i>
         <input type="text" placeholder="first name" name="" id="enquiryFirstName">
         <input type="text" name="" placeholder="last name" id="enquiryLastName">
         <input type="email" placeholder="email" name="" id="enquiryEmail">
@@ -155,6 +156,11 @@ function deleteProduct(id){
         <button class="submit-button" id="enquireSubmit">submit</button>
         `)
 
+        
+        $('#closeEnquire').click(function(){
+            slideDown($("#enquireContainer"));
+            
+        })
         $('#enquireSubmit').click(function(){
             slideDown($("#enquireContainer"));
             
@@ -166,6 +172,7 @@ function deleteProduct(id){
         
 
         commentContainer.html(`
+        <i class="fa-solid fa-xmark" id="closeComments"></i>
         <div class="all-comments">
                 <div class="comment">
                 <p class="username">username</p>
@@ -185,6 +192,9 @@ function deleteProduct(id){
       </div> 
 
         `)
+        $("#closeComments").click(function(){
+            slideDown($("#commentsContainer"))
+        })
 
         $('#commentSubmit').click(function(){
            
@@ -316,6 +326,9 @@ function deleteProduct(id){
     $("#mobileOffcanvasOpen").click(function(){
         offCanvasRight();
     })
+
+
+    // ---------------- LOADING SCREEN --------------------------
 
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
