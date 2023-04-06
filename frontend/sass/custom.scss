@@ -198,12 +198,34 @@ p {
     border: none;
     @include prevent-select();
 
-    h5 {
-        font-size: 16px;
+  
 
         ul li::before {
             content: "- ";
         }
+    
+
+}
+
+.artist-links{
+    @include prevent-select();
+
+    li {
+        list-style: none;
+        padding-bottom: 10px;
+        font-size: 16px;
+        font-family: 'Poppins', sans-serif;
+        ;
+    }
+
+
+    ul li::before {
+        content: "- ";
+    }
+
+    .accordion-header {
+        margin-bottom: none;
+        padding-left: 5%;
     }
 
 }
@@ -220,9 +242,10 @@ p {
         ;
     }
 
-    ul li::before {
-        content: "+ ";
-    }
+
+    // ul li::before {
+    //     content: "+ ";
+    // }
 
     .accordion-header {
         margin-bottom: none;
@@ -501,7 +524,8 @@ p {
 
 
 .submit-button {
-    background: #8D91FF;
+    // background: #8D91FF;
+        background: rgba(141, 145, 255, 0.44);
     border-radius: 10px;
     width: 150px;
     height: 45px;
@@ -517,9 +541,17 @@ p {
 }
 
 .submit-button:hover {
-    background: $white;
-    color: $darkBlue;
-    border: 3px solid $lightBlue;
+
+
+
+
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+
+
+    background: $darkBlue;
+    // color: $darkBlue;
+    // border: 2px solid $lightBlue;
     transition: all 0.3s ease;
 
 }
@@ -616,6 +648,7 @@ input {
 // COMMENTS STYLING 
 
 .comments-container {
+    padding-top: 10px;
     display: flex;
     background-color: $white;
     position: fixed;
@@ -624,7 +657,11 @@ input {
     bottom: 40vh;
 
     @include flex-column;
-
+    
+    .fa-solid{
+        font-size: 20px;
+        cursor: pointer;
+    }
 
 }
 
@@ -705,7 +742,12 @@ input {
     width: 70vw;
     // height: 55vh;
     bottom: 40vh;
+    padding-top: 10px;
 
+    .fa-solid{
+        font-size: 20px;
+        cursor: pointer;
+    }
 
 }
 
