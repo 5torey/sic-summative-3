@@ -303,29 +303,29 @@ function deleteProduct(id){
         offCanvasLeft()
     })
     $("#hamburgerIconMobile").click(function(){
-        offCanvasLeft()
-    })
+        offCanvasLeft();
+    });
     $("#reviewBtn").click(function(){
-        slideUp($("#commentsContainer"))
-        setTimeout(populateCommentContainer, 1500)
+        slideUp($("#commentsContainer"));
+        setTimeout(populateCommentContainer, 1500);
        
     })
     $("#orderBtn").click(function(){
-        slideUp($("#enquireContainer"))
-        setTimeout(populateEnquireForm, 1500)
+        slideUp($("#enquireContainer"));
+        setTimeout(populateEnquireForm, 1500);
         
        
-    })
+    });
 
    
     $('#commentSubmit').click(function(){
-        slideDown($("#commentsContainer"))
+        slideDown($("#commentsContainer"));
         
-    })
+    });
 
     $("#mobileOffcanvasOpen").click(function(){
         offCanvasRight();
-    })
+    });
 
 
     // ---------------- LOADING SCREEN --------------------------
@@ -333,13 +333,13 @@ function deleteProduct(id){
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
         $("#enterText").css('opacity', '1');
-    }, 2000)
+    }, 2000);
 
     $('#enterText').click(function(){
         $("#loadingScreen").css('animation', 'fadeOut 1.5s ease');
-        setTimeout(() => {$("#loadingScreen").css('display', 'none');}, 1500)
+        setTimeout(() => {$("#loadingScreen").css('display', 'none');}, 1500);
         
-    })
+    });
 
 
 });
