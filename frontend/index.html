@@ -5,12 +5,22 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./sass/assets/aesthete-ico.png" type="image/x-icon">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/custom.min.css">
   <title>aesthete</title>
 </head>
 
 <body>
+
+
+  <div class="loading-screen" id="loadingScreen">
+    <img src="./sass/assets/aesthete-a-spin.gif" alt="">
+    <h6 id="enterText" class="enter-text">enter</h6>
+
+
+  </div>
+
   <div class="sidebar">
     <div class="hamburger-menu">
       <i id="hamburgerIcon" class="fa-solid fa-bars"></i>
@@ -31,13 +41,15 @@
             </button>
           </h2>
           <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
-            <div class="inner-links">
+
+            <div class="artist-links" id="artist-list">
               <ul>
-                <li class="category-link">artist 1</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
+                <li class="artist-link">artist 1</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+
 
               </ul>
 
@@ -47,8 +59,10 @@
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks"
-              aria-expanded="false" aria-controls="flush-collapseTwo">
+
+              aria-expanded="false" aria-controls="flush-collapseOne">
               <h6> category</h6>
+
             </button>
           </h2>
           <!-- CATEGORY ACCORDION -->
@@ -65,7 +79,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>paintings</li>
                       <li>prints</li>
@@ -90,7 +106,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="garmentLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>dresses</li>
                       <li>tops</li>
@@ -116,7 +134,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="homewareLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>ceramics</li>
                       <li>glass</li>
@@ -145,7 +165,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="jewelleryLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>earrings</li>
                       <li>necklaces</li>
@@ -172,7 +194,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>hats</li>
                       <li>bag</li>
@@ -239,7 +263,7 @@
     <div class="image-container">
       <div class="listing-image">
         <div class="image-overlay"></div>
-        <img src="./sass/assets/weaving2.png" alt="">
+        <img src="./sass/assets/top1.png" alt="">
       </div>
       <div class="listing-image">
         <div class="image-overlay"></div>
@@ -247,7 +271,7 @@
       </div>
       <div class="listing-image">
         <div class="image-overlay"></div>
-        <img src="./sass/assets/weaving2.png" alt="">
+        <img src="./sass/assets/USED - vase4.png" alt="">
       </div>
 
       <div class="comments-container" id="commentsContainer">
@@ -284,9 +308,11 @@
 
     </div>
 
+
     <!-- PRODUCT PAGE ENDS-->
 
     <!-- ARTIST PAGE  -->
+
 
     <!-- <div class="listing-info-container">
  
@@ -318,6 +344,10 @@
 
 
 
+
+  </div>
+
+
   </div>
 
 
@@ -337,21 +367,10 @@
       <div class="logo10"><img src="./sass/assets/aesthete.png"></div>
 
     </div>
-  </div>
 
-  <!-- LOGO CONTAINER MOBILE (FLOATING) -->
-  <div class="logo-container-mobile"></div>
+<!-- LOGIN INPUTS -->
 
-
-  <div class="off-canvas-left closed" id="offCanvasLeft">
-    <div class="hamburger-menu">
-
-      <img src="./sass/assets/aesthete-a.png" alt="">
-      <i id="closeOffcanvasLeft" class="fa-solid fa-arrow-left"></i>
-
-    </div>
-
-    <!-- -------------------- LOGIN INPUTS ---------------- -->
+   <!-- -------------------- LOGIN INPUTS ---------------- -->
     <div class="logo-offcanvas">aesthete</div>
 
     <!-- Artist / Collector OPTION page -->
@@ -612,6 +631,29 @@
 
 
   <!-- -------------------- End of LOGIN INPUTS ---------------- -->
+
+  <!-- End of LOGIN INPUTS -->
+
+
+
+
+
+
+  </div>
+
+
+  <!-- LOGO CONTAINER MOBILE (FLOATING) -->
+  <div class="logo-container-mobile"></div>
+
+
+  <div class="off-canvas-left closed" id="offCanvasLeft">
+    <div class="hamburger-menu">
+
+      <img src="./sass/assets/aesthete-a.png" alt="">
+      <i id="closeOffcanvasLeft" class="fa-solid fa-arrow-left"></i>
+
+    </div>
+    <div class="logo-offcanvas">aesthete</div>
   </div>
 
 
@@ -635,19 +677,20 @@
             </button>
           </h2>
           <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
-            <div class="inner-links">
+            <div class="artist-links">
               <ul>
-                <li class="category-link">artist 1</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
-                <li class="category-link">artist 2</li>
+                <li class="artist-link">artist 1</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
 
               </ul>
 
             </div>
           </div>
         </div>
+
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks"
@@ -669,7 +712,7 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+                  <div class="artist-links">
                     <ul>
                       <li>paintings</li>
                       <li>prints</li>
@@ -678,6 +721,8 @@
 
 
                     </ul>
+
+
 
                   </div>
                 </div>
@@ -694,7 +739,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="garmentLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>dresses</li>
                       <li>tops</li>
@@ -720,7 +767,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="homewareLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>ceramics</li>
                       <li>glass</li>
@@ -749,7 +798,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="jewelleryLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>earrings</li>
                       <li>necklaces</li>
@@ -776,7 +827,9 @@
                 </h2>
                 <!-- INNER ACCORDION FOR ART CATEGORY LINKS -->
                 <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
-                  <div class="inner-links">
+
+                  <div class="artist-links">
+
                     <ul>
                       <li>hats</li>
                       <li>bag</li>
