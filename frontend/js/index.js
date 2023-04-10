@@ -1,10 +1,11 @@
+/*jshint esversion: 6 */
+
 // ------------- LOADING PAGE ANIMATION -----------------
 
 
 
 
 $(document).ready(function () {
-    let url;
 
     let url;
 
@@ -40,12 +41,12 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
 
-            })
+            });
 
             console.log(products);
             return products;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
 
     }
@@ -60,11 +61,11 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
 
-            })
+            });
 
             return vendors;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
 
     }
@@ -82,9 +83,9 @@ $(document).ready(function () {
                 return product;
             },
             error: function () {
-                alert('Unable to get this product')
+                alert('Unable to get this product');
             }
-        })
+        });
     }
 
     async function getSingleVendor(id) {
@@ -97,11 +98,11 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
 
-            })
+            });
 
             return vendor;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
@@ -116,7 +117,7 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
 
-            })
+            });
 
 
             allProducts.forEach(product => {
@@ -125,11 +126,11 @@ $(document).ready(function () {
                    
                     products.push(product);
                 } 
-            })
+            });
 
             return products;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
@@ -151,9 +152,9 @@ $(document).ready(function () {
 
             },
             error: function () {
-                console.log("Unable to update product")
+                console.log("Unable to update product");
             }
-        })
+        });
 
     }
 
@@ -176,9 +177,9 @@ $(document).ready(function () {
 
             },
             error: function () {
-                console.log("Unable to update product")
+                console.log("Unable to update product");
             }
-        })
+        });
     }
 
     function deleteProduct(id) {
@@ -211,14 +212,14 @@ $(document).ready(function () {
         let artistList = $('#artistList');
         let artistListMobile = $('#artistListMobile');
         
-        artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`)
-        artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`)
+        artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
+        artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`);
 
         
 
         
        });
-       openArtistPage()
+       openArtistPage();
 
         console.log(vendors);
 
@@ -235,10 +236,10 @@ $(document).ready(function () {
                 console.log('link clicked');
                 let vendorID = link.dataset.vendorid;
                 console.log(vendorID);
-                populateArtistPage(vendorID)
-            })
+                populateArtistPage(vendorID);
+            });
               
-            })
+            });
        
 
     }
@@ -267,7 +268,7 @@ $(document).ready(function () {
 
         
         
-        `)
+        `);
 
         let imageContainer = $('#artistImageContainer');
 
@@ -278,8 +279,8 @@ $(document).ready(function () {
         <div class="image-overlay"></div>
         <img src="${product.image}" alt="">
       </div>`
-            )
-        })
+            );
+        });
 
 
     }
@@ -298,14 +299,14 @@ $(document).ready(function () {
         <div class="image-overlay"></div>
         <img src="${product.image}" alt="">
       </div>`
-            )
-        })
+            );
+        });
 
     }
 
     function populateEnquireForm() {
 
-        console.log('in populate')
+        console.log('in populate');
         let enquireContainer = $("#enquireContainer");
 
 
@@ -316,22 +317,22 @@ $(document).ready(function () {
         <input type="email" placeholder="email" name="" id="enquiryEmail">
         <textarea name="" placeholder="message..." id="" cols="30" rows="10" id="enquiryMessage"></textarea>
         <button class="submit-button" id="enquireSubmit">submit</button>
-        `)
+        `);
 
 
 
         $('#closeEnquire').click(function () {
             slideDown($("#enquireContainer"));
 
-        })
+        });
         $('#enquireSubmit').click(function () {
             slideDown($("#enquireContainer"));
 
-        })
+        });
     }
 
     function populateCommentContainer() {
-        console.log('in populate 2')
+        console.log('in populate 2');
         let commentContainer = $("#commentsContainer");
 
 
@@ -355,16 +356,16 @@ $(document).ready(function () {
 
       </div> 
 
-        `)
+        `);
 
         $("#closeComments").click(function () {
-            slideDown($("#commentsContainer"))
-        })
+            slideDown($("#commentsContainer"));
+        });
 
         $('#commentSubmit').click(function () {
 
 
-        })
+        });
     }
 
     function submitEnquiry() {
@@ -375,27 +376,27 @@ $(document).ready(function () {
     function offCanvasLeft() {
 
         let offcanvas = $("#offCanvasLeft");
-        let background = $('#backgroundOverlay')
-        let close = $('#closeOffcanvasLeft')
+        let background = $('#backgroundOverlay');
+        let close = $('#closeOffcanvasLeft');
         let screenWidth = $(window).width();
 
 
         if (offcanvas.hasClass('closed')) {
-            console.log('opening')
-            offcanvas.css('left', '0vw')
+            console.log('opening');
+            offcanvas.css('left', '0vw');
             offcanvas.removeClass('closed');
             // offcanvas.addClass('open');
-            background.css('animation', 'blurIn .5s linear')
-            background.removeClass('hidden')
+            background.css('animation', 'blurIn .5s linear');
+            background.removeClass('hidden');
 
 
            background.click(function(){
-            offcanvas.css('left', '-40vw')
+            offcanvas.css('left', '-40vw');
             offcanvas.addClass('closed');
-            background.css ('animation', 'blurOut .5s linear')
-            offcanvas.removeClass('open')
-            background.addClass('hidden')
-           })
+            background.css ('animation', 'blurOut .5s linear');
+            offcanvas.removeClass('open');
+            background.addClass('hidden');
+           });
            
            // Render the Artist / Collector register and login options on click of the hamburger menu
             let artistCollectorOption = document.getElementById('offCanvasContentContainer');
@@ -426,7 +427,7 @@ $(document).ready(function () {
                     </div>
                 </div>
             </div>
-           `
+           `;
             $("#artistRegister").click(function(){
                 artistRegisterForm();
             });
@@ -449,14 +450,14 @@ $(document).ready(function () {
         // close off canvas
         close.click(function(){
             if (screenWidth <= 425){
-                offcanvas.css('left', '-100vw')
+                offcanvas.css('left', '-100vw');
             } else {
-                offcanvas.css('left', '-40vw')
+                offcanvas.css('left', '-40vw');
             }
             offcanvas.addClass('closed');
-            background.css('animation', 'blurOut .5s linear')
-            offcanvas.removeClass('open')
-            background.addClass('hidden')
+            background.css('animation', 'blurOut .5s linear');
+            offcanvas.removeClass('open');
+            background.addClass('hidden');
 
         });
 
@@ -465,16 +466,16 @@ $(document).ready(function () {
 
     function offCanvasRight() {
 
-        let offcanvas = $("#offCanvasRight")
-        let background = $('#backgroundOverlay')
-        let close = $('#closeOffcanvasRight')
+        let offcanvas = $("#offCanvasRight");
+        let background = $('#backgroundOverlay');
+        let close = $('#closeOffcanvasRight');
 
         if (offcanvas.hasClass('closed')) {
-            console.log('opening')
-            offcanvas.css('left', '0vw')
+            console.log('opening');
+            offcanvas.css('left', '0vw');
             offcanvas.removeClass('closed');
-            background.css('animation', 'blurIn .5s linear')
-            background.removeClass('hidden')
+            background.css('animation', 'blurIn .5s linear');
+            background.removeClass('hidden');
             // offcanvas.addClass('open');
 
 
@@ -483,15 +484,15 @@ $(document).ready(function () {
 
         }
         close.click(function () {
-            offcanvas.css('left', '130vw')
+            offcanvas.css('left', '130vw');
             offcanvas.addClass('closed');
 
-            offcanvas.removeClass('open')
-            background.css('animation', 'blurOut .5s linear')
-            background.addClass('hidden')
+            offcanvas.removeClass('open');
+            background.css('animation', 'blurOut .5s linear');
+            background.addClass('hidden');
 
 
-        })
+        });
 
 
     }
@@ -510,7 +511,7 @@ $(document).ready(function () {
         element.css('border-top', 'none');
         element.css('animation', 'slideDown 1.5s ease');
         element.css('height', '0vh');
-        element.html('')
+        element.html('');
     }
 
 
@@ -527,7 +528,7 @@ $(document).ready(function () {
             <input class="form-buttons" type="text" id="instagram" name="instagram" placeholder="instagram"><br> 
             <button class="submit-button mt-5" id="registerArtist">submit</button> 
         </div>
-            `
+            `;
         $("#registerArtist").click(function(){
             let artistOptions = document.getElementById('offCanvasContentContainer');
             artistOptions.innerHTML = `
@@ -538,19 +539,19 @@ $(document).ready(function () {
               <button id="editListing" class="form-buttons">edit listing</button><br> 
               <button id="deleteListing" class="form-buttons">delete listing</button> 
             </div>
-            `
+            `;
 
             $("#editProfile").click(function(){
                 editArtistProfile();
-            })
+            });
 
             $("#createListing").click(function(){
                 createListing();
-            })
+            });
 
             $("#editListing").click(function(){
                 editListing();
-            })
+            });
 
             $("#deleteListing").click(function(){
                 deleteListing();
@@ -569,7 +570,7 @@ $(document).ready(function () {
           <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br> 
           <button class="submit-button mt-5" id="loginArtist">login</button> 
         </div>
-        `
+        `;
         $("#loginArtist").click(function(){
             let artistOptions = document.getElementById('offCanvasContentContainer');
             artistOptions.innerHTML = `
@@ -580,18 +581,18 @@ $(document).ready(function () {
               <button id="editListing" class="form-buttons">edit listing</button><br> 
               <button id="deleteListing" class="form-buttons">delete listing</button> 
             </div>
-            `
+            `;
             $("#editProfile").click(function(){
                 editArtistProfile();
-            })
+            });
 
             $("#createListing").click(function(){
                 createListing();
-            })
+            });
 
             $("#editListing").click(function(){
                 editListing();
-            })
+            });
 
             $("#deleteListing").click(function(){
                 deleteListing();
@@ -612,7 +613,7 @@ $(document).ready(function () {
           <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="registerCollector">submit</button> 
         </div>
-          `
+          `;
         $("#registerCollector").click(function(){
             let welcomeCollector = document.getElementById('offCanvasContentContainer');
             welcomeCollector.innerHTML = `
@@ -621,7 +622,7 @@ $(document).ready(function () {
               <p class="my-5">Welcome, Collector Name</p> 
               <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
             </div>
-            `
+            `;
             $("#editCollectorProfile").click(function(){
                 editCollectorProfile();
             });
@@ -637,7 +638,7 @@ $(document).ready(function () {
           <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="loginCollector">login</button> 
         </div>
-          `
+          `;
         $("#loginCollector").click(function(){
             let welcomeCollector = document.getElementById('offCanvasContentContainer');
             welcomeCollector.innerHTML = `
@@ -646,7 +647,7 @@ $(document).ready(function () {
                 <p class="my-5">Welcome, Collector Name</p> 
                 <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
             </div>
-            `
+            `;
             $("#editCollectorProfile").click(function(){
                 editCollectorProfile();
             });
@@ -671,13 +672,13 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="updateArtistProfile">submit</button> 
         </div>
   
-        `
+        `;
         $('#updateArtistProfile').click(function (event) {
-            alert("Your artist profile has been updated")
+            alert("Your artist profile has been updated");
             console.log("you have clicked the submit on the update artist profile");
         });
 
-    };
+    }
 
     function createListing() {
         let createListing = document.getElementById('offCanvasContentContainer');
@@ -723,7 +724,7 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="createListingBtn">submit</button> 
         
         </div>
-        `
+        `;
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
             let name = $('#listingName').val(); 
@@ -771,7 +772,7 @@ $(document).ready(function () {
         });
 
 
-    };
+    }
 
     function editListing() {
         // ajax calll to get the logged in artist's listings
@@ -832,14 +833,14 @@ $(document).ready(function () {
         
         </div> 
   
-        `
+        `;
         $('#updateListingBtn').click(function (event) {
             alert("Listing updated");
 
             console.log("you have clicked the submit on the update listing page");
         });
 
-    };
+    }
 
     function deleteListing() {
         let deleteListing = document.getElementById('offCanvasContentContainer');
@@ -861,7 +862,7 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="deleteListingBtn">submit</button> 
         </div>
   
-        `
+        `;
         $('#deleteListingBtn').click(function (event) {
             let checkbox = document.getElementById('confirmListingDelete').checked;
             if (checkbox) {
@@ -871,7 +872,7 @@ $(document).ready(function () {
             }
         });
 
-    };
+    }
 
     function editCollectorProfile() {
         // need to get the artist details from mongo and populate
@@ -887,7 +888,7 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="updateCollectorProfile">submit</button> 
         </div>
     
-        `
+        `;
         $('#updateCollectorProfile').click(function (event) {
             alert("Your collector profile has been updated");
             console.log("you have clicked the submit on the update collector profile");
@@ -901,28 +902,28 @@ $(document).ready(function () {
     // ------------- CLICK EVENTS ------------
 
     $("#hamburgerIcon").click(function () {
-        offCanvasLeft()
-    })
+        offCanvasLeft();
+    });
     $("#hamburgerIconMobile").click(function () {
-        offCanvasLeft()
-    })
+        offCanvasLeft();
+    });
     $("#reviewBtn").click(function () {
-        slideUp($("#commentsContainer"))
-        setTimeout(populateCommentContainer, 1500)
+        slideUp($("#commentsContainer"));
+        setTimeout(populateCommentContainer, 1500);
 
-    })
+    });
     $("#orderBtn").click(function () {
-        slideUp($("#enquireContainer"))
-        setTimeout(populateEnquireForm, 1500)
+        slideUp($("#enquireContainer"));
+        setTimeout(populateEnquireForm, 1500);
 
 
-    })
+    });
 
 
     $('#commentSubmit').click(function () {
-        slideDown($("#commentsContainer"))
+        slideDown($("#commentsContainer"));
 
-    })
+    });
 
 
     $("#mobileOffcanvasOpen").click(function () {
@@ -946,19 +947,19 @@ $(document).ready(function () {
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
         $("#enterText").css('opacity', '1');
-    }, 2000)
+    }, 2000);
 
     $('#enterText').click(function () {
         $("#loadingScreen").css('animation', 'fadeOut 1.5s ease');
         setTimeout(() => {
             $("#loadingScreen").css('display', 'none');
-        }, 1500)
+        }, 1500);
 
 
-        populateArtistMenu()
-        populateHomeImages()
+        populateArtistMenu();
+        populateHomeImages();
         
-    })
+    });
 
     
 
