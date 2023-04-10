@@ -561,13 +561,10 @@ $(document).ready(function () {
 
             // Render the Artist / Collector register and login options on click of the hamburger menu
 
-            if (sessionStorage.getItem('userType') === "Vendor") {
-                artistDashboard()
-            } else if (sessionStorage.getItem('userType') === "Collector") {
-                collectorDashboard()
-            } else {
-                loggedOutDashboard()
-            }
+            if (sessionStorage.getItem('userType') === "Vendor") artistDashboard()
+            else if (sessionStorage.getItem('userType') === "Collector") collectorDashboard() 
+            else loggedOutDashboard()
+            
             
             
 
