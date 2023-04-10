@@ -211,6 +211,13 @@ app.post('/loginCollector', (req, res) => {
 })
 
 
+app.get('/allVendors', (req, res) => {
+    Vendor.find().then(result => {
+        res.send(result)
+    });
+});
+
+
 app.get('/singleVendor/:id', (req, res) => {
     const idParam = req.params.id;
     Vendor.findById(idParam).then(result => {
