@@ -195,6 +195,7 @@ p {
 
 .artist-link {
 
+    cursor: pointer;
 
     background-color: $white;
     border: none;
@@ -389,6 +390,11 @@ p {
         
     }
 
+}
+
+.offcanvas-content-container{
+    overflow-y: scroll;
+    margin-bottom: 100px;
 }
 
 .logo-offcanvas {
@@ -727,7 +733,7 @@ content: "";
     @include flex-row;
     // flex-wrap: wrap;
     height: fit-content;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: scroll;
    
 
