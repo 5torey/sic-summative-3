@@ -628,7 +628,7 @@ $(document).ready(function () {
                     <button class="form-buttons" id="collectorLogin">Login</button>
                     </div>
                 </div>
-            </div>
+            </div> `
 
             $("#artistRegister").click(function(){
 
@@ -649,7 +649,7 @@ $(document).ready(function () {
 
         }
     
-
+    
     function offCanvasRight() {
 
         let offcanvas = $("#offCanvasRight");
@@ -715,10 +715,10 @@ $(document).ready(function () {
             <button class="submit-button mt-5" id="registerArtist">submit</button> 
         </div>
 `
-            `
+            
         $("#registerArtist").click(function () {
             registerVendor()
-            `;
+            
        
         });
 
@@ -734,10 +734,11 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="loginArtist">login</button> 
         </div>
 `
-        $("#loginArtist").click(function () {
+        
+$("#loginArtist").click(function () {
             login('Vendor');
-}
-       
+            }
+)
 
 
         
@@ -1098,7 +1099,7 @@ $(document).ready(function () {
 
 
     $('#commentSubmit').click(function () {
-        slideDown($("#commentsContainer"));
+        slideDown($("#commentsContainer"))
 
     });
 
