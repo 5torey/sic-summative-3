@@ -197,6 +197,38 @@ $(document).ready(function () {
 
     function registerVendor(){
 
+        if (name == '' || email == '' || password == ''){
+            //send error message
+        } else {
+            $.ajax({
+                url: `http://${url}/registerVendor`,
+                type: 'POST',
+                data: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    bio: bio,
+                    instagram: instagram
+                },
+                success: function(collector){
+
+                    if (collector != 'This email has already been registered. Please sign in or use a different email'){
+                        sessionStorage.setItem('userID', collector['_id']);
+                        sessionStorage.setItem('name', collector['name']);
+                        sessionStorage.setItem('email', collector['email'])
+                    } else {
+                        alert('This email has already been used to register an account')
+                    }
+
+                },
+                error: function(){
+                    console.error('Cannot call add collector API')
+                }
+            })
+            
+        }
+
+
     }
 
     function registerCollector(){
@@ -204,6 +236,29 @@ $(document).ready(function () {
         if (name == '' || email == '' || password == ''){
             //send error message
         } else {
+            $.ajax({
+                url: `http://${url}/registerCollector`,
+                type: 'POST',
+                data: {
+                    name: name,
+                    email: email,
+                    password: password
+                },
+                success: function(collector){
+
+                    if (collector != 'This email has already been registered. Please sign in or use a different email'){
+                        sessionStorage.setItem('userID', collector['_id']);
+                        sessionStorage.setItem('name', collector['name']);
+                        sessionStorage.setItem('email', collector['email'])
+                    } else {
+                        alert('This email has already been used to register an account')
+                    }
+
+                },
+                error: function(){
+                    console.error('Cannot call add collector API')
+                }
+            })
             
         }
 
@@ -389,8 +444,9 @@ $(document).ready(function () {
     function submitEnquiry() {
 
     }
-    //    Function to open/close left side off canvas
-    function offCanvasLeft() {
+//    Function to open/close left side off canvas
+    function offCanvasLeft(){
+        console.log("clicked here");
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
@@ -416,7 +472,8 @@ $(document).ready(function () {
 
         }
 
-        close.click(function () {
+        // close off canvas
+        close.click(function(){
 
             if (screenWidth <= 425) {
                 offcanvas.css('left', '-100vw')
@@ -433,7 +490,26 @@ $(document).ready(function () {
 
     }
 
-    function offCanvasRight() {
+    function offCanvasLeftGrow(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '60vw')
+        }
+
+    }
+    function offCanvasLeftShrink(){
+        let offcanvas = $("#offCanvasLeft");
+        let screenWidth = $(window).width();
+
+        if (screenWidth >= 425){
+            offcanvas.css('width', '40vw')
+        }
+
+    }
+
+    function offCanvasRight(){
         let offcanvas = $("#offCanvasRight")
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasRight')
@@ -483,7 +559,8 @@ $(document).ready(function () {
 
     // ------------- CLICK EVENTS ------------
 
-    $("#hamburgerIcon").click(function () {
+    $("#hamburgerIcon").click(function(){
+        console.log("hamburger clicked");
         offCanvasLeft()
     })
     $("#hamburgerIconMobile").click(function () {
@@ -512,6 +589,16 @@ $(document).ready(function () {
     })
 
 
+    // ----------------------------- Get all products ----------------------------------
+
+    // ----------------------------- End of get all products ----------------------------------
+    // const test = document.getElementById('confirmListingDelete');
+    // console.log(test.checked);
+    
+    
+    // ----------------------------- Add a product ----------------------------------
+
+
     // ---------------- LOADING SCREEN --------------------------
 
     setTimeout(() => {
@@ -534,3 +621,13 @@ $(document).ready(function () {
     
 
 });
+
+
+    // ----------------------------- End of add a product ----------------------------------
+
+
+
+
+
+
+// -------------------------- End of Frontend $(document).ready() 'container' -------------------------------
