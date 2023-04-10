@@ -737,8 +737,7 @@ $(document).ready(function () {
         
 $("#loginArtist").click(function () {
             login('Vendor');
-            }
-)
+            })
 
 
         
@@ -758,10 +757,10 @@ $("#loginArtist").click(function () {
           <button class="submit-button mt-5" id="registerCollector">submit</button> 
         </div> `
 
-          `
+          
         $("#registerCollector").click(function () {
             registerCollector();
-        }
+        })
     }
 
     function collectorLoginForm() {
@@ -777,7 +776,7 @@ $("#loginArtist").click(function () {
           `
         $("#loginCollector").click(function () {
             login('Collector')
-           
+        })
 
   
 
@@ -798,15 +797,16 @@ $("#loginArtist").click(function () {
               <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
               <button id="logOut" class="form-buttons">log out</button> 
             </div>
-
+`
             $("#editCollectorProfile").click(function(){
 
                 editCollectorProfile();
             });
+
         $("#logOut").click(function () {
                 logout();
             });
-        
+        })
     }
 
     function artistDashboard() {
