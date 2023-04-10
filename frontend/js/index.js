@@ -134,6 +134,14 @@ $(document).ready(function () {
         }
     }
 
+
+    let newTitle;
+    let newCategory;
+    let newSubCategory;
+    let newDescription;
+    let newPrice;
+    let newImage; 
+
     function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
         $.ajax({
             url: `http://${url}/addProduct`,
@@ -725,53 +733,32 @@ $(document).ready(function () {
         
         </div>
         `;
+
+
+
+
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
-            let name = $('#listingName').val(); 
-            let category = $('#category').val();
-            let subCategory = $('#subCategory').val();
-            let desc = $('#listingDesc').val(); 
-            let price = $('#listingPrice').val(); 
-            let image = $('#listingImage').val(); 
-            let userid = '642b9fb4641fd5d38b2fcf03';
+            newTitle = $('#listingName').val(); 
+            newCategory = $('#category').val();
+            newSubCategory = $('#subCategoryAcc').val();
+            newDescription = $('#listingDesc').val(); 
+            newPrice = $('#listingPrice').val(); 
+            newImage = $('#listingImage').val(); 
+            // let userid = '642b9fb4641fd5d38b2fcf03';
 
             // let userid = sessionStorage.getItem('userID');
-            console.log(userid);
-            console.log(name, price, image);
+            console.log(newTitle, newPrice, newImage);
             // don't want to send any empty stuff so do if stmt checks
-            if (name == '' || price == '' || image == '' || !userid) {
+            if (newTitle == '' || newPrice == '' || newImage == '') {
                 alert('Please enter ALL listing details');
             } else {
                 alert('New listing added');
-                console.log("you have clicked the submit on the create listing page");
-
-                // $.ajax({
-                //     url: `http://${url}/createListing`,
-                //     type: 'POST',
-                //     // putting the values from the form into our ajax request
-                //     data: {
-                //         user_id: userid
-                //         name: name,
-                //         description: desc,
-                //         category: category,
-                //         image: image,
-                //         sub_category: subCategory,
-                //         price: price
-                //     },
-                //     success: function (product) {
-                //         console.log(product);
-                //         alert('Listing added');
-                //         return;
-                //     },
-                //     error: function () {
-                //         console.log('Error - cannot call API or add product');
-                //     }
-                // });
+                addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory)
+                    // addProduct();
             }
             // end of else
         });
-
-
     }
 
     function editListing() {
