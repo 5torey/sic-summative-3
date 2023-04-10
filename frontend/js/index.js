@@ -6,6 +6,10 @@
 $(document).ready(function () {
     let url;
 
+    let url;
+
+    // Get config.json file
+
     $.ajax({
         url: 'config.json',
         type: 'GET',
@@ -13,6 +17,8 @@ $(document).ready(function () {
         success: function (configData) {
             console.log(configData.SERVER_URL, configData.SERVER_PORT);
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
+
+            // getAllProducts();
 
         },
         error: function (error) {
@@ -284,6 +290,7 @@ $(document).ready(function () {
         console.log(products);
         let imageContainer = $("#imageContainerHome");
 
+
         products.forEach(product => {
             imageContainer.append(
                 `
@@ -297,6 +304,7 @@ $(document).ready(function () {
     }
 
     function populateEnquireForm() {
+
         console.log('in populate')
         let enquireContainer = $("#enquireContainer");
 
@@ -309,6 +317,7 @@ $(document).ready(function () {
         <textarea name="" placeholder="message..." id="" cols="30" rows="10" id="enquiryMessage"></textarea>
         <button class="submit-button" id="enquireSubmit">submit</button>
         `)
+
 
 
         $('#closeEnquire').click(function () {
@@ -347,6 +356,7 @@ $(document).ready(function () {
       </div> 
 
         `)
+
         $("#closeComments").click(function () {
             slideDown($("#commentsContainer"))
         })
@@ -360,8 +370,10 @@ $(document).ready(function () {
     function submitEnquiry() {
 
     }
+
     //    Function to open/close left side off canvas
     function offCanvasLeft() {
+
         let offcanvas = $("#offCanvasLeft");
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasLeft')
@@ -376,20 +388,67 @@ $(document).ready(function () {
             background.css('animation', 'blurIn .5s linear')
             background.removeClass('hidden')
 
-            background.click(function () {
-                offcanvas.css('left', '-40vw')
-                offcanvas.addClass('closed');
-                background.css('animation', 'blurOut .5s linear')
-                offcanvas.removeClass('open')
-                background.addClass('hidden')
-            })
 
+           background.click(function(){
+            offcanvas.css('left', '-40vw')
+            offcanvas.addClass('closed');
+            background.css ('animation', 'blurOut .5s linear')
+            offcanvas.removeClass('open')
+            background.addClass('hidden')
+           })
+           
+           // Render the Artist / Collector register and login options on click of the hamburger menu
+            let artistCollectorOption = document.getElementById('offCanvasContentContainer');
+            artistCollectorOption.innerHTML = `
+            <div class="accordion-item text-center mt-5">
+                <button class="collapsed form-buttons" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"
+                    style="font-family: 'GutenbergA'; font-size: 24px;"> Artist
+                </button>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#artistCollectorOptions">
+                    <div class="accordion-body">
+                    <button class="form-buttons" id="artistRegister">Register</button><br>
+                    <button class="form-buttons" id="artistLogin">Login</button>
+                    </div>
+                </div>
+                </div>
+                <div class="accordion-item text-center mt-5">
+                <button class="collapsed form-buttons" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"
+                    style="font-family: 'GutenbergA'; font-size: 24px;"> Collector
+                </button>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#artistCollectorOptions">
+                    <div class="accordion-body">
+                    <button class="form-buttons" id="collectorRegister">Register</button><br>
+                    <button class="form-buttons" id="collectorLogin">Login</button>
+                    </div>
+                </div>
+            </div>
+           `
+            $("#artistRegister").click(function(){
+                artistRegisterForm();
+            });
 
+            $("#artistLogin").click(function(){
+                artistLoginForm();
+            });
+        
+            $("#collectorRegister").click(function(){
+                collectorRegisterForm();
+            });
+        
+            $("#collectorLogin").click(function(){
+                collectorLoginForm();
+            });
+        
+        
         }
 
-        close.click(function () {
-
-            if (screenWidth <= 425) {
+        // close off canvas
+        close.click(function(){
+            if (screenWidth <= 425){
                 offcanvas.css('left', '-100vw')
             } else {
                 offcanvas.css('left', '-40vw')
@@ -399,12 +458,13 @@ $(document).ready(function () {
             offcanvas.removeClass('open')
             background.addClass('hidden')
 
-        })
+        });
 
 
     }
 
     function offCanvasRight() {
+
         let offcanvas = $("#offCanvasRight")
         let background = $('#backgroundOverlay')
         let close = $('#closeOffcanvasRight')
@@ -430,7 +490,9 @@ $(document).ready(function () {
             background.css('animation', 'blurOut .5s linear')
             background.addClass('hidden')
 
+
         })
+
 
     }
 
@@ -450,6 +512,390 @@ $(document).ready(function () {
         element.css('height', '0vh');
         element.html('')
     }
+
+
+    function artistRegisterForm() {
+        let artistRegister = document.getElementById('offCanvasContentContainer');
+        artistRegister.innerHTML = `
+        <h1 class="form-options pt-5">Artist Registration</h1> 
+        <div class="w-100 text-center pt-2"> 
+            <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
+            <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
+            <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+            <input class="form-buttons" type="text" id="password" name="password" placeholder="password"> 
+            <input class="form-buttons py-5" type="text" id="bio" name="bio" placeholder="bio"> 
+            <input class="form-buttons" type="text" id="instagram" name="instagram" placeholder="instagram"><br> 
+            <button class="submit-button mt-5" id="registerArtist">submit</button> 
+        </div>
+            `
+        $("#registerArtist").click(function(){
+            let artistOptions = document.getElementById('offCanvasContentContainer');
+            artistOptions.innerHTML = `
+            <h1 class="form-options pt-5">Artist Name</h1> 
+            <div class="w-100 text-center pt-2"> 
+              <button id="editProfile" class="form-buttons">edit profile</button><br> 
+              <button id="createListing" class="form-buttons">create listing</button><br> 
+              <button id="editListing" class="form-buttons">edit listing</button><br> 
+              <button id="deleteListing" class="form-buttons">delete listing</button> 
+            </div>
+            `
+
+            $("#editProfile").click(function(){
+                editArtistProfile();
+            })
+
+            $("#createListing").click(function(){
+                createListing();
+            })
+
+            $("#editListing").click(function(){
+                editListing();
+            })
+
+            $("#deleteListing").click(function(){
+                deleteListing();
+            });
+
+        });
+    
+    }
+
+    function artistLoginForm() {
+        let artistLogin = document.getElementById('offCanvasContentContainer');
+        artistLogin.innerHTML = `
+        <h1 class="form-options pt-5">Artist Login</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br> 
+          <button class="submit-button mt-5" id="loginArtist">login</button> 
+        </div>
+        `
+        $("#loginArtist").click(function(){
+            let artistOptions = document.getElementById('offCanvasContentContainer');
+            artistOptions.innerHTML = `
+            <h1 class="form-options pt-5">Artist Name</h1> 
+            <div class="w-100 text-center pt-2"> 
+              <button id="editProfile" class="form-buttons">edit profile</button><br> 
+              <button id="createListing" class="form-buttons">create listing</button><br> 
+              <button id="editListing" class="form-buttons">edit listing</button><br> 
+              <button id="deleteListing" class="form-buttons">delete listing</button> 
+            </div>
+            `
+            $("#editProfile").click(function(){
+                editArtistProfile();
+            })
+
+            $("#createListing").click(function(){
+                createListing();
+            })
+
+            $("#editListing").click(function(){
+                editListing();
+            })
+
+            $("#deleteListing").click(function(){
+                deleteListing();
+            });
+
+        });
+
+    }
+
+    function collectorRegisterForm() {
+        let collectorRegister = document.getElementById('offCanvasContentContainer');
+        collectorRegister.innerHTML = `
+        <h1 class="form-options pt-5">Collector Registration</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
+          <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
+          <button class="submit-button mt-5" id="registerCollector">submit</button> 
+        </div>
+          `
+        $("#registerCollector").click(function(){
+            let welcomeCollector = document.getElementById('offCanvasContentContainer');
+            welcomeCollector.innerHTML = `
+            <h1 class="form-options mt-5">Collector Name</h1> 
+            <div class="w-100 text-center pt-2"> 
+              <p class="my-5">Welcome, Collector Name</p> 
+              <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
+            </div>
+            `
+            $("#editCollectorProfile").click(function(){
+                editCollectorProfile();
+            });
+        });
+    }
+
+    function collectorLoginForm() {
+        let collectorLogin = document.getElementById('offCanvasContentContainer');
+        collectorLogin.innerHTML = `
+        <h1 class="form-options pt-5">Collector Login</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
+          <button class="submit-button mt-5" id="loginCollector">login</button> 
+        </div>
+          `
+        $("#loginCollector").click(function(){
+            let welcomeCollector = document.getElementById('offCanvasContentContainer');
+            welcomeCollector.innerHTML = `
+            <h1 class="form-options mt-5">Collector Name</h1> 
+            <div class="w-100 text-center pt-2"> 
+                <p class="my-5">Welcome, Collector Name</p> 
+                <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
+            </div>
+            `
+            $("#editCollectorProfile").click(function(){
+                editCollectorProfile();
+            });
+
+        });
+
+    }
+
+    function editArtistProfile() {
+        // need to get the artist details from mongo and populate
+        // on click of the save button update their details in mongo
+        let editArtistProfile = document.getElementById('offCanvasContentContainer');
+        editArtistProfile.innerHTML = 
+        `
+        <h1 class="form-options pt-5">Edit Profile</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <input class="form-buttons" type="text" id="editName" name="editName" placeholder="edit artist name"> 
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"> 
+          <input class="form-buttons py-5" type="text" id="editBio" name="editBio" placeholder="edit bio"> 
+          <input class="form-buttons" type="text" id="editInst" name="editInst" placeholder="edit instagram"><br>
+          <button class="submit-button mt-5" id="updateArtistProfile">submit</button> 
+        </div>
+  
+        `
+        $('#updateArtistProfile').click(function (event) {
+            alert("Your artist profile has been updated")
+            console.log("you have clicked the submit on the update artist profile");
+        });
+
+    };
+
+    function createListing() {
+        let createListing = document.getElementById('offCanvasContentContainer');
+        createListing.innerHTML =
+        `
+        <h1 class="form-options pt-5">Create Listing</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <input class="form-buttons" type="text" id="listingName" name="listingName" placeholder="listing name"><br> 
+          <select class="form-buttons center-dropdown" id="category" name="category"> <option disabled selected hidden>category</option> 
+            <option value="accessories">accessories</option> 
+            <option value="art">art</option> <option value="garments">garments</option> 
+            <option value="homewares">homewares</option> 
+            <option value="jewellery">jewellery</option> 
+          </select><br> 
+          <select class="form-buttons center-dropdown" id="subCategoryAcc" name="subCategoryAcc"> 
+            <option disabled selected hidden>sub-category</option>
+            <option value="hats">hats</option> 
+            <option value="bags">bags</option> 
+            <option value="glasses">glasses</option>
+            <option value="painting">painting</option> 
+            <option value="prints">prints</option> 
+            <option value="sculpture">sculpture</option> 
+            <option value="ceramics">ceramics</option>
+            <option value="dresses">dresses</option> 
+            <option value="tops">tops</option> 
+            <option value="bottoms">bottoms</option> 
+            <option value="intimates">intimates</option> 
+            <option value="outerwear">outerwear</option>
+            <option value="glass">glass</option> 
+            <option value="linen">linen</option> 
+            <option value="softFurnishings">soft furnishings</option> 
+            <option value="decor">decor</option> 
+            <option value="rugs">rugs</option> 
+            <option value="kitchenDining">kitchen & dining</option>
+            <option value="earrings">earrings</option> 
+            <option value="necklaces">necklaces</option> 
+            <option value="bracelets">bracelets</option> 
+            <option value="rings">rings</option> 
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
+        
+        </div>
+        `
+        $('#createListingBtn').click(function (event) {
+            event.preventDefault();
+            let name = $('#listingName').val(); 
+            let category = $('#category').val();
+            let subCategory = $('#subCategory').val();
+            let desc = $('#listingDesc').val(); 
+            let price = $('#listingPrice').val(); 
+            let image = $('#listingImage').val(); 
+            let userid = '642b9fb4641fd5d38b2fcf03';
+
+            // let userid = sessionStorage.getItem('userID');
+            console.log(userid);
+            console.log(name, price, image);
+            // don't want to send any empty stuff so do if stmt checks
+            if (name == '' || price == '' || image == '' || !userid) {
+                alert('Please enter ALL listing details');
+            } else {
+                alert('New listing added');
+                console.log("you have clicked the submit on the create listing page");
+
+                // $.ajax({
+                //     url: `http://${url}/createListing`,
+                //     type: 'POST',
+                //     // putting the values from the form into our ajax request
+                //     data: {
+                //         user_id: userid
+                //         name: name,
+                //         description: desc,
+                //         category: category,
+                //         image: image,
+                //         sub_category: subCategory,
+                //         price: price
+                //     },
+                //     success: function (product) {
+                //         console.log(product);
+                //         alert('Listing added');
+                //         return;
+                //     },
+                //     error: function () {
+                //         console.log('Error - cannot call API or add product');
+                //     }
+                // });
+            }
+            // end of else
+        });
+
+
+    };
+
+    function editListing() {
+        // ajax calll to get the logged in artist's listings
+        // populate the dropdown with the listings
+        // display the form ...
+        let editListing = document.getElementById('offCanvasContentContainer');
+        editListing.innerHTML = `
+        <h1 class="form-options pt-5">Edit Listing</h1> 
+        <div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="category" name="category">
+            <option disabled selected hidden>select listing</option> 
+            <option value="listing1">listing 1</option> 
+            <option value="listing2">listing 2</option> 
+            <option value="listing3">listing 3</option> 
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingName" name="listingName" placeholder="listing name"><br> 
+          <select class="form-buttons center-dropdown" id="category" name="category">
+            <option disabled selected hidden>category</option> 
+            <option value="accessories">accessories</option> 
+            <option value="art">art</option> 
+            <option value="garments">garments</option> 
+            <option value="homewares">homewares</option> 
+            <option value="jewellery">jewellery</option> 
+          </select><br> 
+          <select class="form-buttons center-dropdown" id="subCategoryAcc" name="subCategoryAcc"> 
+            <option disabled selected hidden>sub-category</option> -->
+            <option value="hats">hats</option> 
+            <option value="bags">bags</option> 
+            <option value="glasses">glasses</option>
+  
+            <option value="painting">painting</option> 
+            <option value="prints">prints</option> 
+            <option value="sculpture">sculpture</option> 
+            <option value="ceramics">ceramics</option>
+  
+            <option value="dresses">dresses</option> 
+            <option value="tops">tops</option> 
+            <option value="bottoms">bottoms</option> 
+            <option value="intimates">intimates</option> 
+            <option value="outerwear">outerwear</option>
+  
+            <option value="glass">glass</option> 
+            <option value="linen">linen</option> 
+            <option value="softFurnishings">soft furnishings</option> 
+            <option value="decor">decor</option> 
+            <option value="rugs">rugs</option> 
+            <option value="kitchenDining">kitchen & dining</option>
+  
+            <option value="earrings">earrings</option> 
+            <option value="necklaces">necklaces</option> 
+            <option value="bracelets">bracelets</option> 
+            <option value="rings">rings</option> 
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="updateListingBtn">submit</button> 
+        
+        </div> 
+  
+        `
+        $('#updateListingBtn').click(function (event) {
+            alert("Listing updated");
+
+            console.log("you have clicked the submit on the update listing page");
+        });
+
+    };
+
+    function deleteListing() {
+        let deleteListing = document.getElementById('offCanvasContentContainer');
+        deleteListing.innerHTML = `
+        <h1 class="form-options pt-5">Delete Listing</h1> 
+        <div class="w-100 text-center pt-5 pb-5">
+          <select class="form-buttons center-dropdown" id="category" name="category">
+            <option disabled selected hidden>select listing</option>
+            <option value="listing1">listing 1</option> 
+            <option value="listing2">listing 2</option> 
+            <option value="listing3">listing 3</option> 
+          </select><br> 
+        <div> 
+        <label class="container-cb mb-5" for="confirmListingDelete"> * please select to confirm you wish to delete this listing 
+          <input type="checkbox" id="confirmListingDelete" name="confirmListingDelete"> 
+          <span class="checkmark"></span> 
+        </label> 
+        </div> 
+          <button class="submit-button mt-5" id="deleteListingBtn">submit</button> 
+        </div>
+  
+        `
+        $('#deleteListingBtn').click(function (event) {
+            let checkbox = document.getElementById('confirmListingDelete').checked;
+            if (checkbox) {
+                alert("delete successful");
+            } else {
+                alert("please check the confirm delete box");
+            }
+        });
+
+    };
+
+    function editCollectorProfile() {
+        // need to get the artist details from mongo and populate
+        // on click of the save button update their details in mongo
+        let editCollectorProfile = document.getElementById('offCanvasContentContainer');
+        editCollectorProfile.innerHTML = `
+        <h1 class="form-options mt-5">Edit Profile</h1> 
+        <div class="w-100 text-center mt-5"> 
+          <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
+          <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons mb-5" type="text" id="password" name="password" placeholder="password"><br>
+          <button class="submit-button mt-5" id="updateCollectorProfile">submit</button> 
+        </div>
+    
+        `
+        $('#updateCollectorProfile').click(function (event) {
+            alert("Your collector profile has been updated");
+            console.log("you have clicked the submit on the update collector profile");
+        });
+
+    }
+
+
 
 
     // ------------- CLICK EVENTS ------------
@@ -478,9 +924,21 @@ $(document).ready(function () {
 
     })
 
+
     $("#mobileOffcanvasOpen").click(function () {
         offCanvasRight();
-    })
+    });
+
+
+
+    // ----------------------------- Get all products ----------------------------------
+
+    // ----------------------------- End of get all products ----------------------------------
+    // const test = document.getElementById('confirmListingDelete');
+    // console.log(test.checked);
+    
+    
+    // ----------------------------- Add a product ----------------------------------
 
 
     // ---------------- LOADING SCREEN --------------------------
@@ -504,4 +962,16 @@ $(document).ready(function () {
 
     
 
+
 });
+
+
+    // ----------------------------- End of add a product ----------------------------------
+
+
+
+
+
+
+// -------------------------- End of Frontend $(document).ready() 'container' -------------------------------
+
