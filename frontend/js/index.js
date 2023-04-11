@@ -455,13 +455,25 @@ $(document).ready(function () {
     }
 
     async function populateSubCategory(subcategory) {
-        
+
 
     }
 
     async function populateShopAll() {
 
         let products = await getAllProducts();
+
+        // get content-container from dom
+        // for each loop over products
+            // content container append
+                // listing html with product image, name and price
+                // listing needs data-productID = product._id
+
+        // outside of for each loop run listing click function
+
+    }
+
+    function openProductPage(){
 
     }
 
@@ -1126,6 +1138,42 @@ $("#loginArtist").click(function () {
         offCanvasRight();
     });
 
+    $('#shopAllLink').click(function(){
+        populateShopAll();
+    })
+    $('#shopAllLinkMobile').click(function(){
+        populateShopAll();
+    })
+
+    function categoryLinks(){
+        let categoryLinks = document.querySelectorAll('.category');
+        let categories = Array.from(categoryLinks);
+
+        categories.forEach(category => {
+            category.click(function() {
+                let name = category.dataset.name
+                populateCategory(name);
+            })
+        })
+
+    }
+    function subcategoryLinks(){
+        let subcategoryLinks = document.querySelectorAll('.subcategory');
+        let subcategories = Array.from(subcategoryLinks);
+
+        subcategories.forEach(subcategory => {
+            subcategory.click(function() {
+                let name = subcategory.dataset.name
+                populateSubCategory(name);
+            })
+        })
+        
+    }
+
+
+
+
+
    
 
 
@@ -1157,6 +1205,8 @@ $("#loginArtist").click(function () {
 
         populateArtistMenu();
         populateHomeImages();
+        categoryLinks();
+        subcategoryLinks();
     });
 
 
