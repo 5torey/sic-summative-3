@@ -358,6 +358,7 @@ $(document).ready(function () {
 
     }
 
+
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
     // Populate Artist Menu Function 
@@ -454,7 +455,7 @@ $(document).ready(function () {
     async function populateCategoryPage(category) {
         let products = await getAllProducts();
 
-        forEach(product => {
+        products.forEach(product => {
             if (category = product.category) {
                 populateSingleListing(product);
             }
@@ -470,7 +471,7 @@ $(document).ready(function () {
 
         let products = await getAllProducts();
 
-        forEach(product => {
+        products.forEach(product => {
             if (subcategory = product.subcategory) {
                 populateSingleListing(product);
             }
@@ -925,7 +926,7 @@ $(document).ready(function () {
           
             </div>
             `;
-
+    }
 
         // Edit Profile
         $("#editProfile").click(function () {
@@ -974,7 +975,7 @@ $(document).ready(function () {
         $("#logOut").click(function () {
             logout();
         });
-    }
+    });
 
     //  Edit Artist Profile Function 
 
@@ -1020,7 +1021,7 @@ $(document).ready(function () {
             <option value="homewares">homewares</option> 
             <option value="jewellery">jewellery</option> 
           </select> 
-        </div>`
+        </div>`;
     }
 
     function createListing2() {
@@ -1158,6 +1159,7 @@ $(document).ready(function () {
 
     }
 
+});
 
     function createListingButton() {
 
@@ -1183,6 +1185,7 @@ $(document).ready(function () {
 
             }
         });
+    }
 
 
     // Edit Listing Function 
@@ -1434,7 +1437,7 @@ $(document).ready(function () {
 
 
 
-});
+
 
 
 // ---------------------------------- END OF LOADING SCREEN ----------------------------------------
