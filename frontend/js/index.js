@@ -1,26 +1,17 @@
 /*jshint esversion: 6 */
 
-// ------------- LOADING PAGE ANIMATION -----------------
-
-
 
 
 $(document).ready(function () {
 
     let url;
 
-    // Get config.json file
-
     $.ajax({
         url: 'config.json',
         type: 'GET',
         dataType: 'json',
         success: function (configData) {
-            console.log(configData.SERVER_URL, configData.SERVER_PORT);
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-
-            // getAllProducts();
-
         },
         error: function (error) {
             console.log(error);
@@ -30,6 +21,8 @@ $(document).ready(function () {
 
 
     // -------------- AJAX FUNCTIONS -------------------
+
+    // Get All Products Function
 
     async function getAllProducts() {
 
@@ -43,13 +36,14 @@ $(document).ready(function () {
 
             });
 
-            console.log(products);
             return products;
         } catch (error) {
             console.error(error);
         }
 
     }
+
+    // Get All Vendors Function 
 
     async function getAllVendors() {
 
@@ -70,7 +64,7 @@ $(document).ready(function () {
 
     }
 
-
+    // Get Single Product Function
 
     function getSingleProduct(id) {
         $.ajax({
@@ -87,6 +81,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Get Single Vendor Function
 
     async function getSingleVendor(id) {
 
@@ -105,6 +101,8 @@ $(document).ready(function () {
             console.error(error);
         }
     }
+
+    // Get Vendor Products Function 
 
     async function getVendorProducts(id) {
 
@@ -144,6 +142,8 @@ $(document).ready(function () {
     let newPrice;
     let newImage;
 
+    // Add Product Function
+
     function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
         $.ajax({
             url: `http://${url}/addProduct`,
@@ -167,6 +167,8 @@ $(document).ready(function () {
         });
 
     }
+
+    // Update Product Function 
 
     function updateProduct(id) {
 
@@ -192,6 +194,8 @@ $(document).ready(function () {
         });
     }
 
+    // Delete Product Function 
+
     function deleteProduct(id) {
         $.ajax({
             url: `http://${url}/deleteProduct/${id}`,
@@ -207,6 +211,7 @@ $(document).ready(function () {
 
     }
 
+    // Login Function 
 
     function login(userType) {
 
@@ -243,20 +248,18 @@ $(document).ready(function () {
                         } else {
                             collectorDashboard();
                         }
-
-
-
-                    } // end of ifs
-                }, //success
+                    } 
+                }, 
                 error: function () {
                     console.log('error: cannot call api');
-                    alert('Unable to login - uanble to call api');
-                } // eroor
-            }); // end of ajax
+                    alert('Unable to login - unable to call api');
+                }
+            }); 
         }
-
     }
 
+    // Register Vendor Function 
+    
     function registerVendor() {
 
 
@@ -273,7 +276,7 @@ $(document).ready(function () {
         console.log(name, email, password, bio, instagram);
 
         if (name == '' || email == '' || password == '') {
-            //send error message
+            alert('Please complete all details in required fields');
         } else {
             $.ajax({
                 url: `http://${url}/registerVendor`,
@@ -300,7 +303,7 @@ $(document).ready(function () {
                 },
                 error: function () {
                     console.error('Cannot call add collector API');
-                    //send an error notification to user
+                    alert('Error; Please try again');
                 }
             });
 
@@ -309,7 +312,7 @@ $(document).ready(function () {
 
     }
 
-
+    // Register Collector Function
 
     function registerCollector() {
         let firstName = $('#firstName').val();
@@ -321,7 +324,7 @@ $(document).ready(function () {
         let password = $('#password').val();
 
         if (name == '' || email == '' || password == '') {
-            //send error message
+            alert('Please complete all details in required fields');
         } else {
             $.ajax({
                 url: `http://${url}/registerCollector`,
@@ -357,6 +360,8 @@ $(document).ready(function () {
 
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
+    // Populate Artist Menu Function 
+
     async function populateArtistMenu() {
 
         let vendors = await getAllVendors();
@@ -369,15 +374,14 @@ $(document).ready(function () {
             artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
             artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`);
 
-
-
-
         });
         openArtistPage();
 
         console.log(vendors);
 
     }
+
+    // Open Artist Page Function 
 
     function openArtistPage() {
         console.log('in open artist page function');
@@ -398,6 +402,8 @@ $(document).ready(function () {
 
 
     }
+
+    // Populate Artist Page Function 
 
     async function populateArtistPage(id) {
         let products = await getVendorProducts(id);
@@ -435,7 +441,7 @@ $(document).ready(function () {
                 `
                 <div class="listing-image">
         <div class="image-overlay"></div>
-        <img src="${product.image}" alt="">
+        <img src="${product.image}" alt="${product.name}">
       </div>`
             );
         });
@@ -443,37 +449,43 @@ $(document).ready(function () {
 
     }
 
+    // Populate Category Page Function
+
     async function populateCategoryPage(category) {
         let products = await getAllProducts();
 
         forEach(product => {
-            if (category = product.category){
+            if (category = product.category) {
                 populateSingleListing(product);
-            } 
+            }
         });
 
         openProductPage();
 
     }
+
+    // Populate SubCategory Function 
 
     async function populateSubCategory(subcategory) {
 
         let products = await getAllProducts();
 
         forEach(product => {
-            if (subcategory = product.subcategory){
+            if (subcategory = product.subcategory) {
                 populateSingleListing(product);
-            } 
+            }
         });
 
         openProductPage();
 
     }
-    
+
+    // Populate Single Listing Function 
+
     async function populateSingleListing(product) {
         let artist = await getSingleVendor(product.user_id);
         let contentContainer = $('#contentContainer');
-        // content container append
+
         contentContainer.append(`
         <div class="listing-container mt-5" data-productid = ${product._id}" id="shopAll">
         <div class="listing mt-5">
@@ -486,13 +498,15 @@ $(document).ready(function () {
     `);
     }
 
+    // Populate Shop All Function 
+
     async function populateShopAll() {
         let products = await getAllProducts();
 
         // get content-container from dom
         // for each loop over products
         forEach(product => {
-        populateSingleListing(product);
+            populateSingleListing(product);
         });
 
         openProductPage();
@@ -501,6 +515,8 @@ $(document).ready(function () {
         // outside of for each loop run listing click function
 
     }
+
+    // Open Product Page Function 
 
     function openProductPage() {
         let listings = document.querySelectorAll(".listing-container");
@@ -517,14 +533,16 @@ $(document).ready(function () {
         });
     }
 
+    // Populate Product Page Function 
+
     async function populateProductPage(productID) {
 
     }
 
+    //  Populate Home Images Function 
 
     async function populateHomeImages() {
         let products = await getAllProducts();
-        console.log(products);
         let imageContainer = $("#imageContainerHome");
 
 
@@ -539,6 +557,8 @@ $(document).ready(function () {
         });
 
     }
+
+    // Populate Enquire Form Function 
 
     function populateEnquireForm() {
 
@@ -555,22 +575,22 @@ $(document).ready(function () {
         <button class="submit-button" id="enquireSubmit">submit</button>
         `);
 
-
-
+        // Close Enquire
         $('#closeEnquire').click(function () {
             slideDown($("#enquireContainer"));
-
         });
+
+        // Submit Enquiry
         $('#enquireSubmit').click(function () {
             slideDown($("#enquireContainer"));
 
         });
     }
 
-    function populateCommentContainer() {
-        console.log('in populate 2');
-        let commentContainer = $("#commentsContainer");
+    // Populate Comment Container Function 
 
+    function populateCommentContainer() {
+        let commentContainer = $("#commentsContainer");
 
         commentContainer.html(`
         <i class="fa-solid fa-xmark" id="closeComments"></i>
@@ -594,10 +614,11 @@ $(document).ready(function () {
 
         `);
 
+        // Close Comments
         $("#closeComments").click(function () {
             slideDown($("#commentsContainer"));
         });
-
+        // Submit Comment
         $('#commentSubmit').click(function () {
 
 
@@ -608,7 +629,8 @@ $(document).ready(function () {
 
     }
 
-    //    Function to open/close left side off canvas
+    // Off Canvas Left Open / Close Function 
+
     function offCanvasLeft() {
 
         let offcanvas = $("#offCanvasLeft");
@@ -621,7 +643,6 @@ $(document).ready(function () {
             console.log('opening');
             offcanvas.css('left', '0vw');
             offcanvas.removeClass('closed');
-            // offcanvas.addClass('open');
             background.css('animation', 'blurIn .5s linear');
             background.removeClass('hidden');
 
@@ -635,16 +656,13 @@ $(document).ready(function () {
                 background.addClass('hidden');
             });
 
-            // Render the Artist / Collector register and login options on click of the hamburger menu
+            // Render the Artist / Collector Register and Login options on click of the hamburger menu
 
             if (sessionStorage.getItem('userType') === "Vendor") artistDashboard();
             else if (sessionStorage.getItem('userType') === "Collector") collectorDashboard();
             else loggedOutDashboard();
 
-
-
-
-            // close off canvas
+            // Close Off Canvas
             close.click(function () {
                 if (screenWidth <= 425) {
                     offcanvas.css('left', '-100vw');
@@ -662,6 +680,8 @@ $(document).ready(function () {
         }
 
     }
+
+    // Logged Out Dashboard Function 
 
     function loggedOutDashboard() {
 
@@ -715,6 +735,7 @@ $(document).ready(function () {
 
     }
 
+    // Off Canvas Right Open / Close Function
 
     function offCanvasRight() {
 
@@ -728,13 +749,11 @@ $(document).ready(function () {
             offcanvas.removeClass('closed');
             background.css('animation', 'blurIn .5s linear');
             background.removeClass('hidden');
-            // offcanvas.addClass('open');
-
-
-
-
 
         }
+
+        // Close Off Canvas
+
         close.click(function () {
             offcanvas.css('left', '130vw');
             offcanvas.addClass('closed');
@@ -749,6 +768,8 @@ $(document).ready(function () {
 
     }
 
+    // Slide Up Function 
+
     function slideUp(element) {
         element.css('border-top', '1px solid black');
         element.css('animation', 'slideUp 1.5s ease');
@@ -758,6 +779,8 @@ $(document).ready(function () {
 
     }
 
+    // Slide Down Function 
+
     function slideDown(element) {
         console.log('in slidedown');
         element.css('border-top', 'none');
@@ -766,6 +789,7 @@ $(document).ready(function () {
         element.html('');
     }
 
+    // Artist Register Form Function 
 
     function artistRegisterForm() {
         let artistRegister = document.getElementById('offCanvasContentContainer');
@@ -790,6 +814,8 @@ $(document).ready(function () {
 
     }
 
+    // Artist Login Form Function 
+
     function artistLoginForm() {
         let artistLogin = document.getElementById('offCanvasContentContainer');
         artistLogin.innerHTML = `
@@ -807,9 +833,9 @@ $(document).ready(function () {
 
 
 
-
-
     }
+
+    // Collector Registor Form Function 
 
     function collectorRegisterForm() {
         let collectorRegister = document.getElementById('offCanvasContentContainer');
@@ -828,6 +854,8 @@ $(document).ready(function () {
             registerCollector();
         });
     }
+
+    // Collector Login Form Function 
 
     function collectorLoginForm() {
         let collectorLogin = document.getElementById('offCanvasContentContainer');
@@ -848,6 +876,8 @@ $(document).ready(function () {
 
     }
 
+    // Collector Dashboard Function 
+
     function collectorDashboard() {
 
         let collectorDashboard = document.getElementById('offCanvasContentContainer');
@@ -864,16 +894,20 @@ $(document).ready(function () {
               <button id="logOut" class="form-buttons">log out</button> 
             </div>
 `;
+            // Edit Collector Profile
             $("#editCollectorProfile").click(function () {
 
                 editCollectorProfile();
             });
 
+            // Logout 
             $("#logOut").click(function () {
                 logout();
             });
         });
     }
+
+    // Artist Dashboard Function 
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
@@ -890,26 +924,33 @@ $(document).ready(function () {
             `;
 
 
-
+        // Edit Profile
         $("#editProfile").click(function () {
             editArtistProfile();
         });
 
+        // Create Listing
         $("#createListing").click(function () {
             createListing();
         });
 
+        // Edit Listing 
         $("#editListing").click(function () {
             editListing();
         });
 
+        // Delete Listing
         $("#deleteListing").click(function () {
             deleteListing();
         });
+        
+        // Logout 
         $("#logOut").click(function () {
             logout();
         });
     }
+
+    //  Edit Artist Profile Function 
 
     function editArtistProfile() {
         // need to get the artist details from mongo and populate
@@ -934,6 +975,8 @@ $(document).ready(function () {
         });
 
     }
+
+    // Create Listing Function 
 
     function createListing() {
         let createListing = document.getElementById('offCanvasContentContainer');
@@ -981,9 +1024,7 @@ $(document).ready(function () {
         </div>
         `;
 
-
-
-
+        // Create Listing
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
 
@@ -993,27 +1034,22 @@ $(document).ready(function () {
             newDescription = $('#listingDesc').val();
             newPrice = $('#listingPrice').val();
             newImage = $('#listingImage').val();
-            // let userid = '642b9fb4641fd5d38b2fcf03';
 
-
-            // let userid = sessionStorage.getItem('userID');
             console.log(newTitle, newPrice, newImage);
-            // don't want to send any empty stuff so do if stmt checks
+
             if (newTitle == '' || newPrice == '' || newImage == '') {
                 alert('Please enter ALL listing details');
             } else {
                 alert('New listing added');
                 addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-                // addProduct();
             }
-            // end of else
         });
     }
 
+    // Edit Listing Function 
+
     function editListing() {
-        // ajax calll to get the logged in artist's listings
-        // populate the dropdown with the listings
-        // display the form ...
+
         let editListing = document.getElementById('offCanvasContentContainer');
         editListing.innerHTML = `
         <h1 class="form-options pt-5">Edit Listing</h1> 
@@ -1070,6 +1106,8 @@ $(document).ready(function () {
         </div> 
   
         `;
+
+        // Update Listing
         $('#updateListingBtn').click(function (event) {
             alert("Listing updated");
 
@@ -1077,6 +1115,8 @@ $(document).ready(function () {
         });
 
     }
+
+    // Delete Listing Function 
 
     function deleteListing() {
         let deleteListing = document.getElementById('offCanvasContentContainer');
@@ -1099,6 +1139,8 @@ $(document).ready(function () {
         </div>
   
         `;
+
+        // Delete Listing Button
         $('#deleteListingBtn').click(function (event) {
             let checkbox = document.getElementById('confirmListingDelete').checked;
             if (checkbox) {
@@ -1110,6 +1152,8 @@ $(document).ready(function () {
 
     }
 
+    // Logout Function
+
     function logout() {
         sessionStorage.removeItem('name');
         sessionStorage.removeItem('userID');
@@ -1118,9 +1162,9 @@ $(document).ready(function () {
         loggedOutDashboard();
     }
 
+    // Edit Collector Profile Function 
+
     function editCollectorProfile() {
-        // need to get the artist details from mongo and populate
-        // on click of the save button update their details in mongo
         let editCollectorProfile = document.getElementById('offCanvasContentContainer');
         editCollectorProfile.innerHTML = `
         <h1 class="form-options mt-5">Edit Profile</h1> 
@@ -1142,20 +1186,27 @@ $(document).ready(function () {
 
 
 
+// ---------------------------------- CLICK EVENTS ----------------------------------------
 
-    // ------------- CLICK EVENTS ------------
+    // Hamburger / Bar Icon
 
     $("#hamburgerIcon").click(function () {
         offCanvasLeft();
     });
+
+    // Hamburger / Bar Icon Mobile 
     $("#hamburgerIconMobile").click(function () {
         offCanvasLeft();
     });
+
+    // Review Button
     $("#reviewBtn").click(function () {
         slideUp($("#commentsContainer"));
         setTimeout(populateCommentContainer, 1500);
 
     });
+
+    // Order Button
     $("#orderBtn").click(function () {
         slideUp($("#enquireContainer"));
         setTimeout(populateEnquireForm, 1500);
@@ -1163,66 +1214,63 @@ $(document).ready(function () {
 
     });
 
-
+    // Submit Comment Button
     $('#commentSubmit').click(function () {
         slideDown($("#commentsContainer"));
 
     });
 
-
+    // Mobile Off Canvas Right Open 
     $("#mobileOffcanvasOpen").click(function () {
         offCanvasRight();
     });
 
-
-    $('#shopAllLink').click(function(){
+    // Shop All Link
+    $('#shopAllLink').click(function () {
         populateShopAll();
-    })
-    $('#shopAllLinkMobile').click(function(){
-        populateShopAll();
-    })
+    });
 
-    function categoryLinks(){
+    // Shop All Link Mobile
+    $('#shopAllLinkMobile').click(function () {
+        populateShopAll();
+    });
+
+
+    // Category Links Function 
+
+    function categoryLinks() {
         let categoryLinks = document.querySelectorAll('.category');
         let categories = Array.from(categoryLinks);
 
         categories.forEach(category => {
-            category.click(function() {
-                let name = category.dataset.name
+            category.click(function () {
+                let name = category.dataset.name;
                 populateCategory(name);
-            })
-        })
+            });
+        });
 
     }
-    function subcategoryLinks(){
+
+    // SubCategory Links Function
+
+    function subcategoryLinks() {
         let subcategoryLinks = document.querySelectorAll('.subcategory');
         let subcategories = Array.from(subcategoryLinks);
 
         subcategories.forEach(subcategory => {
-            subcategory.click(function() {
-                let name = subcategory.dataset.name
+            subcategory.click(function () {
+                let name = subcategory.dataset.name;
                 populateSubCategory(name);
-            })
-        })
-        
+            });
+        });
+
     }
 
+// ---------------------------------- END OF CLICK EVENTS ----------------------------------------
 
 
 
-
-
-    // ----------------------------- Get all products ----------------------------------
-
-    // ----------------------------- End of get all products ----------------------------------
-    // const test = document.getElementById('confirmListingDelete');
-    // console.log(test.checked);
-
-
-    // ----------------------------- Add a product ----------------------------------
-
-
-    // ---------------- LOADING SCREEN --------------------------
+// ---------------------------------- LOADING SCREEN ---------------------------------------------
 
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
@@ -1250,7 +1298,7 @@ $(document).ready(function () {
 });
 
 
-// ----------------------------- End of add a product ----------------------------------
+// ---------------------------------- END OF LOADING SCREEN ----------------------------------------
 
 
 
