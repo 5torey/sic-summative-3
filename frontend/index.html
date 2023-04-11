@@ -56,7 +56,7 @@
             <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks"
               aria-expanded="false" aria-controls="flush-collapseOne">
 
-              <h6> category</h6>
+              <h6>category</h6>
 
             </button>
           </h2>
@@ -78,10 +78,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>paintings</li>
-                      <li>prints</li>
-                      <li>ceramics</li>
-                      <li>sculpture</li>
+                      <li id="paintingLink" data-name="painting">paintings</li>
+                      <li id="printsLink" data-name="prints">prints</li>
+                      <li id="ceramicsLink" data-name="ceramics">ceramics</li>
+                      <li id="sculptureLink" data-name="sculpture">sculpture</li>
 
 
                     </ul>
@@ -105,11 +105,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>dresses</li>
-                      <li>tops</li>
-                      <li>bottoms</li>
-                      <li>intimates</li>
-                      <li>outerwear</li>
+                      <li id="dressesLink" data-name="dresses">dresses</li>
+                      <li id="topsLink" data-name="top">tops</li>
+                      <li id="bottomsLink" data-name="bottoms">bottoms</li>
+                      <li id="intimatesLink" data-name="intimates">intimates</li>
+                      <li id="outwearLink" data-name="outerwear">outerwear</li>
 
 
                     </ul>
@@ -133,13 +133,13 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>ceramics</li>
-                      <li>glass</li>
-                      <li>linen</li>
-                      <li>soft furnishings</li>
-                      <li>decor</li>
-                      <li>rugs</li>
-                      <li>kitchen and dining</li>
+                      <li id="homewareCeramicsLink" data-name="homeware ceramics">ceramics</li>
+                      <li id="glassLink" data-name="glass">glass</li>
+                      <li id="linenLink" data-name="linen">linen</li>
+                      <li id="softFurnishingsLink" data-name="soft furnishings">soft furnishings</li>
+                      <li id="decorLink" data-name="decor">decor</li>
+                      <li id="rugsLink" data-name="rugs">rugs</li>
+                      <li id="kitchenDiningLink" data-name="kitchen and dining">kitchen and dining</li>
 
 
                     </ul>
@@ -164,10 +164,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>earrings</li>
-                      <li>necklaces</li>
-                      <li>rings</li>
-                      <li>bracelets</li>
+                      <li id="earringsLink" data-name="earrings">earrings</li>
+                      <li id="necklacesLink" data-name="necklaces">necklaces</li>
+                      <li id="ringsLink" data-name="rings">rings</li>
+                      <li id="braceletsLink" data-name="bracelets">bracelets</li>
 
                     </ul>
 
@@ -191,9 +191,9 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>hats</li>
-                      <li>bag</li>
-                      <li>glasses</li>
+                      <li id="hatsLink" data-name="hats">hats</li>
+                      <li id="bagsLink" data-name="bags">bags</li>
+                      <li id="glassesLink" data-name="glasses">glasses</li>
 
 
                     </ul>
@@ -709,10 +709,10 @@
                 <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li>paintings</li>
-                      <li>prints</li>
-                      <li>ceramics</li>
-                      <li>sculpture</li>
+                      <li id="paintingLinkMobile" data-name="painting">paintings</li>
+                      <li id="printsLinkMobile" data-name="prints">prints</li>
+                      <li id="ceramicsLinkMobile" data-name="ceramics">ceramics</li>
+                      <li id="sculptureLinkMobile" data-name="sculpture">sculpture</li>
 
 
                     </ul>
@@ -736,12 +736,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>dresses</li>
-                      <li>tops</li>
-                      <li>bottoms</li>
-                      <li>intimates</li>
-                      <li>outerwear</li>
-
+                      <li id="dressesLinkMobile" data-name="dresses">dresses</li>
+                      <li id="topsLinkMobile" data-name="tops">tops</li>
+                      <li id="bottomsLinkMobile" data-name="bottoms">bottoms</li>
+                      <li id="intimatesLinkMobile" data-name="intimates">intimates</li>
+                      <li id="outwearLinkMobile" data-name="outwear">outerwear</li>
                     </ul>
 
 
@@ -763,13 +762,13 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>ceramics</li>
-                      <li>glass</li>
-                      <li>linen</li>
-                      <li>soft furnishings</li>
-                      <li>decor</li>
-                      <li>rugs</li>
-                      <li>kitchen and dining</li>
+                      <li id="homewareCeramicsLinkMobile" data-name="ceramics">ceramics</li>
+                      <li id="glassLinkMobile" data-name="glass">glass</li>
+                      <li id="linenLinkMobile" data-name="linen">linen</li>
+                      <li id="softFurnishingsLinkMobile" data-name="soft furnishings">soft furnishings</li>
+                      <li id="decorLinkMobile" data-name="decor">decor</li>
+                      <li id="rugsLinkMobile" data-name="rugs">rugs</li>
+                      <li id="kitchenDiningLinkMobile" data-name="kitchen and dining">kitchen and dining</li>
 
                     </ul>
 
@@ -793,10 +792,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li>earrings</li>
-                      <li>necklaces</li>
-                      <li>rings</li>
-                      <li>bracelets</li>
+                      <li id="earringsMobile" data-name="earrings">earrings</li>
+                      <li id="necklacesMobile" data-name="necklaces">necklaces</li>
+                      <li id="ringLinkMobile" data-name="rings">rings</li>
+                      <li id="braceletsLinkMobile" data-name="bracelets">bracelets</li>
+
 
                     </ul>
 
@@ -821,9 +821,9 @@
                 <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li>hats</li>
-                      <li>bag</li>
-                      <li>glasses</li>
+                      <li id="hatsLinkMobile" data-name="hats">hats</li>
+                      <li id="bagsLinkMobile" data-name="bags">bag</li>
+                      <li id="glassesLinkMobile" data-name="glasses">glasses</li>
 
 
                     </ul>
