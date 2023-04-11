@@ -193,6 +193,12 @@ p {
     }
 }
 
+.vendor-link{
+    ul li::before {
+        content: "- ";
+    }
+}
+
 .artist-link {
 
     cursor: pointer;
