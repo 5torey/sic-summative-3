@@ -457,6 +457,7 @@ $(document).ready(function () {
     }
 
     async function populateSubCategory(subcategory) {
+
         let products = await getAllProducts();
 
         forEach(product => {
@@ -489,7 +490,6 @@ $(document).ready(function () {
         let products = await getAllProducts();
 
         // get content-container from dom
-
         // for each loop over products
         forEach(product => {
         populateSingleListing(product);
@@ -499,6 +499,7 @@ $(document).ready(function () {
         // listing html with product image, name and price
         // listing needs data-productID = product._id
         // outside of for each loop run listing click function
+
     }
 
     function openProductPage() {
@@ -1174,6 +1175,40 @@ $(document).ready(function () {
     });
 
 
+    $('#shopAllLink').click(function(){
+        populateShopAll();
+    })
+    $('#shopAllLinkMobile').click(function(){
+        populateShopAll();
+    })
+
+    function categoryLinks(){
+        let categoryLinks = document.querySelectorAll('.category');
+        let categories = Array.from(categoryLinks);
+
+        categories.forEach(category => {
+            category.click(function() {
+                let name = category.dataset.name
+                populateCategory(name);
+            })
+        })
+
+    }
+    function subcategoryLinks(){
+        let subcategoryLinks = document.querySelectorAll('.subcategory');
+        let subcategories = Array.from(subcategoryLinks);
+
+        subcategories.forEach(subcategory => {
+            subcategory.click(function() {
+                let name = subcategory.dataset.name
+                populateSubCategory(name);
+            })
+        })
+        
+    }
+
+
+
 
 
 
@@ -1204,6 +1239,8 @@ $(document).ready(function () {
 
         populateArtistMenu();
         populateHomeImages();
+        categoryLinks();
+        subcategoryLinks();
     });
 
 

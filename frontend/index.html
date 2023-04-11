@@ -31,7 +31,7 @@
 
     <!-- NAVIGATION LINKS  -->
     <div class="links-container">
-      <h6 class="top-link"> shop all</h6>
+      <h6 class="top-link" id="shopAllLink"> shop all</h6>
       <div class="accordion accordion-flush" id="outerAccordian">
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -78,6 +78,7 @@
                   <div class="artist-links">
 
                     <ul>
+
                       <li id="shopAllArt">shop all art</li>
                       <li id="paintingLink" data-name="painting">paintings</li>
                       <li id="printsLink" data-name="prints">prints</li>
@@ -106,11 +107,12 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="dressesLink" data-name="dresses">dresses</li>
-                      <li id="topsLink" data-name="top">tops</li>
-                      <li id="bottomsLink" data-name="bottoms">bottoms</li>
-                      <li id="intimatesLink" data-name="intimates">intimates</li>
-                      <li id="outwearLink" data-name="outerwear">outerwear</li>
+                      <li class="category" data-name="art">shop all garments</li>
+                      <li id="dressesLink" class="subcategory" data-name="dresses">dresses</li>
+                      <li id="topsLink" class="subcategory" data-name="top">tops</li>
+                      <li id="bottomsLink" class="subcategory" data-name="bottoms">bottoms</li>
+                      <li id="intimatesLink" class="subcategory" data-name="intimates">intimates</li>
+                      <li id="outwearLink" class="subcategory" data-name="outerwear">outerwear</li>
 
 
                     </ul>
@@ -134,13 +136,14 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="homewareCeramicsLink" data-name="homeware ceramics">ceramics</li>
-                      <li id="glassLink" data-name="glass">glass</li>
-                      <li id="linenLink" data-name="linen">linen</li>
-                      <li id="softFurnishingsLink" data-name="soft furnishings">soft furnishings</li>
-                      <li id="decorLink" data-name="decor">decor</li>
-                      <li id="rugsLink" data-name="rugs">rugs</li>
-                      <li id="kitchenDiningLink" data-name="kitchen and dining">kitchen and dining</li>
+                      <li class="category" data-name="homeware">shop all homeware</li>
+                      <li id="homewareCeramicsLink" class="subcategory" data-name="homeware ceramics">ceramics</li>
+                      <li id="glassLink" class="subcategory" data-name="glass">glass</li>
+                      <li id="linenLink" class="subcategory" data-name="linen">linen</li>
+                      <li id="softFurnishingsLink" class="subcategory" data-name="soft furnishings">soft furnishings</li>
+                      <li id="decorLink" class="subcategory" data-name="decor">decor</li>
+                      <li id="rugsLink" class="subcategory" data-name="rugs">rugs</li>
+                      <li id="kitchenDiningLink" class="subcategory" data-name="kitchen and dining">kitchen and dining</li>
 
 
                     </ul>
@@ -165,10 +168,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="earringsLink" data-name="earrings">earrings</li>
-                      <li id="necklacesLink" data-name="necklaces">necklaces</li>
-                      <li id="ringsLink" data-name="rings">rings</li>
-                      <li id="braceletsLink" data-name="bracelets">bracelets</li>
+                      <li class="category" data-name="jewellery">shop all jewellery</li>
+                      <li id="earringsLink" class="subcategory" data-name="earrings">earrings</li>
+                      <li id="necklacesLink" class="subcategory" data-name="necklaces">necklaces</li>
+                      <li id="ringsLink" class="subcategory" data-name="rings">rings</li>
+                      <li id="braceletsLink" class="subcategory" data-name="bracelets">bracelets</li>
 
                     </ul>
 
@@ -192,9 +196,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="hatsLink" data-name="hats">hats</li>
-                      <li id="bagsLink" data-name="bags">bags</li>
-                      <li id="glassesLink" data-name="glasses">glasses</li>
+                      <li class="category" data-name="accessories">shop all accessories</li>
+                      <li id="hatsLink" class="subcategory" data-name="hats">hats</li>
+                      <li id="bagsLink" class="subcategory" data-name="bags">bags</li>
+                      <li id="glassesLink" class="subcategory" data-name="glasses">glasses</li>
 
 
                     </ul>
@@ -674,7 +679,7 @@
     </div>
 
     <div class="links-container">
-      <h6 class="top-link"> shop all</h6>
+      <h6 class="top-link" id="shopAllLinkMobile"> shop all</h6>
       <div class="accordion accordion-flush" id="outerAccordian">
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -715,10 +720,11 @@
                 <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li id="paintingLinkMobile" data-name="painting">paintings</li>
-                      <li id="printsLinkMobile" data-name="prints">prints</li>
-                      <li id="ceramicsLinkMobile" data-name="ceramics">ceramics</li>
-                      <li id="sculptureLinkMobile" data-name="sculpture">sculpture</li>
+                      <li class="category" data-name="art">shop all art</li>
+                      <li id="paintingLinkMobile" class="subcategory" data-name="painting">paintings</li>
+                      <li id="printsLinkMobile" class="subcategory" data-name="prints">prints</li>
+                      <li id="ceramicsLinkMobile" class="subcategory" data-name="ceramics">ceramics</li>
+                      <li id="sculptureLinkMobile" class="subcategory" data-name="sculpture">sculpture</li>
 
 
                     </ul>
@@ -742,11 +748,12 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="dressesLinkMobile" data-name="dresses">dresses</li>
-                      <li id="topsLinkMobile" data-name="tops">tops</li>
-                      <li id="bottomsLinkMobile" data-name="bottoms">bottoms</li>
-                      <li id="intimatesLinkMobile" data-name="intimates">intimates</li>
-                      <li id="outwearLinkMobile" data-name="outwear">outerwear</li>
+                      <li class="category" data-name="garment">shop all garments</li>
+                      <li id="dressesLinkMobile" class="subcategory" data-name="dresses">dresses</li>
+                      <li id="topsLinkMobile" class="subcategory" data-name="tops">tops</li>
+                      <li id="bottomsLinkMobile" class="subcategory" data-name="bottoms">bottoms</li>
+                      <li id="intimatesLinkMobile" class="subcategory" data-name="intimates">intimates</li>
+                      <li id="outwearLinkMobile" class="subcategory" data-name="outwear">outerwear</li>
                     </ul>
 
 
@@ -768,13 +775,14 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="homewareCeramicsLinkMobile" data-name="ceramics">ceramics</li>
-                      <li id="glassLinkMobile" data-name="glass">glass</li>
-                      <li id="linenLinkMobile" data-name="linen">linen</li>
-                      <li id="softFurnishingsLinkMobile" data-name="soft furnishings">soft furnishings</li>
-                      <li id="decorLinkMobile" data-name="decor">decor</li>
-                      <li id="rugsLinkMobile" data-name="rugs">rugs</li>
-                      <li id="kitchenDiningLinkMobile" data-name="kitchen and dining">kitchen and dining</li>
+                      <li class="category" data-name="homeware">shop all homeware</li>
+                      <li id="homewareCeramicsLinkMobile" class="subcategory" data-name="ceramics">ceramics</li>
+                      <li id="glassLinkMobile" class="subcategory" data-name="glass">glass</li>
+                      <li id="linenLinkMobile" class="subcategory" data-name="linen">linen</li>
+                      <li id="softFurnishingsLinkMobile" class="subcategory" data-name="soft furnishings">soft furnishings</li>
+                      <li id="decorLinkMobile" class="subcategory" data-name="decor">decor</li>
+                      <li id="rugsLinkMobile" class="subcategory" data-name="rugs">rugs</li>
+                      <li id="kitchenDiningLinkMobile" class="subcategory" data-name="kitchen and dining">kitchen and dining</li>
 
                     </ul>
 
@@ -798,10 +806,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="earringsMobile" data-name="earrings">earrings</li>
-                      <li id="necklacesMobile" data-name="necklaces">necklaces</li>
-                      <li id="ringLinkMobile" data-name="rings">rings</li>
-                      <li id="braceletsLinkMobile" data-name="bracelets">bracelets</li>
+                      <li class="category" data-name="jewellery">shop all jewellery</li>
+                      <li id="earringsMobile" class="subcategory" data-name="earrings">earrings</li>
+                      <li id="necklacesMobile" class="subcategory" data-name="necklaces">necklaces</li>
+                      <li id="ringLinkMobile" class="subcategory" data-name="rings">rings</li>
+                      <li id="braceletsLinkMobile" class="subcategory" data-name="bracelets">bracelets</li>
 
 
                     </ul>
@@ -827,9 +836,10 @@
                 <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li id="hatsLinkMobile" data-name="hats">hats</li>
-                      <li id="bagsLinkMobile" data-name="bags">bag</li>
-                      <li id="glassesLinkMobile" data-name="glasses">glasses</li>
+                      <li class="category" data-name="accessories">shop all accessories</li>
+                      <li id="hatsLinkMobile" class="subcategory" data-name="hats">hats</li>
+                      <li id="bagsLinkMobile" class="subcategory" data-name="bags">bag</li>
+                      <li id="glassesLinkMobile" class="subcategory" data-name="glasses">glasses</li>
 
 
                     </ul>
