@@ -137,12 +137,12 @@ $(document).ready(function () {
     }
 
 
-    let newTitle;
-    let newCategory;
-    let newSubCategory;
-    let newDescription;
-    let newPrice;
-    let newImage; 
+    // let newTitle;
+    // let newCategory;
+    // let newSubCategory;
+    // let newDescription;
+    // let newPrice;
+    // let newImage; 
 
     function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
         $.ajax({
@@ -159,7 +159,7 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-
+                //success message
             },
             error: function () {
                 console.log("Unable to update product");
@@ -168,7 +168,7 @@ $(document).ready(function () {
 
     }
 
-    function updateProduct(id) {
+    function updateProduct(id, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
 
         $.ajax({
             url: `http://${url}/updateProduct/${id}`,
@@ -184,6 +184,8 @@ $(document).ready(function () {
 
             },
             success: function (result) {
+                //success message
+                //update current page
 
             },
             error: function () {
@@ -197,7 +199,7 @@ $(document).ready(function () {
             url: `http://${url}/deleteProduct/${id}`,
             type: 'DELETE',
             success: function () {
-
+                //confirmation message
 
             },
             error: function () {
@@ -224,11 +226,11 @@ $(document).ready(function () {
                     password: password
                 },
                 success: function(user){
-                    console.log(user);
+               
 
-                    if (user == 'user not found. Please register'){
+                    if (user == 'User not found. Please register'){
                         alert('User not found. Please Register');
-                    } else if (user == 'not authorized') {
+                    } else if (user == 'This password does not match. Please try again') {
                         alert('Please try with correct details');
                         $('#email').val('');
                         $('#password').val('');
@@ -270,8 +272,6 @@ $(document).ready(function () {
         let bio = $('#bio').val();
         let instagram = $('#instagram').val();
 
-        console.log(name, email, password, bio, instagram);
-
         if (name == '' || email == '' || password == '') {
             //send error message
         } else {
@@ -291,7 +291,6 @@ $(document).ready(function () {
                         sessionStorage.setItem('userID', vendor['_id']);
                         sessionStorage.setItem('name', vendor['name']);
                         sessionStorage.setItem('userType', 'Vendor');
-                        
                         artistDashboard()
                     } else {
                         alert('This email has already been used to register an account')
@@ -355,6 +354,14 @@ $(document).ready(function () {
 
     }
 
+    function addComment(){
+
+    }
+
+    function submitEnquiry(){
+
+    }
+
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
     async function populateArtistMenu() {
@@ -387,7 +394,7 @@ $(document).ready(function () {
 
         links.forEach(link => {
             link.addEventListener('click', () => {
-                console.log('link clicked');
+            
                 let vendorID = link.dataset.vendorid;
                 console.log(vendorID);
 
@@ -453,7 +460,14 @@ $(document).ready(function () {
 
     async function populateShopAll() {
 
+        let products = await getAllProducts();
+
     }
+
+    async function populateProductPage(productID){
+
+    }
+
 
 
     async function populateHomeImages() {
@@ -1007,6 +1021,8 @@ $("#loginArtist").click(function () {
         $('#updateListingBtn').click(function (event) {
             alert("Listing updated");
 
+            updateProduct(sessionStorage.getItem('userID'))
+
             console.log("you have clicked the submit on the update listing page");
         });
 
@@ -1036,6 +1052,7 @@ $("#loginArtist").click(function () {
         $('#deleteListingBtn').click(function (event) {
             let checkbox = document.getElementById('confirmListingDelete').checked;
             if (checkbox) {
+                deleteListing(id);
                 alert("delete successful");
             } else {
                 alert("please check the confirm delete box");
