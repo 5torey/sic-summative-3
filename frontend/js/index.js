@@ -7,7 +7,7 @@
 
 $(document).ready(function () {
 
-
+    let url;
 
     // Get config.json file
 
