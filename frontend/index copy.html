@@ -42,10 +42,15 @@
           </h2>
           <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
 
-          
-            <div class="artist-links" id="artistList">
-
+            <div class="artist-links" id="artist-list">
               <ul>
+                <li class="artist-link">artist 1</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+
+
               </ul>
 
             </div>
@@ -56,7 +61,7 @@
             <button class="link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoryLinks"
               aria-expanded="false" aria-controls="flush-collapseOne">
 
-              <h6>category</h6>
+              <h6> category</h6>
 
             </button>
           </h2>
@@ -78,10 +83,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="paintingLink" data-name="painting">paintings</li>
-                      <li id="printsLink" data-name="prints">prints</li>
-                      <li id="ceramicsLink" data-name="ceramics">ceramics</li>
-                      <li id="sculptureLink" data-name="sculpture">sculpture</li>
+                      <li>paintings</li>
+                      <li>prints</li>
+                      <li>ceramics</li>
+                      <li>sculpture</li>
 
 
                     </ul>
@@ -105,11 +110,11 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="dressesLink" data-name="dresses">dresses</li>
-                      <li id="topsLink" data-name="top">tops</li>
-                      <li id="bottomsLink" data-name="bottoms">bottoms</li>
-                      <li id="intimatesLink" data-name="intimates">intimates</li>
-                      <li id="outwearLink" data-name="outerwear">outerwear</li>
+                      <li>dresses</li>
+                      <li>tops</li>
+                      <li>bottoms</li>
+                      <li>intimates</li>
+                      <li>outerwear</li>
 
 
                     </ul>
@@ -133,13 +138,13 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="homewareCeramicsLink" data-name="homeware ceramics">ceramics</li>
-                      <li id="glassLink" data-name="glass">glass</li>
-                      <li id="linenLink" data-name="linen">linen</li>
-                      <li id="softFurnishingsLink" data-name="soft furnishings">soft furnishings</li>
-                      <li id="decorLink" data-name="decor">decor</li>
-                      <li id="rugsLink" data-name="rugs">rugs</li>
-                      <li id="kitchenDiningLink" data-name="kitchen and dining">kitchen and dining</li>
+                      <li>ceramics</li>
+                      <li>glass</li>
+                      <li>linen</li>
+                      <li>soft furnishings</li>
+                      <li>decor</li>
+                      <li>rugs</li>
+                      <li>kitchen and dining</li>
 
 
                     </ul>
@@ -164,10 +169,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="earringsLink" data-name="earrings">earrings</li>
-                      <li id="necklacesLink" data-name="necklaces">necklaces</li>
-                      <li id="ringsLink" data-name="rings">rings</li>
-                      <li id="braceletsLink" data-name="bracelets">bracelets</li>
+                      <li>earrings</li>
+                      <li>necklaces</li>
+                      <li>rings</li>
+                      <li>bracelets</li>
 
                     </ul>
 
@@ -191,9 +196,9 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="hatsLink" data-name="hats">hats</li>
-                      <li id="bagsLink" data-name="bags">bags</li>
-                      <li id="glassesLink" data-name="glasses">glasses</li>
+                      <li>hats</li>
+                      <li>bag</li>
+                      <li>glasses</li>
 
 
                     </ul>
@@ -227,20 +232,20 @@
 
 
     <!-- HOME PAGE -->
-    <div class="info-container">
+    <!-- <div class="info-container">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
         pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.</p>
     </div>
-    <div class="image-container" id="imageContainerHome"></div >
+    <div class="image-container" id="imageContainerHome"></div >-->
     <!-- HOME PAGE ENDS -->
 
     <!-- PRODUCT PAGE -->
 
 
-    <!-- <div class="listing-info-container">
+    <div class="listing-info-container">
       <div class="listing-hero-image">
 
         <img src="./sass/assets/weaving2.png" alt="">
@@ -261,10 +266,19 @@
         </div>
       </div>
 
-    </div> -->
+    </div>
     <div class="image-container">
-    
-
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/top1.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/weaving2.png" alt="">
+      </div>
+      <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="./sass/assets/USED - vase4.png" alt="">
       </div>
 
       <div class="comments-container" id="commentsContainer">
@@ -383,15 +397,8 @@
       <!-- rendered in JS -->
     </div>
 
-
-    <!-- Content container for the off canvas -->
-    <div id="offCanvasContentContainer" style="width: 100%;" class="offcanvas-content-container">
-
-      <!-- rendered in JS -->
-    </div>
-
     <!-- Content container for all of the off canvas user options -->
-    <div id="offCanvasContentContainerExt" style="width: 100%;">
+    <div id="offCanvasContentContainer" style="width: 100%;">
       <!-- rendered in JS -->
     </div>
 
@@ -649,13 +656,13 @@
 
   <!-- SHOP ALL PAGE -->
 
-  <!-- <div class="listing-container mt-5" id="shopAll">
+  <div class="listing-container mt-5" id="shopAll">
     <div class="listing mt-5">
       <img src="./sass/assets/weaving2.png" alt="">
       <h6>Listing Name</h6>
       <h6>Artist Name</h6>
     </div>
-  </div> -->
+  </div>
 
   <!-- END OF SHOP ALL PAGE -->
 
@@ -685,7 +692,14 @@
           <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
             <div class="artist-links">
 
-              <ul id="artistListMobile"></ul>
+              <ul id="artistListMobile">
+                <li class="artist-link">artist 1</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+                <li class="artist-link">artist 2</li>
+
+              </ul>
 
             </div>
           </div>
@@ -714,10 +728,10 @@
                 <div id="artLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li id="paintingLinkMobile" data-name="painting">paintings</li>
-                      <li id="printsLinkMobile" data-name="prints">prints</li>
-                      <li id="ceramicsLinkMobile" data-name="ceramics">ceramics</li>
-                      <li id="sculptureLinkMobile" data-name="sculpture">sculpture</li>
+                      <li>paintings</li>
+                      <li>prints</li>
+                      <li>ceramics</li>
+                      <li>sculpture</li>
 
 
                     </ul>
@@ -741,11 +755,12 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="dressesLinkMobile" data-name="dresses">dresses</li>
-                      <li id="topsLinkMobile" data-name="tops">tops</li>
-                      <li id="bottomsLinkMobile" data-name="bottoms">bottoms</li>
-                      <li id="intimatesLinkMobile" data-name="intimates">intimates</li>
-                      <li id="outwearLinkMobile" data-name="outwear">outerwear</li>
+                      <li>dresses</li>
+                      <li>tops</li>
+                      <li>bottoms</li>
+                      <li>intimates</li>
+                      <li>outerwear</li>
+
                     </ul>
 
 
@@ -767,13 +782,13 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="homewareCeramicsLinkMobile" data-name="ceramics">ceramics</li>
-                      <li id="glassLinkMobile" data-name="glass">glass</li>
-                      <li id="linenLinkMobile" data-name="linen">linen</li>
-                      <li id="softFurnishingsLinkMobile" data-name="soft furnishings">soft furnishings</li>
-                      <li id="decorLinkMobile" data-name="decor">decor</li>
-                      <li id="rugsLinkMobile" data-name="rugs">rugs</li>
-                      <li id="kitchenDiningLinkMobile" data-name="kitchen and dining">kitchen and dining</li>
+                      <li>ceramics</li>
+                      <li>glass</li>
+                      <li>linen</li>
+                      <li>soft furnishings</li>
+                      <li>decor</li>
+                      <li>rugs</li>
+                      <li>kitchen and dining</li>
 
                     </ul>
 
@@ -797,11 +812,10 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li id="earringsMobile" data-name="earrings">earrings</li>
-                      <li id="necklacesMobile" data-name="necklaces">necklaces</li>
-                      <li id="ringLinkMobile" data-name="rings">rings</li>
-                      <li id="braceletsLinkMobile" data-name="bracelets">bracelets</li>
-
+                      <li>earrings</li>
+                      <li>necklaces</li>
+                      <li>rings</li>
+                      <li>bracelets</li>
 
                     </ul>
 
@@ -826,9 +840,9 @@
                 <div id="accessoriesLinks" class="accordion-collapse collapse" data-bs-parent="#categoryLinks">
                   <div class="artist-links">
                     <ul>
-                      <li id="hatsLinkMobile" data-name="hats">hats</li>
-                      <li id="bagsLinkMobile" data-name="bags">bag</li>
-                      <li id="glassesLinkMobile" data-name="glasses">glasses</li>
+                      <li>hats</li>
+                      <li>bag</li>
+                      <li>glasses</li>
 
 
                     </ul>

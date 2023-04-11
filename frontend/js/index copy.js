@@ -7,7 +7,7 @@
 
 $(document).ready(function () {
 
-
+    let url;
 
     // Get config.json file
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
         }
     }
 
-    async function getVendorProducts(id) {
+    async function getVendorProducts(id){
 
         let products = [];
 
@@ -121,14 +121,12 @@ $(document).ready(function () {
 
 
             allProducts.forEach(product => {
-
-                if (id == product.user_id) {
-
+               
+                if (id == product.user_id){
+                   
                     products.push(product);
-
                 } 
             });
-
 
             return products;
         } catch (error) {
@@ -137,12 +135,12 @@ $(document).ready(function () {
     }
 
 
-    // let newTitle;
-    // let newCategory;
-    // let newSubCategory;
-    // let newDescription;
-    // let newPrice;
-    // let newImage; 
+    let newTitle;
+    let newCategory;
+    let newSubCategory;
+    let newDescription;
+    let newPrice;
+    let newImage; 
 
     function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
         $.ajax({
@@ -160,10 +158,6 @@ $(document).ready(function () {
             },
             success: function (result) {
 
-                console.log("good");
-
-                //success message
-
             },
             error: function () {
                 console.log("Unable to update product");
@@ -172,7 +166,7 @@ $(document).ready(function () {
 
     }
 
-    function updateProduct(id, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
+    function updateProduct(id) {
 
         $.ajax({
             url: `http://${url}/updateProduct/${id}`,
@@ -188,8 +182,6 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-                //success message
-                //update current page
 
             },
             error: function () {
@@ -203,7 +195,7 @@ $(document).ready(function () {
             url: `http://${url}/deleteProduct/${id}`,
             type: 'DELETE',
             success: function () {
-                //confirmation message
+
 
             },
             error: function () {
@@ -214,162 +206,13 @@ $(document).ready(function () {
     }
 
 
-    function login(userType) {
-
-        let email = $('#email').val()
-        let password = $("#password").val()
-
-        if (email == '' || password == '') {
-            alert('Please enter all details');
-        } else {
-            $.ajax({
-                url: `http://${url}/login${userType}`,
-                type: 'POST',
-                data: {
-                    email: email,
-                    password: password
-                },
-                success: function(user){
-               
-
-                    if (user == 'User not found. Please register'){
-                        alert('User not found. Please Register');
-                    } else if (user == 'This password does not match. Please try again') {
-                        alert('Please try with correct details');
-                        $('#email').val('');
-                        $('#password').val('');
-                    } else {
-                        sessionStorage.setItem('userID', user['_id']);
-                        sessionStorage.setItem('name', user['name']);
-                        sessionStorage.setItem('userType', `${userType}`);
-                    
-
-                        if (userType = 'Vendor') {
-                            artistDashboard()
-                        } else {
-                            collectorDashboard();
-                             }
-           
-
-            
-                    } // end of ifs
-                }, //success
-                error: function(){
-                    console.log('error: cannot call api');
-                    alert('Unable to login - uanble to call api');
-                }// eroor
-            }); // end of ajax
-        } 
-
-    }
-
-    function registerVendor() {
-
-
-        let firstName = $('#firstName').val();
-        let lastName = $('#lastName').val();
-
-
-        let name = firstName + ' ' + lastName;
-        let email = $('#email').val();
-        let password = $('#password').val();
-        let bio = $('#bio').val();
-        let instagram = $('#instagram').val();
-
-        if (name == '' || email == '' || password == '') {
-            //send error message
-        } else {
-            $.ajax({
-                url: `http://${url}/registerVendor`,
-                type: 'POST',
-                data: {
-                    name: name,
-                    email: email,
-                    password: password,
-                    bio: bio,
-                    instagram: instagram
-                },
-                success: function (vendor) {
-
-                    if (vendor != 'This email has already been registered. Please sign in or use a different email') {
-                        sessionStorage.setItem('userID', vendor['_id']);
-                        sessionStorage.setItem('name', vendor['name']);
-                        sessionStorage.setItem('userType', 'Vendor');
-                        artistDashboard()
-                    } else {
-                        alert('This email has already been used to register an account')
-                    }
-
-                },
-                error: function () {
-                    console.error('Cannot call add collector API')
-                    //send an error notification to user
-                }
-            })
-
-        }
-
-
-    }
-
- 
-
-    function registerCollector() {
-        let firstName = $('#firstName').val();
-        let lastName = $('#lastName').val();
-
-
-        let name = firstName + ' ' + lastName;
-        let email = $('#email').val();
-        let password = $('#password').val();
-
-        if (name == '' || email == '' || password == '') {
-            //send error message
-        } else {
-            $.ajax({
-                url: `http://${url}/registerCollector`,
-                type: 'POST',
-                data: {
-                    name: name,
-                    email: email,
-                    password: password
-                },
-                success: function (collector) {
-
-                    if (collector != 'This email has already been registered. Please sign in or use a different email') {
-                        sessionStorage.setItem('userID', collector['_id']);
-                        sessionStorage.setItem('name', collector['name']);
-                        sessionStorage.setItem('userType', 'Collector');
-                       
-
-                         collectorDashboard()
-                        
-                    } else {
-                        alert('This email has already been used to register an account')
-                    }
-
-                },
-                error: function () {
-                    console.error('Cannot call add collector API')
-                }
-            })
-
-        }
-
-    }
-
-    function addComment(){
-
-    }
-
-    function submitEnquiry(){
+    function login(userType){
 
     }
 
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
     async function populateArtistMenu() {
-
         let vendors = await getAllVendors();
 
        vendors.forEach(vendor => {
@@ -380,17 +223,17 @@ $(document).ready(function () {
         artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
         artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`);
 
+        
 
-
-
-        });
+        
+       });
        openArtistPage();
 
         console.log(vendors);
 
     }
 
-    function openArtistPage() {
+    function openArtistPage(){
         console.log('in open artist page function');
         let artistLinks = document.querySelectorAll('.vendor-link');
         let links = Array.from(artistLinks);
@@ -398,19 +241,18 @@ $(document).ready(function () {
 
         links.forEach(link => {
             link.addEventListener('click', () => {
-            
+                console.log('link clicked');
                 let vendorID = link.dataset.vendorid;
                 console.log(vendorID);
-
                 populateArtistPage(vendorID);
             });
               
             });
-
+       
 
     }
 
-    async function populateArtistPage(id) {
+    async function populateArtistPage(id){
         let products = await getVendorProducts(id);
         let vendor = await getSingleVendor(id);
         console.log(products);
@@ -432,9 +274,6 @@ $(document).ready(function () {
 
         <div class="image-container" id="artistImageContainer"></div>
 
-        </div>
-
-
         
         
         `);
@@ -454,28 +293,8 @@ $(document).ready(function () {
 
     }
 
-    async function populateCategoryPage(category) {
 
-    }
-
-    async function populateSubCategory(subcategory) {
-        
-
-    }
-
-    async function populateShopAll() {
-
-        let products = await getAllProducts();
-
-    }
-
-    async function populateProductPage(productID){
-
-    }
-
-
-
-    async function populateHomeImages() {
+    async function populateHomeImages(){
         let products = await getAllProducts();
         console.log(products);
         let imageContainer = $("#imageContainerHome");
@@ -579,48 +398,16 @@ $(document).ready(function () {
             background.removeClass('hidden');
 
 
-
-            background.click(function () {
-                offcanvas.css('left', '-40vw')
-                offcanvas.addClass('closed');
-                background.css('animation', 'blurOut .5s linear')
-                offcanvas.removeClass('open')
-                background.addClass('hidden')
-            })
-
-            // Render the Artist / Collector register and login options on click of the hamburger menu
-
-            if (sessionStorage.getItem('userType') === "Vendor") artistDashboard()
-            else if (sessionStorage.getItem('userType') === "Collector") collectorDashboard() 
-            else loggedOutDashboard()
-            
-            
-            
-
-            // close off canvas
-            close.click(function () {
-                if (screenWidth <= 425) {
-                    offcanvas.css('left', '-100vw')
-                } else {
-                    offcanvas.css('left', '-40vw')
-                }
-                offcanvas.addClass('closed');
-                background.css('animation', 'blurOut .5s linear')
-                offcanvas.removeClass('open')
-                background.addClass('hidden')
-
-            });
-
-
-        }
-        
-    }
-    
-    function loggedOutDashboard() {
-      
+           background.click(function(){
+            offcanvas.css('left', '-40vw');
+            offcanvas.addClass('closed');
+            background.css ('animation', 'blurOut .5s linear');
+            offcanvas.removeClass('open');
+            background.addClass('hidden');
+           });
+           
            // Render the Artist / Collector register and login options on click of the hamburger menu
             let artistCollectorOption = document.getElementById('offCanvasContentContainer');
-
             artistCollectorOption.innerHTML = `
             <div class="accordion-item text-center mt-5">
                 <button class="collapsed form-buttons" type="button" data-bs-toggle="collapse"
@@ -647,25 +434,23 @@ $(document).ready(function () {
                     <button class="form-buttons" id="collectorLogin">Login</button>
                     </div>
                 </div>
-            </div> `
-
+            </div>
+           `;
             $("#artistRegister").click(function(){
-
                 artistRegisterForm();
             });
 
-            $("#artistLogin").click(function () {
+            $("#artistLogin").click(function(){
                 artistLoginForm();
             });
-
-            $("#collectorRegister").click(function () {
+        
+            $("#collectorRegister").click(function(){
                 collectorRegisterForm();
             });
-
-            $("#collectorLogin").click(function () {
+        
+            $("#collectorLogin").click(function(){
                 collectorLoginForm();
             });
-
         
         
         }
@@ -682,19 +467,11 @@ $(document).ready(function () {
             offcanvas.removeClass('open');
             background.addClass('hidden');
 
-            // clear out the off canvas extension container 
-            let clearAfterCreate = document.getElementById('offCanvasContentContainerExt');
-            clearAfterCreate.innerHTML = '';
-
         });
 
 
     }
 
-
-        }
-    
-    
     function offCanvasRight() {
 
         let offcanvas = $("#offCanvasRight");
@@ -753,9 +530,9 @@ $(document).ready(function () {
         <div class="w-100 text-center pt-2"> 
             <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
             <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
-            <input class="form-buttons" type="email" id="email" name="email" placeholder="email"> 
-            <input class="form-buttons" type="password" id="password" name="password" placeholder="password"> 
-            <input class="form-buttons py-5" type="textarea" id="bio" name="bio" placeholder="bio"> 
+            <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+            <input class="form-buttons" type="text" id="password" name="password" placeholder="password"> 
+            <input class="form-buttons py-5" type="text" id="bio" name="bio" placeholder="bio"> 
             <input class="form-buttons" type="text" id="instagram" name="instagram" placeholder="instagram"><br> 
             <button class="submit-button mt-5" id="registerArtist">submit</button> 
         </div>
@@ -777,8 +554,7 @@ $(document).ready(function () {
             });
 
             $("#createListing").click(function(){
-                createListing1();
-                createListing2();
+                createListing();
             });
 
             $("#editListing").click(function(){
@@ -789,9 +565,8 @@ $(document).ready(function () {
                 deleteListing();
             });
 
-
         });
-
+    
     }
 
     function artistLoginForm() {
@@ -800,7 +575,7 @@ $(document).ready(function () {
         <h1 class="form-options pt-5">Artist Login</h1> 
         <div class="w-100 text-center pt-2"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
-          <input class="form-buttons" type="password" id="password" name="password" placeholder="password"><br> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br> 
           <button class="submit-button mt-5" id="loginArtist">login</button> 
         </div>
         `;
@@ -820,25 +595,7 @@ $(document).ready(function () {
             });
 
             $("#createListing").click(function(){
-                createListing1();
-                createListing2();
-                document.getElementById("category").onchange = function() {
-                    categorySelected = document.getElementById('category').value;
-                    if (categorySelected == 'accessories') {
-                        createListing2Acc();
-                    } else if (categorySelected == 'art') {
-                        createListing2Art();
-                    } else if (categorySelected == 'garments') {
-                        createListing2Gar();
-                    } else if (categorySelected == 'homewares') {
-                        createListing2Home();
-                    } else if (categorySelected == 'jewellery') {
-                        createListing2Jewel();
-                    } else {
-                        alert("Please select a valid sub-category");
-                    }
-                };
-
+                createListing();
             });
 
             $("#editListing").click(function(){
@@ -847,9 +604,10 @@ $(document).ready(function () {
 
             $("#deleteListing").click(function(){
                 deleteListing();
-            });        
-          
-        
+            });
+
+        });
+
     }
 
     function collectorRegisterForm() {
@@ -859,15 +617,24 @@ $(document).ready(function () {
         <div class="w-100 text-center pt-2"> 
           <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
           <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
-          <input class="form-buttons" type="email" id="email" name="email" placeholder="email"> 
-          <input class="form-buttons" type="password" id="password" name="password" placeholder="password"><br>
+          <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="registerCollector">submit</button> 
-        </div> `
-
-          
-        $("#registerCollector").click(function () {
-            registerCollector();
-        })
+        </div>
+          `;
+        $("#registerCollector").click(function(){
+            let welcomeCollector = document.getElementById('offCanvasContentContainer');
+            welcomeCollector.innerHTML = `
+            <h1 class="form-options mt-5">Collector Name</h1> 
+            <div class="w-100 text-center pt-2"> 
+              <p class="my-5">Welcome, Collector Name</p> 
+              <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
+            </div>
+            `;
+            $("#editCollectorProfile").click(function(){
+                editCollectorProfile();
+            });
+        });
     }
 
     function collectorLoginForm() {
@@ -876,88 +643,33 @@ $(document).ready(function () {
         <h1 class="form-options pt-5">Collector Login</h1> 
         <div class="w-100 text-center pt-2"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
-          <input class="form-buttons" type="password" id="password" name="password" placeholder="password"><br>
+          <input class="form-buttons" type="text" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="loginCollector">login</button> 
         </div>
-
-          `
-        $("#loginCollector").click(function () {
-            login('Collector')
-        })
-
-  
-
-    }
-
-    function collectorDashboard() {
-
-        let collectorDashboard = document.getElementById('offCanvasContentContainer');
-           collectorDashboard.innerHTML = `
-            <h1 class="form-options mt-5">${sessionStorage.getItem('name')}</h1> 
-
           `;
         $("#loginCollector").click(function(){
             let welcomeCollector = document.getElementById('offCanvasContentContainer');
             welcomeCollector.innerHTML = `
             <h1 class="form-options mt-5">Collector Name</h1> 
             <div class="w-100 text-center pt-2"> 
-              <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
-              <button id="logOut" class="form-buttons">log out</button> 
+                <p class="my-5">Welcome, Collector Name</p> 
+                <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
             </div>
-`
+            `;
             $("#editCollectorProfile").click(function(){
-
                 editCollectorProfile();
             });
 
-        $("#logOut").click(function () {
-                logout();
-            });
-        })
-    }
+        });
 
-    function artistDashboard() {
-         let artistOptions = document.getElementById('offCanvasContentContainer');
-            artistOptions.innerHTML = `
-            <h1 class="form-options pt-5">${sessionStorage.getItem('name')}</h1> 
-            <div class="w-100 text-center pt-2"> 
-              <button id="editProfile" class="form-buttons">edit profile</button><br> 
-              <button id="createListing" class="form-buttons">create listing</button><br> 
-              <button id="editListing" class="form-buttons">edit listing</button><br> 
-              <button id="deleteListing" class="form-buttons">delete listing</button> 
-              <button id="logOut" class="form-buttons">log out</button> 
-          
-            </div>
-            `
-                        
-                        
-
-            $("#editProfile").click(function () {
-                editArtistProfile();
-            })
-
-            $("#createListing").click(function () {
-                createListing();
-            })
-
-            $("#editListing").click(function () {
-                editListing();
-            })
-
-            $("#deleteListing").click(function () {
-                deleteListing();
-            }); 
-          $("#logOut").click(function () {
-                logout();
-            });
     }
 
     function editArtistProfile() {
         // need to get the artist details from mongo and populate
         // on click of the save button update their details in mongo
         let editArtistProfile = document.getElementById('offCanvasContentContainer');
-        editArtistProfile.innerHTML =
-            `
+        editArtistProfile.innerHTML = 
+        `
         <h1 class="form-options pt-5">Edit Profile</h1> 
         <div class="w-100 text-center pt-2"> 
           <input class="form-buttons" type="text" id="editName" name="editName" placeholder="edit artist name"> 
@@ -976,168 +688,55 @@ $(document).ready(function () {
 
     }
 
-    function createListingButton() {
-        $('#createListingBtn').click(function (event) {
-            event.preventDefault();
-            newTitle = $('#listingName').val(); 
-            newCategory = $('#category').val();
-            newSubCategory = $('#subCategoryAcc').val();
-            newDescription = $('#listingDesc').val(); 
-            newPrice = $('#listingPrice').val(); 
-            newImage = $('#listingImage').val(); 
-            console.log(newTitle, newCategory, newSubCategory, newDescription);
-            console.log(newTitle, newPrice, newImage);
-            // don't want to send any empty stuff so do if stmt checks
-            if (newTitle == '' || newPrice == '' || newImage == '') {
-                alert('Please enter ALL listing details');
-            } else {
-                alert('New listing added');
-                addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-                    // addProduct();
-            }
-            // end of else
-        });
-
-    }
-
-    function createListing1() {
-        let categorySelected;
+    function createListing() {
         let createListing = document.getElementById('offCanvasContentContainer');
         createListing.innerHTML =
-            `
+        `
         <h1 class="form-options pt-5">Create Listing</h1> 
         <div class="w-100 text-center pt-2"> 
           <input class="form-buttons" type="text" id="listingName" name="listingName" placeholder="listing name"><br> 
           <select class="form-buttons center-dropdown" id="category" name="category"> 
             <option disabled selected hidden>category</option> 
             <option value="accessories">accessories</option> 
-            <option value="art">art</option> 
+            <option value="art">art</option> <option value="garments">garments</option> 
             <option value="garments">garments</option> 
             <option value="homewares">homewares</option> 
             <option value="jewellery">jewellery</option> 
           </select><br> 
-        </div>`
-    }
-
-    function createListing2() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategoryAcc" name="subCategoryAcc"> 
             <option disabled selected hidden>sub-category</option>
-            <option value="empty">please select a category first</option>
-          </select><br> 
-          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
-          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
-          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
-        </div>
-        `;
-        createListingButton();
-    }
-
-    function createListing2Acc() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryAcc" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option>
-            <option value="hats">hats</option> 
-            <option value="bags">bags</option> 
-            <option value="glasses">glasses</option>
-          </select><br> 
-          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
-          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
-          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
-        
-        </div>
-        `;
-        createListingButton();
-    }
-
-    function createListing2Art() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option>
-            <option value="painting">painting</option> 
-            <option value="prints">prints</option> 
-            <option value="sculpture">sculpture</option> 
-            <option value="ceramics">ceramics</option>
-          </select><br> 
-          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
-          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
-          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
-        
-        </div>
-        `;
-        createListingButton();
-    }
-
-    function createListing2Gar() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option>
-            <option value="dresses">dresses</option> 
-            <option value="tops">tops</option> 
-            <option value="bottoms">bottoms</option> 
-            <option value="intimates">intimates</option> 
-            <option value="outerwear">outerwear</option>
-          </select><br> 
-          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
-          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
-          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
-        
-        </div>
-        `;
-        createListingButton();
-    }
-
-    function createListing2Home() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option>
-            <option value="glass">glass</option> 
-            <option value="linen">linen</option> 
-            <option value="softFurnishings">soft furnishings</option> 
-            <option value="decor">decor</option> 
-            <option value="rugs">rugs</option> 
-            <option value="kitchenDining">kitchen & dining</option>
-          </select><br> 
-          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
-          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
-          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="createListingBtn">submit</button> 
-        
-        </div>
-        `;
-        createListingButton();
-    }
-
-    function createListing2Jewel() {
-        let categorySelected;
-        let createListing = document.getElementById('offCanvasContentContainerExt');
-        createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option>
-            <option value="earrings">earrings</option> 
-            <option value="necklaces">necklaces</option> 
-            <option value="bracelets">bracelets</option> 
-            <option value="rings">rings</option> 
+            <optgroup label="accessories">
+                <option value="hats">hats</option> 
+                <option value="bags">bags</option> 
+                <option value="glasses">glasses</option>
+            </optgroup>
+            <optgroup label="art">
+                <option value="painting">painting</option> 
+                <option value="prints">prints</option> 
+                <option value="sculpture">sculpture</option> 
+                <option value="ceramics">ceramics</option>
+            </optgroup>
+            <optgroup label="garments">
+                <option value="dresses">dresses</option> 
+                <option value="tops">tops</option> 
+                <option value="bottoms">bottoms</option> 
+                <option value="intimates">intimates</option> 
+                <option value="outerwear">outerwear</option>
+            </optgroup>
+            <optgroup label="homewares">
+                <option value="glass">glass</option> 
+                <option value="linen">linen</option> 
+                <option value="softFurnishings">soft furnishings</option> 
+                <option value="decor">decor</option> 
+                <option value="rugs">rugs</option> 
+                <option value="kitchenDining">kitchen & dining</option>
+            </optgroup>
+            <optgroup label="jewellery">
+                <option value="earrings">earrings</option> 
+                <option value="necklaces">necklaces</option> 
+                <option value="bracelets">bracelets</option> 
+                <option value="rings">rings</option> 
+            </optgroup>
           </select><br> 
           <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
           <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
@@ -1147,11 +746,11 @@ $(document).ready(function () {
         </div>
         `;
 
-        createListingButton();
+
+
 
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
-
             newTitle = $('#listingName').val(); 
             newCategory = $('#category').val();
             newSubCategory = $('#subCategoryAcc').val();
@@ -1159,7 +758,6 @@ $(document).ready(function () {
             newPrice = $('#listingPrice').val(); 
             newImage = $('#listingImage').val(); 
             // let userid = '642b9fb4641fd5d38b2fcf03';
-
 
             // let userid = sessionStorage.getItem('userID');
             console.log(newTitle, newPrice, newImage);
@@ -1238,8 +836,6 @@ $(document).ready(function () {
         $('#updateListingBtn').click(function (event) {
             alert("Listing updated");
 
-            updateProduct(sessionStorage.getItem('userID'))
-
             console.log("you have clicked the submit on the update listing page");
         });
 
@@ -1269,21 +865,12 @@ $(document).ready(function () {
         $('#deleteListingBtn').click(function (event) {
             let checkbox = document.getElementById('confirmListingDelete').checked;
             if (checkbox) {
-                deleteListing(id);
                 alert("delete successful");
             } else {
                 alert("please check the confirm delete box");
             }
         });
 
-    }
-
-    function logout() {
-        sessionStorage.removeItem('name');
-        sessionStorage.removeItem('userID');
-        sessionStorage.removeItem('userType')
-
-        loggedOutDashboard();
     }
 
     function editCollectorProfile() {
@@ -1333,7 +920,7 @@ $(document).ready(function () {
 
 
     $('#commentSubmit').click(function () {
-        slideDown($("#commentsContainer"))
+        slideDown($("#commentsContainer"));
 
     });
 
@@ -1342,8 +929,6 @@ $(document).ready(function () {
         offCanvasRight();
     });
 
-   
-
 
 
     // ----------------------------- Get all products ----------------------------------
@@ -1351,8 +936,8 @@ $(document).ready(function () {
     // ----------------------------- End of get all products ----------------------------------
     // const test = document.getElementById('confirmListingDelete');
     // console.log(test.checked);
-
-
+    
+    
     // ----------------------------- Add a product ----------------------------------
 
 
@@ -1370,19 +955,18 @@ $(document).ready(function () {
         }, 1500);
 
 
-
         populateArtistMenu();
         populateHomeImages();
+        
     });
 
-
-
+    
 
 
 });
 
 
-// ----------------------------- End of add a product ----------------------------------
+    // ----------------------------- End of add a product ----------------------------------
 
 
 
@@ -1390,3 +974,4 @@ $(document).ready(function () {
 
 
 // -------------------------- End of Frontend $(document).ready() 'container' -------------------------------
+
