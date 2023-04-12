@@ -73,6 +73,7 @@ app.get('/singleProduct/:id', (req, res) => {
 app.post('/addProduct', (req, res) => {
     const dbProduct = new Product({
         _id: new mongoose.Types.ObjectId,
+        user_id: req.body.user_id,
         name: req.body.name,
         price: req.body.price,
         description: req.body.description,
