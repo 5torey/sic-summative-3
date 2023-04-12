@@ -138,6 +138,7 @@ cursor: pointer;
 .sidebar {
     display: flex;
     @include flex-column;
+    height: 80vh;
   
     overflow: scroll;
 }
