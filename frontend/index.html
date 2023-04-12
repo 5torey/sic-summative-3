@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./sass/assets/aesthete-ico.png" type="image/x-icon">
+  <link rel="icon" href="./sass/assets/aesthete-ico.png" type="image/x-icon">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/custom.min.css">
   <title>aesthete</title>
@@ -24,7 +24,7 @@
   <div class="sidebar">
     <div class="hamburger-menu">
       <i id="hamburgerIcon" class="fa-solid fa-bars"></i>
-      <img src="./sass/assets/aesthete-a.png" alt="">
+      <img src="./sass/assets/aesthete-a.png" alt="" id="goHome">
 
     </div>
 
@@ -43,9 +43,9 @@
           <div id="artistLinks" class="accordion-collapse collapse" data-bs-parent="#outerAccordian">
 
           
-            <div class="artist-links" id="artistList">
+            <div class="artist-links" >
 
-              <ul>
+              <ul id="artistList">
               </ul>
 
             </div>
@@ -79,7 +79,7 @@
 
                     <ul>
 
-                      <li id="shopAllArt" class="category">shop all art</li>
+                      <li id="shopAllArt" class="category" data-name="art">shop all art</li>
                       <li id="paintingLink" class="subcategory" data-name="painting">paintings</li>
                       <li id="printsLink" class="subcategory" data-name="prints">prints</li>
                       <li id="ceramicsLink" class="subcategory" data-name="ceramics">ceramics</li>
@@ -107,7 +107,7 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li class="category" data-name="art">shop all garments</li>
+                      <li class="category" data-name="garments">shop all garments</li>
                       <li id="dressesLink" class="subcategory" data-name="dresses">dresses</li>
                       <li id="topsLink" class="subcategory" data-name="top">tops</li>
                       <li id="bottomsLink" class="subcategory" data-name="bottoms">bottoms</li>
@@ -136,8 +136,8 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li class="category" data-name="homeware">shop all homeware</li>
-                      <li id="homewareCeramicsLink" class="subcategory" data-name="homeware ceramics">ceramics</li>
+                      <li class="category" data-name="homewares">shop all homeware</li>
+                     
                       <li id="glassLink" class="subcategory" data-name="glass">glass</li>
                       <li id="linenLink" class="subcategory" data-name="linen">linen</li>
                       <li id="softFurnishingsLink" class="subcategory" data-name="soft furnishings">soft furnishings</li>
@@ -221,7 +221,7 @@
   <div class="mobile-nav">
     <div class="hamburger-menu">
       <i id="hamburgerIconMobile" class="fa-solid fa-bars"></i>
-      <img src="./sass/assets/aesthete-a.png" alt="">
+      <img src="./sass/assets/aesthete-a.png" alt="" id="goHomeMobile">
 
     </div>
     <h3 id="mobileOffcanvasOpen">+ shop</h3>
@@ -233,14 +233,14 @@
 
 
     <!-- HOME PAGE -->
-    <div class="info-container">
+    <!-- <div class="info-container">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
         pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.</p>
     </div>
-    <div class="image-container" id="imageContainerHome"></div >
+    <div class="image-container" id="imageContainerHome"></div > -->
     <!-- HOME PAGE ENDS -->
 
     <!-- PRODUCT PAGE -->
@@ -674,7 +674,7 @@
     <div class="hamburger-menu">
       <i id="closeOffcanvasRight" class="fa-solid fa-arrow-right">
       </i>
-      <img src="./sass/assets/aesthete-a.png" alt="">
+      <img src="./sass/assets/aesthete-a.png" alt="" >
 
 
     </div>
@@ -776,8 +776,8 @@
                   <div class="artist-links">
 
                     <ul>
-                      <li class="category" data-name="homeware">shop all homeware</li>
-                      <li id="homewareCeramicsLinkMobile" class="subcategory" data-name="ceramics">ceramics</li>
+                      <li class="category" data-name="homewares">shop all homeware</li>
+                     
                       <li id="glassLinkMobile" class="subcategory" data-name="glass">glass</li>
                       <li id="linenLinkMobile" class="subcategory" data-name="linen">linen</li>
                       <li id="softFurnishingsLinkMobile" class="subcategory" data-name="soft furnishings">soft furnishings</li>

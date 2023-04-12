@@ -407,6 +407,25 @@ $(document).ready(function () {
 
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
+
+    function populateHomePage(){
+        let contentContainer = $('#contentContainer');
+
+        contentContainer.html(`
+        <div class="info-container">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+    </div>
+    <div class="image-container" id="imageContainerHome"></div >
+        `);
+
+        populateHomeImages()
+
+    }
+
     // Populate Artist Menu Function 
 
     async function populateArtistMenu() {
@@ -419,7 +438,7 @@ $(document).ready(function () {
             let artistListMobile = $('#artistListMobile');
 
             artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
-            artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}>${vendorName}</li>`);
+            artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
 
         });
         openArtistPage();
@@ -434,15 +453,29 @@ $(document).ready(function () {
 
         let artistLinks = document.querySelectorAll('.vendor-link');
         let links = Array.from(artistLinks);
+        let screenWidth = $(window).width();
+        let offcanvas = $("#offCanvasRight");
+        let background = $('#backgroundOverlay');
 
 
         links.forEach(link => {
             link.addEventListener('click', () => {
-
                 let vendorID = link.dataset.vendorid;
 
+                if (screenWidth <= 425){
+                    populateArtistPage(vendorID);
+                    offcanvas.css('left', '130vw');
+                    offcanvas.addClass('closed');
+        
+                    offcanvas.removeClass('open');
+                    background.css('animation', 'blurOut .5s linear');
+                    background.addClass('hidden');
+                } else {
+                    populateArtistPage(vendorID);
+                }
 
-                populateArtistPage(vendorID);
+
+                
             });
 
         });
@@ -471,7 +504,7 @@ $(document).ready(function () {
         </div>
         </div>
 
-        <div class="image-container" id="artistImageContainer"></div>
+        <div class="image-container" id="imageContainer"></div>
 
         </div>
 
@@ -480,18 +513,10 @@ $(document).ready(function () {
         
         `);
 
-        let imageContainer = $('#artistImageContainer');
-
-        products.forEach(product => {
-            imageContainer.append(
-                `
-                <div class="listing-image">
-        <div class="image-overlay"></div>
-        <img src="${product.image}" alt="${product.name}">
-      </div>`
-            );
-        });
-
+       populateImageContainer(vendor._id);
+       setTimeout(()=>{
+        openProductPageImageContainer()
+    }, 2000)
 
     }
 
@@ -499,30 +524,55 @@ $(document).ready(function () {
 
     async function populateCategory(category) {
         let products = await getAllProducts();
+        let contentContainer = $('#contentContainer');
+        
+        contentContainer.html('');
+
+        contentContainer.append(`
+        <div class="listing-container mt-5" id="listingContainer">
+              
+    `);
 
         products.forEach(product => {
+           
             if (category === product.category) {
+                console.log(product.category);
                 populateSingleListing(product);
             }
         });
 
-        openProductPage();
+        setTimeout(()=>{
+            openProductPage();
+        }, 2000)
 
     }
 
     // Populate SubCategory Function 
 
     async function populateSubCategory(subcategory) {
+        
 
         let products = await getAllProducts();
+        let contentContainer = $('#contentContainer');
+        
+        contentContainer.html('');
 
-        products.forEach((product) => {
-            if (subcategory === product.subcategory) {
+        contentContainer.append(`
+        <div class="listing-container mt-5" id="listingContainer">
+              
+    `);
+        console.log(products);
+
+        products.forEach(product => {
+            if (subcategory === product.sub_category) {
+                console.log(product);
                 populateSingleListing(product);
             }
         });
 
-        openProductPage();
+        setTimeout(()=>{
+            openProductPage();
+        }, 2000)
 
     }
 
@@ -556,8 +606,9 @@ $(document).ready(function () {
     // Populate Shop All Function 
 
     async function populateShopAll() {
-        let products = await getAllProducts();
+        let productsFromDb = await getAllProducts();
         let contentContainer = $('#contentContainer');
+        let products = productsFromDb.sort();
         
         contentContainer.html('');
 
@@ -626,7 +677,7 @@ $(document).ready(function () {
     <div class="listing-info">
 
       <h1 class="listing-title">${product.name}</h1>
-      <h5 class="artist-name">${artist.name}</h5>
+      <h5 class="artist-name" id="artistName">${artist.name}</h5>
       <p class="listing-bio">${product.description}</p>
       <h4 class="price">$${product.price}</h4>
       <div class="buttons-container">
@@ -673,6 +724,10 @@ $(document).ready(function () {
 
     });
 
+    $('#artistName').click(function(){
+        populateArtistPage(artist._id)
+    })
+
     }
     
     // Populate Image Container Function
@@ -691,6 +746,13 @@ $(document).ready(function () {
       </div>`
             );
         });
+
+        imageContainer.on('wheel', function(e){
+
+            e.preventDefault();
+            $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
+         
+         });
     }
 
     //  Populate Home Images Function 
@@ -703,12 +765,26 @@ $(document).ready(function () {
         products.forEach(product => {
             imageContainer.append(
                 `
-                <div class="listing-image">
+                <div class="listing-image" data-productid = "${product._id}">
         <div class="image-overlay"></div>
         <img src="${product.image}" alt="">
       </div>`
             );
         });
+
+        imageContainer.on('wheel', function(e){
+
+            e.preventDefault();
+            $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
+         
+         });
+
+       
+        setTimeout(()=>{
+            openProductPageImageContainer()
+        }, 2000)
+
+        
 
     }
 
@@ -817,15 +893,7 @@ $(document).ready(function () {
             `)
 
 
-            } else{
-                allCommentsContainer.html(`
-                <div class="comment">
-                <p>  There are no comments on this listing<p>
-          
-    
-        </div>
-                `)
-            }
+            } 
 
           
         
@@ -1704,19 +1772,38 @@ $(document).ready(function () {
         populateShopAll();
     });
 
+    $('#goHome').click(function (){
+        populateHomePage()
+    })
+
+
 
     // Category Links Function 
 
     function categoryLinks() {
         let categoryLinks = document.querySelectorAll('.category');
         let categories = Array.from(categoryLinks);
+        let screenWidth = $(window).width();
+        let offcanvas = $("#offCanvasRight");
+        let background = $('#backgroundOverlay');
 
         categories.forEach(category => {
-            console.log('category link created')
-            category.click(function () {
+            
+
+            category.addEventListener("click", function () {
                 let name = category.dataset.name;
-                console.log(`${name} clicked`)
-                populateCategory(name);
+                if (screenWidth <= 425){
+                    populateCategory(name);
+                    offcanvas.css('left', '130vw');
+                    offcanvas.addClass('closed');
+        
+                    offcanvas.removeClass('open');
+                    background.css('animation', 'blurOut .5s linear');
+                    background.addClass('hidden');
+                } else{
+                    populateCategory(name);
+                }
+                
             });
         });
 
@@ -1727,16 +1814,32 @@ $(document).ready(function () {
     function subcategoryLinks() {
         let subcategoryLinks = document.querySelectorAll('.subcategory');
         let subcategories = Array.from(subcategoryLinks);
+        let screenWidth = $(window).width();
+        let offcanvas = $("#offCanvasRight");
+        let background = $('#backgroundOverlay');
         console.log(subcategories);
 
         subcategories.forEach(subcategory => {
-            console.log('subcategory link created')
+
+            let name = subcategory.dataset.name;
+
+
+            subcategory.addEventListener("click", function(){
+
+                if (screenWidth <= 425){
+                    populateSubCategory(name);
+                    offcanvas.css('left', '130vw');
+                    offcanvas.addClass('closed');
+        
+                    offcanvas.removeClass('open');
+                    background.css('animation', 'blurOut .5s linear');
+                    background.addClass('hidden');
+                } else{
+                    populateSubCategory(name);
+                }
+            })
             
-            subcategory.click(function () {
-                let name = subcategory.dataset.name;
-                console.log(`${name} clicked`)
-                populateSubCategory(name);
-            });
+            
         });
 
     }
@@ -1761,7 +1864,7 @@ $(document).ready(function () {
 
 
         populateArtistMenu();
-        populateHomeImages();
+        populateHomePage();
         categoryLinks();
         subcategoryLinks();
 
