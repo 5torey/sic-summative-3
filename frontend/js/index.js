@@ -413,11 +413,8 @@ $(document).ready(function () {
 
         contentContainer.html(`
         <div class="info-container">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.</p>
+      <h5>Welcome to the aesthete digital marketplace.</h5>
+      <p>This space serves as a platform for independent artists and creatives from Aotearoa, New Zealand.</p>
     </div>
     <div class="image-container" id="imageContainerHome"></div >
         `);
