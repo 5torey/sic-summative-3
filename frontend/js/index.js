@@ -566,23 +566,13 @@ $(document).ready(function () {
               
     `);
 
-        // get content-container from dom
-        // for each loop over products
-        await products.forEach(product => {
+     products.forEach(product => {
             populateSingleListing(product);
         });
-
-
-       
-
         setTimeout(()=>{
             openProductPage();
         }, 2000)
 
-     
-        // listing html with product image, name and price
-        // listing needs data-productID = product._id
-        // outside of for each loop run listing click function
 
     }
 
@@ -590,16 +580,11 @@ $(document).ready(function () {
 
     function openProductPage() {
         let listings = document.querySelectorAll(".shopall-listing");
-        console.log(listings);
         let allListings = Array.from(listings);
-        console.log(allListings);
 
         allListings.forEach((listing) => {
             listing.addEventListener('click', () => {
-                console.log('clicked');
                 let productID = listing.dataset.productid;
-
-
                 populateProductPage(productID);
             });
 
@@ -607,13 +592,11 @@ $(document).ready(function () {
     }
     function openProductPageImageContainer() {
         let listings = document.querySelectorAll(".listing-image");
-        console.log(listings);
         let allListings = Array.from(listings);
-        console.log(allListings);
+  
 
         allListings.forEach((listing) => {
             listing.addEventListener('click', () => {
-                console.log('clicked');
                 let productID = listing.dataset.productid;
 
 
@@ -1781,7 +1764,7 @@ $(document).ready(function () {
         populateHomeImages();
         categoryLinks();
         subcategoryLinks();
-        populateProductPage('642b9123641fd5d38b2fcefc');
+
     });
 
 
