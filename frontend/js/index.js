@@ -68,7 +68,7 @@ $(document).ready(function () {
 
     function getSingleProduct(id) {
         $.ajax({
-            url: `http://${url}/singleProcuct/${id}`,
+            url: `http://${url}/singleProduct/${id}`,
             type: 'GET',
             dataType: 'json',
 
@@ -248,18 +248,18 @@ $(document).ready(function () {
                         } else {
                             collectorDashboard();
                         }
-                    } 
-                }, 
+                    }
+                },
                 error: function () {
 
                     alert('Unable to login - unable to call api');
                 }
-            }); 
+            });
         }
     }
 
     // Register Vendor Function 
-    
+
     function registerVendor() {
 
 
@@ -455,7 +455,7 @@ $(document).ready(function () {
         let products = await getAllProducts();
 
         products.forEach(product => {
-            if (category = product.category) {
+            if (category === product.category) {
                 populateSingleListing(product);
             }
         });
@@ -471,7 +471,7 @@ $(document).ready(function () {
         let products = await getAllProducts();
 
         products.forEach((product) => {
-            if (subcategory = product.subcategory) {
+            if (subcategory === product.subcategory) {
                 populateSingleListing(product);
             }
         });
@@ -484,28 +484,45 @@ $(document).ready(function () {
 
     async function populateSingleListing(product) {
         let artist = await getSingleVendor(product.user_id);
-        let contentContainer = $('#contentContainer');
+        
+    let listingContainer = $('#listingContainer');
 
-        contentContainer.append(`
-        <div class="listing-container mt-5" data-productid = ${product._id}" id="shopAll">
-        <div class="listing mt-5">
+    listingContainer.append(`
+    <div class="listing" data-productid = "${product._id}">
+        <div class="shopall-listing-image">
+        <div class="image-overlay-listing"></div>
         <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="listing-heading">
         <h6>${product.name}</h6>
         <h6>${artist.name}</h6>
-        <h6>$0.00</h6>
         </div>
-  </div>      
+        </div>
+        </div>
     `);
+
+
+
+
     }
 
     // Populate Shop All Function 
 
     async function populateShopAll() {
         let products = await getAllProducts();
+        let contentContainer = $('#contentContainer');
+        contentContainer.html('');
+
+
+
+        contentContainer.append(`
+        <div class="listing-container mt-5" id="listingContainer">
+              
+    `);
 
         // get content-container from dom
         // for each loop over products
-        forEach(product => {
+        products.forEach(product => {
             populateSingleListing(product);
         });
 
@@ -536,6 +553,12 @@ $(document).ready(function () {
     // Populate Product Page Function 
 
     async function populateProductPage(productID) {
+        let products = await getAllProducts();
+        let contentContainer = $('#contentContainer');
+
+        contentContainer.html('');
+
+
 
     }
 
@@ -926,20 +949,20 @@ $(document).ready(function () {
             `;
     }
 
-        // Edit Profile
-        $("#editProfile").click(function () {
-            editArtistProfile();
-        });
+    // Edit Profile
+    $("#editProfile").click(function () {
+        editArtistProfile();
+    });
 
 
-        // Create Listing
+    // Create Listing
+    $("#createListing").click(function () {
+        createListing();
+
         $("#createListing").click(function () {
-            createListing();
-
-        $("#createListing").click(function(){
             createListing1();
             createListing2();
-            document.getElementById("category").onchange = function() {
+            document.getElementById("category").onchange = function () {
                 categorySelected = document.getElementById('category').value;
                 if (categorySelected == 'accessories') {
                     createListing2Acc();
@@ -955,10 +978,10 @@ $(document).ready(function () {
                     alert("Please select a valid sub-category");
                 }
             };
-        // Stray Bracket
+            // Stray Bracket
         });
         // Stray Bracket
-        
+
         // Edit Listing 
         $("#editListing").click(function () {
             editListing();
@@ -968,7 +991,7 @@ $(document).ready(function () {
         $("#deleteListing").click(function () {
             deleteListing();
         });
-        
+
         // Logout 
         $("#logOut").click(function () {
             logout();
@@ -1026,7 +1049,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategoryNull" name="subCategoryNull"> 
             <option disabled selected hidden>sub-category</option>
             <option value="empty">please select a category first</option>
@@ -1044,7 +1067,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="hats">hats</option> 
@@ -1065,7 +1088,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="painting">painting</option> 
@@ -1087,7 +1110,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="dresses">dresses</option> 
@@ -1110,7 +1133,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="glass">glass</option> 
@@ -1134,7 +1157,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
             <option disabled selected hidden>sub-category</option>
             <option value="earrings">earrings</option> 
@@ -1164,7 +1187,7 @@ $(document).ready(function () {
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
             userid = sessionStorage.getItem('userID');
-            newTitle = $('#listingName').val(); 
+            newTitle = $('#listingName').val();
             newCategory = $('#category').val();
             newSubCategory = $('#subCategoryAcc').val();
             newDescription = $('#listingDesc').val();
@@ -1176,7 +1199,7 @@ $(document).ready(function () {
                 alert('Please enter ALL listing details');
             } else {
                 alert('New listing added');
-                
+
                 addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
 
             }
@@ -1324,7 +1347,7 @@ $(document).ready(function () {
 
 
 
-// ---------------------------------- CLICK EVENTS ----------------------------------------
+    // ---------------------------------- CLICK EVENTS ----------------------------------------
 
     // Hamburger / Bar Icon
 
@@ -1404,11 +1427,11 @@ $(document).ready(function () {
 
     }
 
-// ---------------------------------- END OF CLICK EVENTS ----------------------------------------
+    // ---------------------------------- END OF CLICK EVENTS ----------------------------------------
 
 
 
-// ---------------------------------- LOADING SCREEN ---------------------------------------------
+    // ---------------------------------- LOADING SCREEN ---------------------------------------------
 
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
