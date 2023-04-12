@@ -129,6 +129,7 @@ p {
     display: flex;
     @include flex-column;
     height: 100vh;
+    z-index: 5;
 }
 
 .hamburger-menu {
@@ -524,6 +525,12 @@ p {
 
 
 } 
+.shopall-listing {
+    position: relative;
+    width: 350px;
+    @include flex-column;
+    flex-wrap: wrap;
+}
 
 .shopall-listing-image {
     display: flex;
