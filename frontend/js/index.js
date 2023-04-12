@@ -735,6 +735,7 @@ $(document).ready(function () {
     async function populateImageContainer(artistID){
         let products = await getVendorProducts(artistID);
         let imageContainer = $("#imageContainer");
+        let screenWidth = $(window).width();
 
 
         products.forEach(product => {
@@ -747,12 +748,15 @@ $(document).ready(function () {
             );
         });
 
-        imageContainer.on('wheel', function(e){
+        if( screenWidth > 425){
+            imageContainer.on('wheel', function(e){
 
-            e.preventDefault();
-            $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
-         
-         });
+                e.preventDefault();
+                $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
+             
+             });
+        }
+        
     }
 
     //  Populate Home Images Function 
@@ -760,6 +764,7 @@ $(document).ready(function () {
     async function populateHomeImages() {
         let products = await getAllProducts();
         let imageContainer = $("#imageContainerHome");
+        let screenWidth = $(window).width();
 
 
         products.forEach(product => {
@@ -772,12 +777,14 @@ $(document).ready(function () {
             );
         });
 
-        imageContainer.on('wheel', function(e){
+        if( screenWidth > 425){
+            imageContainer.on('wheel', function(e){
 
-            e.preventDefault();
-            $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
-         
-         });
+                e.preventDefault();
+                $(this).scrollLeft($(this).scrollLeft() + e.originalEvent.deltaY);
+             
+             });
+        }
 
        
         setTimeout(()=>{

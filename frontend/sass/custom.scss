@@ -542,6 +542,7 @@ cursor: pointer;
 
         &:hover{
             background: rgba(36, 39, 230, 0); 
+            transition: all 0.5s ease;
         }
     
     }
@@ -850,7 +851,7 @@ transition: all 0.5s ease;
 .listing-bio {
 
     font-size: 0.9rem;
-    max-width: 70vw;
+    
 }
 
 
@@ -1166,7 +1167,7 @@ transition: all 0.5s ease;
         bottom: 40vh;
 
         input{
-            height: 30px;
+            height: 50px;
         }
 
         #enquiryFirstName {
