@@ -41,7 +41,7 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    cursor: url('./assets/aesthete-ico.png'), auto;
+   
 
 }
 
@@ -108,6 +108,16 @@ p {
         }
     }
 }
+a, a:link, a:visited, a:hover, a:active{
+    color: $black;
+    text-decoration: none;
+    &:hover{
+        border-bottom: 1px solid black;
+transition: all 1s ease;
+cursor: pointer;
+    }
+}
+
 
 .enter-text{
     opacity: 0;
@@ -128,8 +138,8 @@ p {
 .sidebar {
     display: flex;
     @include flex-column;
-    height: 100vh;
-    z-index: 5;
+  
+    overflow: scroll;
 }
 
 .hamburger-menu {
@@ -194,7 +204,7 @@ p {
     }
 }
 
-.vendor-link{
+.artist-link{
     ul li::before {
         content: "- ";
     }
@@ -506,6 +516,55 @@ p {
 
 // ------------ REUSED ELEMENTS -----------------
 
+.shopall-listing {
+    position: relative;
+ 
+    @include flex-column;
+    flex-wrap: wrap;
+}
+
+.shopall-listing-image {
+    display: flex;
+    
+
+    img {
+    
+        filter: contrast(150%) saturate(0%);
+
+    }
+
+    .image-overlay-listing {
+        z-index: 5;
+        position: absolute;
+        background: rgba(36, 39, 230, 0.25);
+     
+        transition: all 0.5s ease;
+
+        &:hover{
+            background: rgba(36, 39, 230, 0); 
+        }
+    
+    }
+
+    &:hover{
+        img {
+            filter: saturate(100%);
+            transition: all 0.5s ease;
+        }
+    }
+}
+
+.subcategory{
+    cursor: pointer;
+    z-index: 5;
+}
+
+.category{
+    cursor: pointer;
+    z-index: 5;
+}
+
+
 
 .listing-image {
     display: flex;
@@ -525,47 +584,7 @@ p {
 
 
 } 
-.shopall-listing {
-    position: relative;
-    width: 350px;
-    @include flex-column;
-    flex-wrap: wrap;
-}
 
-.shopall-listing-image {
-    display: flex;
-    // padding: 10px;
-    width: 35vw;
-
-    img {
-        width: 350px;
-        height: 350px;
-        filter: contrast(150%) saturate(0%);
-
-    }
-
-    .image-overlay-listing {
-        z-index: 5;
-        position: absolute;
-        background: rgba(36, 39, 230, 0.25);
-        width: 350px;
-        height: 350px;
-        transition: all 0.5s ease;
-
-        &:hover{
-            background: rgba(36, 39, 230, 0); 
-        }
-    
-    }
-
-    &:hover{
-        img {
-            filter: saturate(100%);
-            transition: all 0.5s ease;
-        }
-    }
-
-}
 
 
 
@@ -797,7 +816,7 @@ content: "";
     // flex-wrap: wrap;
     height: fit-content;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
    
 
 }
@@ -812,6 +831,15 @@ content: "";
     margin-right: 50px;
     
 
+
+}
+
+.artist-name{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+transition: all 0.5s ease;
+    }
 
 }
 
@@ -842,10 +870,10 @@ content: "";
     padding-top: 10px;
     display: flex;
     background-color: $white;
-    position: fixed;
-    width: 70vw;
+  
+  
     // height: 55vh;
-    bottom: 40vh;
+    
 
     @include flex-column;
     
@@ -929,34 +957,24 @@ content: "";
     @include flex-row;
     flex-wrap: wrap;
     background-color: $white;
-    position: fixed;
-    width: 70vw;
+  
+   
     // height: 55vh;
-    bottom: 40vh;
+    
     padding-top: 10px;
 
     .fa-solid{
         font-size: 20px;
         cursor: pointer;
     }
+    input{
+        height: 70px;
+        border-bottom: 10px;
+    }
 
 }
 
-#enquiryFirstName {
-    width: 48%;
-}
 
-#enquiryLastName {
-    width: 48%;
-}
-
-#enquiryEmail {
-    width: 100%;
-}
-
-#enquiryMessage {
-    width: 80%;
-}
 
 
 
@@ -1043,6 +1061,10 @@ content: "";
 
 
     }
+        
+    .listing-bio{
+        margin-right: 0;
+    }
 
     .listing-title {
         margin-top: 20px;
@@ -1089,6 +1111,124 @@ content: "";
     }
 
 
+
+    .shopall-listing {
+        position: relative;
+        width: 100vw;
+        @include flex-column;
+        flex-wrap: wrap;
+    }
+    
+    .shopall-listing-image {
+        display: flex;
+        // padding: 10px;
+        width: 100vw;
+    
+        img {
+            width: 100%;
+            height: 100%;
+            filter: contrast(150%) saturate(0%);
+    
+        }
+    
+        .image-overlay-listing {
+            z-index: 5;
+            position: absolute;
+            background: rgba(36, 39, 230, 0.25);
+            width: 100%;
+            height: 90%;
+            transition: all 0.5s ease;
+    
+            &:hover{
+                background: rgba(36, 39, 230, 0); 
+            }
+        
+        }
+    
+        &:hover{
+            img {
+                filter: saturate(100%);
+                transition: all 0.5s ease;
+            }
+        }
+    
+    }
+
+    .comments-container{
+        width: 100vw;
+        position: absolute;
+        bottom: 40vh;
+    }
+
+    .enquire-container{
+        position: absolute;
+        width: 100vw;
+        bottom: 40vh;
+
+        input{
+            height: 30px;
+        }
+
+        #enquiryFirstName {
+            width: 40%;
+        }
+        
+        #enquiryLastName {
+            width: 40%;
+        }
+        
+        #enquiryEmail {
+            width: 90%;
+        }
+        
+        #enquiryMessage {
+            width: 90%;
+        }
+    }
+
+    .listing-image {
+
+      
+        width: 100%;
+       
+        // width: 30vh;
+
+        .image-overlay {
+          
+            max-width: 100%;
+
+        }
+
+        img{
+            height: 100%;
+            max-width: 100%;
+        }
+
+    }
+
+    .listing-image:hover {
+        .image-overlay {
+            height: 100%;
+        }
+    }
+
+    .listing-image:hover {
+
+        .image-overlay {
+            z-index: 5;
+            position: absolute;
+            background: rgba(36, 39, 230, 0);
+            height: 100%;
+            width: 30vh;
+            transition: all 0.5s ease;
+        }
+
+        img {
+            filter: saturate(100%);
+            transition: all 0.5s ease;
+        }
+
+    }
 }
 
 
@@ -1097,6 +1237,59 @@ content: "";
         @include flex-row;
         overflow-y: hidden;
     }
+
+    .shopall-listing {
+        position: relative;
+        width: 350px;
+        @include flex-column;
+        flex-wrap: wrap;
+    }
+    
+    .shopall-listing-image {
+        display: flex;
+        // padding: 10px;
+        width: 35vw;
+    
+        img {
+            width: 350px;
+            height: 350px;
+            filter: contrast(150%) saturate(0%);
+    
+        }
+    
+        .image-overlay-listing {
+            z-index: 5;
+            position: absolute;
+            background: rgba(36, 39, 230, 0.25);
+            width: 350px;
+            height: 350px;
+            transition: all 0.5s ease;
+    
+            &:hover{
+                background: rgba(36, 39, 230, 0); 
+            }
+        
+        }
+    
+        &:hover{
+            img {
+                filter: saturate(100%);
+                transition: all 0.5s ease;
+            }
+        }
+
+        &:hover{
+            img {
+                filter: saturate(100%);
+                transition: all 0.5s ease;
+            }
+        }
+    
+    
+    }
+   
+    
+    
 
     .sidebar {
         display: flex;
@@ -1114,6 +1307,8 @@ content: "";
 
     .image-container {
         position: absolute;
+        overflow-y: hidden;
+        overflow-x: auto;
         @include flex-row;
         // flex-wrap: wrap;
         top: 60vh;
@@ -1123,13 +1318,14 @@ content: "";
 
     }
 
+    .listing-container{
+        height: 77vh;
+        overflow: scroll;
+    }
+
     .listing-info-container {
         @include flex-row;
         height: 60vh;
-
-
-
-
     }
 
     .listing-hero-image {
@@ -1209,6 +1405,37 @@ content: "";
         width: 40vw;
         left: -40vw;
         
+    }
+
+    .comments-container{
+        width: 70vw;
+        bottom: 40vh;
+    }
+
+    .enquire-container{
+        position: fixed;
+        width: 70vw;
+        bottom: 40vh;
+
+        input{
+            height: 50px;
+        }
+
+        #enquiryFirstName {
+            width: 45%;
+        }
+        
+        #enquiryLastName {
+            width: 45%;
+        }
+        
+        #enquiryEmail {
+            width: 100%;
+        }
+        
+        #enquiryMessage {
+            width: 500px;
+        }
     }
 
 
