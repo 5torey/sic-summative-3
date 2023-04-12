@@ -834,12 +834,6 @@ $(document).ready(function () {
     }
 
 
-    
-
-    function submitEnquiry() {
-
-    }
-
     // Off Canvas Left Open / Close Function 
 
     function offCanvasLeft() {
