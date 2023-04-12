@@ -935,8 +935,6 @@ $(document).ready(function () {
 
 
         // Create Listing
-        $("#createListing").click(function () {
-            createListing();
 
         $("#createListing").click(function(){
             createListing1();
@@ -957,9 +955,7 @@ $(document).ready(function () {
                     alert("Please select a valid sub-category");
                 }
             };
-        // Stray Bracket
         });
-        // Stray Bracket
         
         // Edit Listing 
         $("#editListing").click(function () {
@@ -1006,7 +1002,7 @@ $(document).ready(function () {
 
     // Create Listing Function 
 
-    function createListing() {
+    function createListing1() {
         let createListing = document.getElementById('offCanvasContentContainer');
         createListing.innerHTML =
             `
