@@ -619,7 +619,7 @@ $(document).ready(function () {
     </div>
 
   </div>
-  <div class="image-container"></div>
+  <div class="image-container" id="imageContainer"></div>
 
     <div class="comments-container" id="commentsContainer"></div>
 
@@ -629,6 +629,8 @@ $(document).ready(function () {
 
         
         `)
+
+        populateImageContainer(artist._id)
 
          // Review Button
     $("#reviewBtn").click(function () {
@@ -654,6 +656,22 @@ $(document).ready(function () {
 
 
 
+    }
+
+    async function populateImageContainer(artistID){
+        let products = await getVendorProducts(artistID);
+        let imageContainer = $("#imageContainer");
+
+
+        products.forEach(product => {
+            imageContainer.append(
+                `
+                <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="${product.image}" alt="">
+      </div>`
+            );
+        });
     }
 
     //  Populate Home Images Function 
