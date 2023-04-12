@@ -750,7 +750,10 @@ content: "";
 
 .listing-info {
     @include flex-column;
+    width: 100%;
     text-align: right;
+    margin-right: 50px;
+    
 
 
 }
@@ -989,7 +992,8 @@ content: "";
     }
 
     .listing-hero-image {
-        width: 90%;
+        position: relative;
+        width: 80%;
 
         img {
             width: 100%;
@@ -1061,10 +1065,10 @@ content: "";
 
     .listing-hero-image {
 
-        width: 500px;
+        width: 70%;
 
         img {
-            width: 100%;
+            width: 70%;
         }
     }
 

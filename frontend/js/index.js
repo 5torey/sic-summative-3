@@ -66,20 +66,23 @@ $(document).ready(function () {
 
     // Get Single Product Function
 
-    function getSingleProduct(id) {
-        $.ajax({
-            url: `http://${url}/singleProcuct/${id}`,
-            type: 'GET',
-            dataType: 'json',
+    async function getSingleProduct(id) {
+        let product;
 
-            success: function (product) {
+        try{
+           product = await $.ajax({
+                url: `http://${url}/singleProduct/${id}`,
+                type: 'GET',
+                dataType: 'json',
+    
+            });
+            
+            return product;
 
-                return product;
-            },
-            error: function () {
-                alert('Unable to get this product');
-            }
-        });
+        } catch (error) {
+            console.error(error);
+        
+        }
     }
 
     // Get Single Vendor Function
@@ -212,6 +215,7 @@ $(document).ready(function () {
 
         let email = $('#email').val();
         let password = $("#password").val();
+        let userTypeString = userType;
 
         if (email == '' || password == '') {
             alert('Please enter all details');
@@ -236,11 +240,14 @@ $(document).ready(function () {
                         console.log("you are getting the sesh");
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('name', user['name']);
-                        sessionStorage.setItem('userType', `${userType}`);
+                        sessionStorage.setItem('userType', `${userTypeString}`);
 
-                        if (userType = 'Vendor') {
+
+
+                        if (userType === 'Vendor') {
+
                             artistDashboard();
-                        } else {
+                        } if (userType === 'Collector'){
                             collectorDashboard();
                         }
                     } 
@@ -353,6 +360,50 @@ $(document).ready(function () {
 
     }
 
+    async function getComments() {
+
+      
+
+        try {
+            let comments = await $.ajax({
+                url: `http://${url}/allComments`,
+                type: 'GET',
+                dataType: 'json',
+
+            });
+            console.log(comments);
+
+           
+            return comments;
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
+
+    
+
+    function addComment(comment, author, productID){
+        $.ajax({
+            url: `http://${url}/createComment`,
+            type: 'POST',
+            data: {
+                text: comment,
+                author: author,
+                product_id: productID,
+            
+            },
+            success: function(comment){
+                console.log('comment submitted');
+                console.log(comment);
+            },
+            error: function(){
+                console.log('error');
+            }
+        })
+    }
+
+
 
     // ---------- POPULATE DOM FUNCTIONS ---------------
 
@@ -446,11 +497,11 @@ $(document).ready(function () {
 
     // Populate Category Page Function
 
-    async function populateCategoryPage(category) {
+    async function populateCategory(category) {
         let products = await getAllProducts();
 
         products.forEach(product => {
-            if (category = product.category) {
+            if (category === product.category) {
                 populateSingleListing(product);
             }
         });
@@ -466,7 +517,7 @@ $(document).ready(function () {
         let products = await getAllProducts();
 
         products.forEach((product) => {
-            if (subcategory = product.subcategory) {
+            if (subcategory === product.subcategory) {
                 populateSingleListing(product);
             }
         });
@@ -479,6 +530,8 @@ $(document).ready(function () {
 
     async function populateSingleListing(product) {
         let artist = await getSingleVendor(product.user_id);
+
+        console.log(artist)
         let contentContainer = $('#contentContainer');
 
         contentContainer.append(`
@@ -497,10 +550,14 @@ $(document).ready(function () {
 
     async function populateShopAll() {
         let products = await getAllProducts();
+        let contentContainer = $('#contentContainer');
+        contentContainer.html(' ')
+
+
 
         // get content-container from dom
         // for each loop over products
-        forEach(product => {
+        products.forEach(product => {
             populateSingleListing(product);
         });
 
@@ -531,7 +588,88 @@ $(document).ready(function () {
     // Populate Product Page Function 
 
     async function populateProductPage(productID) {
+        sessionStorage.setItem('productID', productID)
+        let product = await getSingleProduct(productID)
+        console.log(product)
+        let artist = await getSingleVendor(product.user_id)
+        
+        let contentContainer = $('#contentContainer');
+        contentContainer.html(' ')
 
+        contentContainer.html(`
+
+        
+    <div class="listing-info-container" data-productid ="${productID}" id="productPage">
+    <div class="listing-hero-image">
+
+      <img src="${product.image}" alt="">
+    </div>
+    <div class="listing-info">
+
+      <h1 class="listing-title">${product.name}</h1>
+      <h5 class="artist-name">${artist.name}</h5>
+      <p class="listing-bio">${product.description}</p>
+      <h4 class="price">$${product.price}</h4>
+      <div class="buttons-container">
+        <button class="submit-button" id="reviewBtn">review</button>
+        <button class="submit-button" id="orderBtn">order</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="image-container" id="imageContainer"></div>
+
+    <div class="comments-container" id="commentsContainer"></div>
+
+    <div class="enquire-container" id="enquireContainer"></div>
+
+  </div>
+
+        
+        `)
+
+        populateImageContainer(artist._id)
+
+         // Review Button
+    $("#reviewBtn").click(function () {
+        slideUp($("#commentsContainer"));
+        setTimeout(() => {
+            populateCommentContainer(productID)
+        }, 1500);
+
+    });
+
+    // Order Button
+    $("#orderBtn").click(function () {
+        slideUp($("#enquireContainer"));
+        setTimeout(populateEnquireForm, 1500);
+
+
+    });
+
+    // Submit Comment Button
+ 
+
+        
+
+
+
+    }
+
+    async function populateImageContainer(artistID){
+        let products = await getVendorProducts(artistID);
+        let imageContainer = $("#imageContainer");
+
+
+        products.forEach(product => {
+            imageContainer.append(
+                `
+                <div class="listing-image">
+        <div class="image-overlay"></div>
+        <img src="${product.image}" alt="">
+      </div>`
+            );
+        });
     }
 
     //  Populate Home Images Function 
@@ -582,42 +720,100 @@ $(document).ready(function () {
     }
 
     // Populate Comment Container Function 
-
-    function populateCommentContainer() {
+    async function populateCommentContainer(productID) {
+        console.log('in populate 2');
         let commentContainer = $("#commentsContainer");
+        console.log(productID);
 
+      
+        
         commentContainer.html(`
         <i class="fa-solid fa-xmark" id="closeComments"></i>
-        <div class="all-comments">
-                <div class="comment">
-                <p class="username">username</p>
-                <p class="date">19/03/23</p>
-                <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-
-            </div>
-        <div class="comment"></div>
-        <div class="comment"></div>
-      
-    
+        <div class="all-comments" id="allCommentsContainer">
       </div>
       <div class="comment-input-container">
-        <textarea placeholder="add a comment..."></textarea>
+        <textarea placeholder="add a comment..." id='commentInput'></textarea>
         <button class="submit-button" id="commentSubmit">submit</button>
 
       </div> 
 
         `);
-
-        // Close Comments
         $("#closeComments").click(function () {
             slideDown($("#commentsContainer"));
         });
-        // Submit Comment
-        $('#commentSubmit').click(function () {
 
+        $('#commentSubmit').click(function () {
+            console.log(sessionStorage.getItem('userID'))
+            console.log('comment submit clicked');
+            console.log(sessionStorage.getItem('name'))
+            let comment = $('#commentInput').val();
+            let author = sessionStorage.getItem('name');
+            
+            // let productID = '642c9e70fc5019d6c3d932c9';
+            
+            addComment(comment, author, productID)
+            reloadComments(productID)
+            $('#commentInput').val('');
 
         });
+
+       
+        reloadComments(productID)
+       
     }
+
+    async function reloadComments(productID){
+        let allCommentsContainer = $("#allCommentsContainer");
+        let comments =  await getComments(productID);
+        allCommentsContainer.html('')
+
+        comments.forEach(comment => {
+            console.log('in comment loop');
+
+            if(comment.product_id === productID ){
+
+                
+                
+                let date = comment.time;
+                let dateObject = new Date(date);
+                let hour = dateObject.getHours();
+                let minutes = dateObject.getMinutes()
+                let day = dateObject.getDate();
+                let month = dateObject.getMonth();
+    
+                
+                let year = dateObject.getFullYear();
+                let formattedDate = `${day}/${month}/${year} ${hour}:${minutes}`
+    
+    
+                allCommentsContainer.append(`
+            <div class="comment">
+            <p class="username">${comment.author}</p>
+            <p class="date">${formattedDate}</p>
+            <p class="comment-content">${comment.text}</p>
+    
+        </div>
+            `)
+
+
+            } else{
+                allCommentsContainer.html(`
+                <div class="comment">
+                <p>  There are no comments on this listing<p>
+          
+    
+        </div>
+                `)
+            }
+
+          
+        
+    })
+
+    }
+
+
+    
 
     function submitEnquiry() {
 
@@ -878,17 +1074,15 @@ $(document).ready(function () {
         let collectorDashboard = document.getElementById('offCanvasContentContainer');
         collectorDashboard.innerHTML = `
             <h1 class="form-options mt-5">${sessionStorage.getItem('name')}</h1> 
-
-          `;
-        $("#loginCollector").click(function () {
-            let welcomeCollector = document.getElementById('offCanvasContentContainer');
-            welcomeCollector.innerHTML = `
-            <h1 class="form-options mt-5">Collector Name</h1> 
+            
             <div class="w-100 text-center pt-2"> 
               <button id="editCollectorProfile" class="form-buttons">edit profile</button> 
               <button id="logOut" class="form-buttons">log out</button> 
             </div>
-`;
+
+          `;
+
+       
             // Edit Collector Profile
             $("#editCollectorProfile").click(function () {
 
@@ -899,8 +1093,8 @@ $(document).ready(function () {
             $("#logOut").click(function () {
                 logout();
             });
-        });
-    }
+        };
+    
 
     // Artist Dashboard Function 
 
@@ -1466,26 +1660,7 @@ $(document).ready(function () {
         offCanvasLeft();
     });
 
-    // Review Button
-    $("#reviewBtn").click(function () {
-        slideUp($("#commentsContainer"));
-        setTimeout(populateCommentContainer, 1500);
-
-    });
-
-    // Order Button
-    $("#orderBtn").click(function () {
-        slideUp($("#enquireContainer"));
-        setTimeout(populateEnquireForm, 1500);
-
-
-    });
-
-    // Submit Comment Button
-    $('#commentSubmit').click(function () {
-        slideDown($("#commentsContainer"));
-
-    });
+   
 
     // Mobile Off Canvas Right Open 
     $("#mobileOffcanvasOpen").click(function () {
@@ -1510,8 +1685,10 @@ $(document).ready(function () {
         let categories = Array.from(categoryLinks);
 
         categories.forEach(category => {
+            console.log('category link created')
             category.click(function () {
                 let name = category.dataset.name;
+                console.log(`${name} clicked`)
                 populateCategory(name);
             });
         });
@@ -1525,8 +1702,11 @@ $(document).ready(function () {
         let subcategories = Array.from(subcategoryLinks);
 
         subcategories.forEach(subcategory => {
+            console.log('subcategory link created')
+            console.log(subcategory);
             subcategory.click(function () {
                 let name = subcategory.dataset.name;
+                console.log(`${name} clicked`)
                 populateSubCategory(name);
             });
         });
@@ -1556,6 +1736,7 @@ $(document).ready(function () {
         populateHomeImages();
         categoryLinks();
         subcategoryLinks();
+        populateProductPage('642b9123641fd5d38b2fcefc');
     });
 
 
