@@ -138,21 +138,16 @@ $(document).ready(function () {
     }
 
 
-    let newTitle;
-    let newCategory;
-    let newSubCategory;
-    let newDescription;
-    let newPrice;
-    let newImage;
 
     // Add Product Function
 
-    function addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
+    function addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory) {
         $.ajax({
             url: `http://${url}/addProduct`,
             type: 'POST',
             dataType: 'json',
             data: {
+                user_id: userid,
                 name: newTitle,
                 price: newPrice,
                 image: newImage,
@@ -242,12 +237,15 @@ $(document).ready(function () {
                         $('#email').val('');
                         $('#password').val('');
                     } else {
+                        console.log("you are getting the sesh");
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('name', user['name']);
                         sessionStorage.setItem('userType', `${userTypeString}`);
 
 
+
                         if (userType === 'Vendor') {
+
                             artistDashboard();
                         } if (userType === 'Collector'){
                             collectorDashboard();
@@ -1020,13 +1018,11 @@ $(document).ready(function () {
           <input class="form-buttons" type="password" id="password" name="password" placeholder="password"><br> 
           <button class="submit-button mt-5" id="loginArtist">login</button> 
         </div>
-`;
+        `;
 
         $("#loginArtist").click(function () {
             login('Vendor');
         });
-
-
 
     }
 
@@ -1144,23 +1140,47 @@ $(document).ready(function () {
                     alert("Please select a valid sub-category");
                 }
             };
-        });
+        }); 
+        // End of create Listing
         
         // Edit Listing 
         $("#editListing").click(function () {
-            editListing();
+            // editListing();
+            editListing1();
+            editListing2();
+            document.getElementById("category").onchange = function() {
+                categorySelected = document.getElementById('category').value;
+                if (categorySelected == 'accessories') {
+                    editListing2Acc();
+                } else if (categorySelected == 'art') {
+                    editListing2Art();
+                } else if (categorySelected == 'garments') {
+                    editListing2Gar();
+                } else if (categorySelected == 'homewares') {
+                    editListing2Home();
+                } else if (categorySelected == 'jewellery') {
+                    editListing2Jewel();
+                } else {
+                    alert("Please select a valid sub-category");
+                }
+            };
+
         });
+        // end of edit listing
 
         // Delete Listing
         $("#deleteListing").click(function () {
             deleteListing();
         });
+        // end of edit lidting
         
         // Logout 
         $("#logOut").click(function () {
             logout();
         });
-    }
+// Test
+    };
+// Test
 
     //  Edit Artist Profile Function 
 
@@ -1322,7 +1342,7 @@ $(document).ready(function () {
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
         `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="earrings">earrings</option> 
             <option value="necklaces">necklaces</option> 
@@ -1336,15 +1356,9 @@ $(document).ready(function () {
         
         </div>
         `;
-
-
-        // Create Listing
-
         createListingButton();
 
     }
-
-
 
     function createListingButton() {
 
@@ -1353,19 +1367,18 @@ $(document).ready(function () {
             userid = sessionStorage.getItem('userID');
             newTitle = $('#listingName').val(); 
             newCategory = $('#category').val();
-            newSubCategory = $('#subCategoryAcc').val();
+            newSubCategory = $('#subCategory').val();
             newDescription = $('#listingDesc').val();
             newPrice = $('#listingPrice').val();
             newImage = $('#listingImage').val();
-
 
             if (newTitle == '' || newPrice == '' || newImage == '') {
                 alert('Please enter ALL listing details');
             } else {
                 alert('New listing added');
                 
-                addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-
+                addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
+                console.log(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
             }
         });
     }
@@ -1373,51 +1386,146 @@ $(document).ready(function () {
 
     // Edit Listing Function 
 
-    function editListing() {
-
+    function editListing1() {
         let editListing = document.getElementById('offCanvasContentContainer');
-        editListing.innerHTML = `
-        <h1 class="form-options pt-5">Edit Listing</h1> 
+        editListing.innerHTML =
+            `
+        <h1 class="form-options pt-5">Create Listing</h1> 
         <div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="category" name="category">
+        <select class="form-buttons center-dropdown" id="category" name="category">
             <option disabled selected hidden>select listing</option> 
             <option value="listing1">listing 1</option> 
             <option value="listing2">listing 2</option> 
             <option value="listing3">listing 3</option> 
-          </select><br> 
+        </select><br> 
+
           <input class="form-buttons" type="text" id="listingName" name="listingName" placeholder="listing name"><br> 
-          <select class="form-buttons center-dropdown" id="category" name="category">
+          <select class="form-buttons center-dropdown" id="category" name="category"> 
             <option disabled selected hidden>category</option> 
             <option value="accessories">accessories</option> 
             <option value="art">art</option> 
             <option value="garments">garments</option> 
             <option value="homewares">homewares</option> 
             <option value="jewellery">jewellery</option> 
+          </select> 
+        </div>`;
+    }
+
+    function editListing2() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategoryNull" name="subCategoryNull"> 
+            <option disabled selected hidden>sub-category</option>
+            <option value="empty">please select a category first</option>
           </select><br> 
-          <select class="form-buttons center-dropdown" id="subCategoryAcc" name="subCategoryAcc"> 
-            <option disabled selected hidden>sub-category</option> -->
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
+        </div>
+        `;
+        editListingButton();
+    }
+
+    function editListing2Acc() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+            <option disabled selected hidden>sub-category</option>
             <option value="hats">hats</option> 
             <option value="bags">bags</option> 
             <option value="glasses">glasses</option>
-  
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
+        
+        </div>
+        `;
+        editListingButton();
+    }
+
+    function editListing2Art() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+            <option disabled selected hidden>sub-category</option>
             <option value="painting">painting</option> 
             <option value="prints">prints</option> 
             <option value="sculpture">sculpture</option> 
             <option value="ceramics">ceramics</option>
-  
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
+        
+        </div>
+        `;
+        editListingButton();
+    }
+
+    function editListing2Gar() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+            <option disabled selected hidden>sub-category</option>
             <option value="dresses">dresses</option> 
             <option value="tops">tops</option> 
             <option value="bottoms">bottoms</option> 
             <option value="intimates">intimates</option> 
             <option value="outerwear">outerwear</option>
-  
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
+        
+        </div>
+        `;
+        editListingButton();
+    }
+
+    function editListing2Home() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+            <option disabled selected hidden>sub-category</option>
             <option value="glass">glass</option> 
             <option value="linen">linen</option> 
             <option value="softFurnishings">soft furnishings</option> 
             <option value="decor">decor</option> 
             <option value="rugs">rugs</option> 
             <option value="kitchenDining">kitchen & dining</option>
-  
+          </select><br> 
+          <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
+          <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
+          <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
+        
+        </div>
+        `;
+        editListingButton();
+    }
+
+    function editListing2Jewel() {
+        let categorySelected;
+        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing.innerHTML =
+        `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+            <option disabled selected hidden>sub-category</option>
             <option value="earrings">earrings</option> 
             <option value="necklaces">necklaces</option> 
             <option value="bracelets">bracelets</option> 
@@ -1426,20 +1534,48 @@ $(document).ready(function () {
           <input class="form-buttons" type="text" id="listingDesc" name="listingDesc" placeholder="listing description"> 
           <input class="form-buttons" type="text" id="listingPrice" name="listingPrice" placeholder="price"> 
           <input class="form-buttons" type="text" id="listingImage" name="listingImage" placeholder="image upload"><br>
-          <button class="submit-button mt-5" id="updateListingBtn">submit</button> 
+          <button class="submit-button mt-5" id="editListingBtn">submit</button> 
         
-        </div> 
-  
+        </div>
         `;
-
-        // Update Listing
-        $('#updateListingBtn').click(function (event) {
-            alert("Listing updated");
-
-
-        });
+        editListingButton();
 
     }
+
+
+
+    function editListingButton() {
+
+        $('#editListingBtn').click(function (event) {
+            event.preventDefault();
+            // userid = sessionStorage.getItem('userID');
+            // console.log(userid);
+            // newTitle = $('#listingName').val(); 
+            // newCategory = $('#category').val();
+            // newSubCategory = $('#subCategory').val();
+            // newDescription = $('#listingDesc').val();
+            // newPrice = $('#listingPrice').val();
+            // newImage = $('#listingImage').val();
+            // console.log(newTitle, newCategory, newSubCategory, newDescription);
+            // console.log(newTitle, newPrice, newImage);
+
+            // if (newTitle == '' || newPrice == '' || newImage == '') {
+            //     alert('Please enter ALL listing details');
+            // } else {
+            //     alert('New listing added');
+                
+            //     addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
+
+            // }
+        });
+    }
+    // End of edit / update listing
+
+
+
+
+
+
 
     // Delete Listing Function 
 
