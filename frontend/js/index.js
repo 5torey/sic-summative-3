@@ -924,7 +924,7 @@ $(document).ready(function () {
           
             </div>
             `;
-    }
+    
 
         // Edit Profile
         $("#editProfile").click(function () {
@@ -969,7 +969,7 @@ $(document).ready(function () {
         $("#logOut").click(function () {
             logout();
         });
-    });
+    }
 
     //  Edit Artist Profile Function 
 
