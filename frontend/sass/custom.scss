@@ -805,10 +805,12 @@ content: "";
 
 .info-container {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: center;
     padding: 10%;
     text-align: end;
+    @include flex-column;
+    font-size: 20px;
 
 }
 
