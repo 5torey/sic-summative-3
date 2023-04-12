@@ -14,7 +14,7 @@ $(document).ready(function () {
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
         },
         error: function (error) {
-            console.log(error);
+
         }
     });
 
@@ -162,7 +162,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                console.log("Unable to update product");
+
             }
         });
 
@@ -189,7 +189,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                console.log("Unable to update product");
+
             }
         });
     }
@@ -205,7 +205,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                console.log('error: cannot delete due to call on api');
+
             } // error                
         }); // ajax
 
@@ -229,7 +229,7 @@ $(document).ready(function () {
                     password: password
                 },
                 success: function (user) {
-                    console.log(user);
+
 
                     if (user == 'user not found. Please register') {
                         alert('User not found. Please Register');
@@ -251,7 +251,7 @@ $(document).ready(function () {
                     } 
                 }, 
                 error: function () {
-                    console.log('error: cannot call api');
+
                     alert('Unable to login - unable to call api');
                 }
             }); 
@@ -273,7 +273,7 @@ $(document).ready(function () {
         let bio = $('#bio').val();
         let instagram = $('#instagram').val();
 
-        console.log(name, email, password, bio, instagram);
+
 
         if (name == '' || email == '' || password == '') {
             alert('Please complete all details in required fields');
@@ -378,23 +378,23 @@ $(document).ready(function () {
         });
         openArtistPage();
 
-        console.log(vendors);
+
 
     }
 
     // Open Artist Page Function 
 
     function openArtistPage() {
-        console.log('in open artist page function');
+
         let artistLinks = document.querySelectorAll('.vendor-link');
         let links = Array.from(artistLinks);
-        console.log(links);
+
 
         links.forEach(link => {
             link.addEventListener('click', () => {
-                console.log('link clicked');
+
                 let vendorID = link.dataset.vendorid;
-                console.log(vendorID);
+
 
                 populateArtistPage(vendorID);
             });
@@ -409,7 +409,6 @@ $(document).ready(function () {
     async function populateArtistPage(id) {
         let products = await getVendorProducts(id);
         let vendor = await getSingleVendor(id);
-        console.log(products);
         let contentContainer = $('#contentContainer');
 
         contentContainer.html(`
@@ -526,7 +525,7 @@ $(document).ready(function () {
         allListings.forEach(listing => {
             listing.addEventListener('click', () => {
                 let productID = listing.dataset.productid;
-                console.log(vendorID);
+
 
                 populateProductPage(productID);
             });
@@ -563,7 +562,6 @@ $(document).ready(function () {
 
     function populateEnquireForm() {
 
-        console.log('in populate');
         let enquireContainer = $("#enquireContainer");
 
 
@@ -641,7 +639,7 @@ $(document).ready(function () {
 
 
         if (offcanvas.hasClass('closed')) {
-            console.log('opening');
+
             offcanvas.css('left', '0vw');
             offcanvas.removeClass('closed');
             background.css('animation', 'blurIn .5s linear');
@@ -748,7 +746,7 @@ $(document).ready(function () {
         let close = $('#closeOffcanvasRight');
 
         if (offcanvas.hasClass('closed')) {
-            console.log('opening');
+
             offcanvas.css('left', '0vw');
             offcanvas.removeClass('closed');
             background.css('animation', 'blurIn .5s linear');
@@ -786,7 +784,7 @@ $(document).ready(function () {
     // Slide Down Function 
 
     function slideDown(element) {
-        console.log('in slidedown');
+
         element.css('border-top', 'none');
         element.css('animation', 'slideDown 1.5s ease');
         element.css('height', '0vh');
@@ -994,7 +992,7 @@ $(document).ready(function () {
         `;
         $('#updateArtistProfile').click(function (event) {
             alert("Your artist profile has been updated");
-            console.log("you have clicked the submit on the update artist profile");
+
         });
 
     }
@@ -1162,15 +1160,13 @@ $(document).ready(function () {
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
             userid = sessionStorage.getItem('userID');
-            console.log(userid);
             newTitle = $('#listingName').val(); 
             newCategory = $('#category').val();
             newSubCategory = $('#subCategoryAcc').val();
             newDescription = $('#listingDesc').val();
             newPrice = $('#listingPrice').val();
             newImage = $('#listingImage').val();
-            console.log(newTitle, newCategory, newSubCategory, newDescription);
-            console.log(newTitle, newPrice, newImage);
+
 
             if (newTitle == '' || newPrice == '' || newImage == '') {
                 alert('Please enter ALL listing details');
@@ -1249,7 +1245,7 @@ $(document).ready(function () {
         $('#updateListingBtn').click(function (event) {
             alert("Listing updated");
 
-            console.log("you have clicked the submit on the update listing page");
+
         });
 
     }
@@ -1317,7 +1313,7 @@ $(document).ready(function () {
         `;
         $('#updateCollectorProfile').click(function (event) {
             alert("Your collector profile has been updated");
-            console.log("you have clicked the submit on the update collector profile");
+
         });
 
     }
