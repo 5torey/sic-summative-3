@@ -529,13 +529,14 @@ $(document).ready(function () {
     // Populate Single Listing Function 
 
     async function populateSingleListing(product) {
+        console.log('in single listing');
         let artist = await getSingleVendor(product.user_id);
         
     let listingContainer = $('#listingContainer');
 
     listingContainer.append(`
-    <div class="listing" data-productid = "${product._id}">
-        <div class="shopall-listing-image">
+    <div class="shopall-listing" data-productid = "${product._id}" >
+        <div class="shopall-listing-image" >
         <div class="image-overlay-listing"></div>
         <img src="${product.image}" alt="${product.name}">
         </div>
@@ -567,11 +568,18 @@ $(document).ready(function () {
 
         // get content-container from dom
         // for each loop over products
-        products.forEach(product => {
+        await products.forEach(product => {
             populateSingleListing(product);
         });
 
-        openProductPage();
+
+       
+
+        setTimeout(()=>{
+            openProductPage();
+        }, 2000)
+
+     
         // listing html with product image, name and price
         // listing needs data-productID = product._id
         // outside of for each loop run listing click function
@@ -581,11 +589,31 @@ $(document).ready(function () {
     // Open Product Page Function 
 
     function openProductPage() {
-        let listings = document.querySelectorAll(".listing-container");
+        let listings = document.querySelectorAll(".shopall-listing");
+        console.log(listings);
         let allListings = Array.from(listings);
+        console.log(allListings);
 
-        allListings.forEach(listing => {
+        allListings.forEach((listing) => {
             listing.addEventListener('click', () => {
+                console.log('clicked');
+                let productID = listing.dataset.productid;
+
+
+                populateProductPage(productID);
+            });
+
+        });
+    }
+    function openProductPageImageContainer() {
+        let listings = document.querySelectorAll(".listing-image");
+        console.log(listings);
+        let allListings = Array.from(listings);
+        console.log(allListings);
+
+        allListings.forEach((listing) => {
+            listing.addEventListener('click', () => {
+                console.log('clicked');
                 let productID = listing.dataset.productid;
 
 
@@ -637,6 +665,11 @@ $(document).ready(function () {
         `)
 
         populateImageContainer(artist._id)
+        setTimeout(()=>{
+            openProductPageImageContainer()
+        }, 2000)
+
+     
 
          // Review Button
          
@@ -669,7 +702,7 @@ $(document).ready(function () {
         products.forEach(product => {
             imageContainer.append(
                 `
-                <div class="listing-image">
+                <div class="listing-image" data-productid = "${product._id}">
         <div class="image-overlay"></div>
         <img src="${product.image}" alt="">
       </div>`
@@ -1711,10 +1744,11 @@ $(document).ready(function () {
     function subcategoryLinks() {
         let subcategoryLinks = document.querySelectorAll('.subcategory');
         let subcategories = Array.from(subcategoryLinks);
+        console.log(subcategories);
 
         subcategories.forEach(subcategory => {
             console.log('subcategory link created')
-            console.log(subcategory);
+            
             subcategory.click(function () {
                 let name = subcategory.dataset.name;
                 console.log(`${name} clicked`)
