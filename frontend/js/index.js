@@ -250,18 +250,18 @@ $(document).ready(function () {
                         } if (userType === 'Collector'){
                             collectorDashboard();
                         }
-                    } 
-                }, 
+                    }
+                },
                 error: function () {
 
                     alert('Unable to login - unable to call api');
                 }
-            }); 
+            });
         }
     }
 
     // Register Vendor Function 
-    
+
     function registerVendor() {
 
 
@@ -530,20 +530,26 @@ $(document).ready(function () {
 
     async function populateSingleListing(product) {
         let artist = await getSingleVendor(product.user_id);
+        
+    let listingContainer = $('#listingContainer');
 
-        console.log(artist)
-        let contentContainer = $('#contentContainer');
-
-        contentContainer.append(`
-        <div class="listing-container mt-5" data-productid = ${product._id}" id="shopAll">
-        <div class="listing mt-5">
+    listingContainer.append(`
+    <div class="listing" data-productid = "${product._id}">
+        <div class="shopall-listing-image">
+        <div class="image-overlay-listing"></div>
         <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="listing-heading">
         <h6>${product.name}</h6>
         <h6>${artist.name}</h6>
-        <h6>$0.00</h6>
         </div>
-  </div>      
+        </div>
+        </div>
     `);
+
+
+
+
     }
 
     // Populate Shop All Function 
@@ -551,9 +557,13 @@ $(document).ready(function () {
     async function populateShopAll() {
         let products = await getAllProducts();
         let contentContainer = $('#contentContainer');
-        contentContainer.html(' ')
+        
+        contentContainer.html('');
 
-
+        contentContainer.append(`
+        <div class="listing-container mt-5" id="listingContainer">
+              
+    `);
 
         // get content-container from dom
         // for each loop over products
@@ -588,13 +598,11 @@ $(document).ready(function () {
     // Populate Product Page Function 
 
     async function populateProductPage(productID) {
-        sessionStorage.setItem('productID', productID)
         let product = await getSingleProduct(productID)
-        console.log(product)
         let artist = await getSingleVendor(product.user_id)
         
         let contentContainer = $('#contentContainer');
-        contentContainer.html(' ')
+        contentContainer.html(' ');
 
         contentContainer.html(`
 
@@ -631,6 +639,7 @@ $(document).ready(function () {
         populateImageContainer(artist._id)
 
          // Review Button
+         
     $("#reviewBtn").click(function () {
         slideUp($("#commentsContainer"));
         setTimeout(() => {
@@ -640,6 +649,7 @@ $(document).ready(function () {
     });
 
     // Order Button
+    
     $("#orderBtn").click(function () {
         slideUp($("#enquireContainer"));
         setTimeout(populateEnquireForm, 1500);
@@ -647,14 +657,9 @@ $(document).ready(function () {
 
     });
 
-    // Submit Comment Button
- 
-
-        
-
-
-
     }
+    
+    // Populate Image Container Function
 
     async function populateImageContainer(artistID){
         let products = await getVendorProducts(artistID);
@@ -1113,18 +1118,19 @@ $(document).ready(function () {
             `;
     
 
-        // Edit Profile
-        $("#editProfile").click(function () {
-            editArtistProfile();
-        });
+    // Edit Profile
+    
+    $("#editProfile").click(function () {
+        editArtistProfile();
+    });
 
 
         // Create Listing
 
-        $("#createListing").click(function(){
+        $("#createListing").click(function () {
             createListing1();
             createListing2();
-            document.getElementById("category").onchange = function() {
+            document.getElementById("category").onchange = function () {
                 categorySelected = document.getElementById('category').value;
                 if (categorySelected == 'accessories') {
                     createListing2Acc();
@@ -1143,7 +1149,9 @@ $(document).ready(function () {
         }); 
         // End of create Listing
         
+
         // Edit Listing 
+        
         $("#editListing").click(function () {
             // editListing();
             editListing1();
@@ -1169,11 +1177,13 @@ $(document).ready(function () {
         // end of edit listing
 
         // Delete Listing
+        
         $("#deleteListing").click(function () {
             deleteListing();
         });
-        // end of edit lidting
         
+        // end of Delete listing
+
         // Logout 
         $("#logOut").click(function () {
             logout();
@@ -1233,7 +1243,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategoryNull" name="subCategoryNull"> 
             <option disabled selected hidden>sub-category</option>
             <option value="empty">please select a category first</option>
@@ -1251,7 +1261,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="hats">hats</option> 
@@ -1272,7 +1282,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="painting">painting</option> 
@@ -1294,7 +1304,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="dresses">dresses</option> 
@@ -1317,7 +1327,7 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
+            `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
             <option disabled selected hidden>sub-category</option>
             <option value="glass">glass</option> 
@@ -1341,8 +1351,9 @@ $(document).ready(function () {
         let categorySelected;
         let createListing = document.getElementById('offCanvasContentContainerExt');
         createListing.innerHTML =
-        `<div class="w-100 text-center pt-2"> 
-          <select class="form-buttons center-dropdown" id="subCategory" name="subCategory"> 
+
+            `<div class="w-100 text-center pt-2"> 
+          <select class="form-buttons center-dropdown" id="subCategoryArt" name="subCategoryAcc"> 
             <option disabled selected hidden>sub-category</option>
             <option value="earrings">earrings</option> 
             <option value="necklaces">necklaces</option> 
@@ -1365,7 +1376,7 @@ $(document).ready(function () {
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
             userid = sessionStorage.getItem('userID');
-            newTitle = $('#listingName').val(); 
+            newTitle = $('#listingName').val();
             newCategory = $('#category').val();
             newSubCategory = $('#subCategory').val();
             newDescription = $('#listingDesc').val();
@@ -1376,9 +1387,9 @@ $(document).ready(function () {
                 alert('Please enter ALL listing details');
             } else {
                 alert('New listing added');
-                
+
                 addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-                console.log(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
+
             }
         });
     }
@@ -1647,7 +1658,7 @@ $(document).ready(function () {
 
 
 
-// ---------------------------------- CLICK EVENTS ----------------------------------------
+    // ---------------------------------- CLICK EVENTS ----------------------------------------
 
     // Hamburger / Bar Icon
 
@@ -1713,11 +1724,11 @@ $(document).ready(function () {
 
     }
 
-// ---------------------------------- END OF CLICK EVENTS ----------------------------------------
+    // ---------------------------------- END OF CLICK EVENTS ----------------------------------------
 
 
 
-// ---------------------------------- LOADING SCREEN ---------------------------------------------
+    // ---------------------------------- LOADING SCREEN ---------------------------------------------
 
     setTimeout(() => {
         $("#enterText").css('animation', 'fadeIn 3s ease');
