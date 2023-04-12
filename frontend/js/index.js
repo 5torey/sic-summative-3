@@ -471,7 +471,7 @@ $(document).ready(function () {
 
         let products = await getAllProducts();
 
-        products.forEach(product => {
+        products.forEach((product) => {
             if (subcategory = product.subcategory) {
                 populateSingleListing(product);
             }
@@ -1159,7 +1159,7 @@ $(document).ready(function () {
 
     }
 
-});
+
 
     function createListingButton() {
 
@@ -1435,7 +1435,7 @@ $(document).ready(function () {
 
 
 
-
+});
 
 
 
