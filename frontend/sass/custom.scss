@@ -108,6 +108,7 @@ p {
         }
     }
 }
+
 a, a:link, a:visited, a:hover, a:active{
     color: $black;
     text-decoration: none;
@@ -148,7 +149,7 @@ cursor: pointer;
     font-size: 30px;
     height: 10%;
     width: 40%;
-    padding-left: 3vw;
+    padding-left: 5vw;
     @include center-items;
     justify-content: space-around;
 
@@ -452,6 +453,7 @@ cursor: pointer;
 
     .logo-offcanvas {
         font-size: 70px;
+        background-color: $white;
     }
 
     .links-container {
@@ -1032,6 +1034,8 @@ transition: all 0.5s ease;
         display: none;
     }
 
+  
+
     .mobile-nav {
         @include flex-row;
         justify-content: space-between;
@@ -1347,14 +1351,14 @@ transition: all 0.5s ease;
         // width: 30vh;
 
         .image-overlay {
-            height: 29vh;
-            max-width: 29vh;
+            height: 300px;
+            max-width: 300px;
 
         }
 
         img{
-            height: 29vh;
-            max-width: 29vh;
+            height: 300px;
+            max-width: 300px;
         }
 
     }

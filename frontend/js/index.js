@@ -463,6 +463,7 @@ $(document).ready(function () {
                 let vendorID = link.dataset.vendorid;
 
                 if (screenWidth <= 425){
+                    console.log('mobile clicked');
                     populateArtistPage(vendorID);
                     offcanvas.css('left', '130vw');
                     offcanvas.addClass('closed');
@@ -1824,7 +1825,7 @@ $(document).ready(function () {
         let screenWidth = $(window).width();
         let offcanvas = $("#offCanvasRight");
         let background = $('#backgroundOverlay');
-        console.log(subcategories);
+      
 
         subcategories.forEach(subcategory => {
 
