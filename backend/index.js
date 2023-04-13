@@ -207,7 +207,7 @@ app.post('/registerCollector', (req, res) => {
 
 // -------------- UPDATE COLLECTOR --------------------
 
-app.patch('updateUser/:id', (req, res) => {
+app.patch('/updateUser/:id', (req, res) => {
     const idParam = req.params.id;
     User.findById(idParam, (err, user) => {
         const hash = bcrypt.hashSync(req.body.password)
