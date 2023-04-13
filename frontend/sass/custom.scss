@@ -529,9 +529,18 @@ cursor: pointer;
 
 .shopall-listing {
     position: relative;
+    cursor: pointer;
+    @include prevent-select();
  
     @include flex-column;
     flex-wrap: wrap;
+
+    h6{
+       
+        &:hover{
+            text-decoration: underline;
+        }
+    }
 }
 
 .shopall-listing-image {

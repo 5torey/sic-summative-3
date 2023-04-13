@@ -513,8 +513,8 @@ $(document).ready(function () {
         let artistList = $('#artistList');
             let artistListMobile = $('#artistListMobile');
 
-            artistList.innerHTML = ''
-            artistListMobile.innerHTML = ''
+            artistList.innerHTML = '';
+            artistListMobile.innerHTML = '';
 
         let vendors = await getAllVendors();
 
