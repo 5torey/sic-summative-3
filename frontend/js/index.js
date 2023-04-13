@@ -322,7 +322,6 @@ $(document).ready(function () {
                         sessionStorage.setItem('userType', 'Vendor');
                         populateArtistMenu()
 
-
                         artistDashboard();
                     } else {
                         alert('This email has already been used to register an account');
@@ -1263,6 +1262,7 @@ $(document).ready(function () {
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
+        artistOptions.innerHTML =  '';
 
         artistOptions.innerHTML = `
             <h1 class="form-options pt-5">${sessionStorage.getItem('artistname')}</h1> 
@@ -1545,10 +1545,13 @@ $(document).ready(function () {
             if (newTitle == '' || newPrice == '' || newImage == '') {
                 alert('Please enter ALL listing details');
             } else {
+                let createListing = document.getElementById('offCanvasContentContainerExt');
+                createListing.innerHTML = '';
+                artistDashboard()
                 alert('New listing added');
 
                 addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-
+                
             }
         });
     }
@@ -1792,7 +1795,11 @@ $(document).ready(function () {
             newCategory = globalProduct.category;
             newSubCategory = globalProduct.sub_category;
 
+            let editListing = document.getElementById('offCanvasContentContainerExt');
             updateProduct(id); 
+            editListing.innerHTML = '';
+            artistDashboard();
+
 
         });
     }
@@ -1840,6 +1847,7 @@ $(document).ready(function () {
                 if (checkbox) {
                     // call delete function
                     deleteProduct(id);
+                    artistDashboard()
                     alert("delete successful");
                 } else {
                     alert("please check the confirm delete box");
