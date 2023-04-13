@@ -145,7 +145,6 @@ cursor: pointer;
 }
 
 .hamburger-menu {
-    position: absolute;
     margin-top: 10px;
     font-size: 30px;
     height: 10%;
@@ -390,7 +389,7 @@ cursor: pointer;
     --start-pos: -30vw;
 
     .hamburger-menu {
-        position: absolute;
+        position: relative;
        
         align-items: center;
         width: 100%;
