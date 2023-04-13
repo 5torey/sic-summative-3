@@ -234,9 +234,9 @@ $(document).ready(function () {
                 success: function (user) {
 
 
-                    if (user == 'user not found. Please register') {
+                    if (user == 'User not found. Please register') {
                         alert('User not found. Please Register');
-                    } else if (user == 'not authorized') {
+                    } else if (user == 'This password does not match. Please try again') {
                         alert('Please try with correct details');
                         $('#email').val('');
                         $('#password').val('');
