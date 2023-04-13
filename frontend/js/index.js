@@ -78,7 +78,6 @@ $(document).ready(function () {
                 type: 'GET', 
                 dataType: 'json', 
             }); 
-            console.log("here" + product.name);
             return product; 
         } catch (error) { 
             console.error(error); 
@@ -121,7 +120,6 @@ $(document).ready(function () {
                 dataType: 'json',
 
             });
-            console.log("called products");
 
 
             allProducts.forEach(product => {
@@ -129,7 +127,6 @@ $(document).ready(function () {
                 if (id == product.user_id) {
 
                     products.push(product);
-                    console.log("into the next bit");
                 }
             });
 
@@ -188,7 +185,7 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-                console.log("here in the update");
+                alert("Product has been updated");
             },
             error: function () {
 
@@ -245,9 +242,6 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', user['name']);
                         sessionStorage.setItem('artistname', user['artistname']);
                         sessionStorage.setItem('userType', `${userTypeString}`);
-                        console.log(user.artistname);
-                        console.log(user._id);
-                        console.log(sessionStorage.getItem('name'));
 
 
 
@@ -303,7 +297,6 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', vendor['name']);
                         sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
-                        console.log(sessionStorage.getItem(artistname));
 
                         artistDashboard();
                     } else {
@@ -407,7 +400,6 @@ $(document).ready(function () {
                 dataType: 'json',
 
             });
-            console.log(comments);
 
            
             return comments;
@@ -496,7 +488,6 @@ $(document).ready(function () {
                 let vendorID = link.dataset.vendorid;
 
                 if (screenWidth <= 425){
-                    console.log('mobile clicked');
                     populateArtistPage(vendorID);
                     offcanvas.css('left', '130vw');
                     offcanvas.addClass('closed');
@@ -570,7 +561,6 @@ $(document).ready(function () {
         products.forEach(product => {
            
             if (category === product.category) {
-                console.log(product.category);
                 populateSingleListing(product);
             }
         });
@@ -595,11 +585,9 @@ $(document).ready(function () {
         <div class="listing-container mt-5" id="listingContainer">
               
     `);
-        console.log(products);
 
         products.forEach(product => {
             if (subcategory === product.sub_category) {
-                console.log(product);
                 populateSingleListing(product);
             }
         });
@@ -613,7 +601,6 @@ $(document).ready(function () {
     // Populate Single Listing Function 
 
     async function populateSingleListing(product) {
-        console.log('in single listing');
         let artist = await getSingleVendor(product.user_id);
         
     let listingContainer = $('#listingContainer');
@@ -859,9 +846,7 @@ $(document).ready(function () {
 
     // Populate Comment Container Function 
     async function populateCommentContainer(productID) {
-        console.log('in populate 2');
         let commentContainer = $("#commentsContainer");
-        console.log(productID);
 
       
         
@@ -881,9 +866,6 @@ $(document).ready(function () {
         });
 
         $('#commentSubmit').click(function () {
-            console.log(sessionStorage.getItem('userID'))
-            console.log('comment submit clicked');
-            console.log(sessionStorage.getItem('name'))
             let comment = $('#commentInput').val();
             let author = sessionStorage.getItem('name');
             
@@ -906,7 +888,6 @@ $(document).ready(function () {
         allCommentsContainer.html('')
 
         comments.forEach(comment => {
-            console.log('in comment loop');
 
             if(comment.product_id === productID ){
 
@@ -1224,7 +1205,6 @@ $(document).ready(function () {
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
-        // console.log(sessionStorage.getItem(artistname)); 
         artistOptions.innerHTML = `
             <h1 class="form-options pt-5">${sessionStorage.getItem('artistname')}</h1> 
             <div class="w-100 text-center pt-2"> 
@@ -1702,27 +1682,27 @@ $(document).ready(function () {
 
             let editCategory = $('#category').val();
             if (editCategory !== null) {
-                globalProduct.Category = editCategory;
+                globalProduct.category = editCategory;
             } 
 
             let editSubCategory = $('#subCategory').val();
             if (editSubCategory !== null) {
-                globalProduct[7] = editSubCategory;
+                globalProduct.sub_category = editSubCategory;
             } 
 
             let editDescription = $('#listingDesc').val();
             if (editDescription !== "") {
-                globalProduct[4] = editDescription;
+                globalProduct.description = editDescription;
             } 
 
             let editPrice = $('#listingPrice').val();
             if (editPrice !== "") {
-                globalProduct[3] = editPrice;
+                globalProduct.price = editPrice;
             } 
 
             let editImage = $('#listingImage').val();
             if (editImage !== "") {
-                globalProduct[3] = editImage;
+                globalProduct.image = editImage;
             } 
 
             // call ajax update product
