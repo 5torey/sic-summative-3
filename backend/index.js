@@ -272,6 +272,13 @@ app.get('/singleVendor/:id', (req, res) => {
     }).catch(err => res.send(err))
 })
 
+app.get('/singleCollector/:id', (req, res) => {
+    const idParam = req.params.id;
+    User.findById(idParam).then(result => {
+        res.send(result)
+    }).catch(err => res.send(err))
+})
+
 app.get('/allComments', (req, res) => {
     Comment.find().then(result => {
         res.send(result);

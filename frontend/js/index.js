@@ -78,6 +78,7 @@ $(document).ready(function () {
                 type: 'GET', 
                 dataType: 'json', 
             }); 
+
             return product; 
         } catch (error) { 
             console.error(error); 
@@ -106,6 +107,24 @@ $(document).ready(function () {
         }
     }
 
+    async function getSingleCollector(id) {
+
+        let collector;
+
+        try {
+            collector = await $.ajax({
+                url: `http://${url}/singleCollector/${id}`,
+                type: 'GET',
+                dataType: 'json',
+
+            });
+
+            return collector;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     // Get Vendor Products Function 
 
     async function getVendorProducts(id) {
@@ -122,11 +141,13 @@ $(document).ready(function () {
             });
 
 
+
             allProducts.forEach(product => {
 
                 if (id == product.user_id) {
 
                     products.push(product);
+
                 }
             });
 
@@ -185,7 +206,10 @@ $(document).ready(function () {
 
             },
             success: function (result) {
+
                 alert("Product has been updated");
+                artistDashboard();
+
             },
             error: function () {
 
@@ -231,9 +255,9 @@ $(document).ready(function () {
                 success: function (user) {
 
 
-                    if (user == 'user not found. Please register') {
+                    if (user == 'User not found. Please register') {
                         alert('User not found. Please Register');
-                    } else if (user == 'not authorized') {
+                    } else if (user == 'This password does not match. Please try again') {
                         alert('Please try with correct details');
                         $('#email').val('');
                         $('#password').val('');
@@ -298,6 +322,7 @@ $(document).ready(function () {
                         sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
 
+
                         artistDashboard();
                     } else {
                         alert('This email has already been used to register an account');
@@ -341,9 +366,8 @@ $(document).ready(function () {
 
                     if (collector != 'This email has already been registered. Please sign in or use a different email') {
                         sessionStorage.setItem('userID', collector['_id']);
-                        sessionStorage.setItem('name', collector['name']);
+                        sessionStorage.setItem('name', name);
                         sessionStorage.setItem('userType', 'Collector');
-
 
                         collectorDashboard();
 
@@ -379,6 +403,9 @@ $(document).ready(function () {
 
             },
             success: function (result) {
+                sessionStorage.setItem('artistname', newArtistName)
+               
+                artistDashboard();
 
             },
             error: function () {
@@ -386,6 +413,32 @@ $(document).ready(function () {
             }
         });
     }
+
+        // Update Collector Profile 
+
+        function updateCollectorProfile(id, newName, newEmail, newPassword) {
+
+            $.ajax({
+                url: `http://${url}/updateUser/${id}`,
+                type: 'PATCH',
+                dataType: 'json',
+                data: {
+                    name: newName,
+                    email: newEmail,
+                    password: newPassword,
+    
+                },
+                success: function (result) {
+                    
+                    sessionStorage.setItem('name', newName)
+                    collectorDashboard();
+                },
+                error: function () {
+    
+                }
+            });
+        }
+    
 
     // Get Comments Function 
     
@@ -422,11 +475,11 @@ $(document).ready(function () {
             
             },
             success: function(comment){
-                console.log('comment submitted');
-                console.log(comment);
+             
+              
             },
             error: function(){
-                console.log('error');
+                console.error('error');
             }
         })
     }
@@ -488,6 +541,7 @@ $(document).ready(function () {
                 let vendorID = link.dataset.vendorid;
 
                 if (screenWidth <= 425){
+
                     populateArtistPage(vendorID);
                     offcanvas.css('left', '130vw');
                     offcanvas.addClass('closed');
@@ -561,6 +615,7 @@ $(document).ready(function () {
         products.forEach(product => {
            
             if (category === product.category) {
+
                 populateSingleListing(product);
             }
         });
@@ -588,6 +643,7 @@ $(document).ready(function () {
 
         products.forEach(product => {
             if (subcategory === product.sub_category) {
+
                 populateSingleListing(product);
             }
         });
@@ -601,6 +657,7 @@ $(document).ready(function () {
     // Populate Single Listing Function 
 
     async function populateSingleListing(product) {
+
         let artist = await getSingleVendor(product.user_id);
         
     let listingContainer = $('#listingContainer');
@@ -845,11 +902,10 @@ $(document).ready(function () {
     }
 
     // Populate Comment Container Function 
+
     async function populateCommentContainer(productID) {
         let commentContainer = $("#commentsContainer");
 
-      
-        
         commentContainer.html(`
         <i class="fa-solid fa-xmark" id="closeComments"></i>
         <div class="all-comments" id="allCommentsContainer">
@@ -1205,6 +1261,7 @@ $(document).ready(function () {
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
+
         artistOptions.innerHTML = `
             <h1 class="form-options pt-5">${sessionStorage.getItem('artistname')}</h1> 
             <div class="w-100 text-center pt-2"> 
@@ -1270,21 +1327,23 @@ $(document).ready(function () {
         $("#logOut").click(function () {
             logout();
         });
-// Test
-    };
-// Test
+
+    }; // End of Artist Dashboard Function
+
 
     //  Edit Artist Profile Function 
 
-    function editArtistProfile() {
+    async function editArtistProfile() {
         // need to get the artist details from mongo and populate
         // on click of the save button update their details in mongo
+        let artist = await getSingleVendor(sessionStorage.getItem('userID'))
+        let newName, newEmail, newPassword, newArtistName, newBio, newInstagram;
         let editArtistProfile = document.getElementById('offCanvasContentContainer');
         editArtistProfile.innerHTML =
             `
         <h1 class="form-options pt-5">Edit Profile</h1> 
         <div class="w-100 text-center pt-2"> 
-          <input class="form-buttons" type="text" id="editName" name="editName" placeholder="edit artist name"> 
+          <input class="form-buttons" type="text" id="editName" name="editName" placeholder="name"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
           <input class="form-buttons" type="text" id="password" name="password" placeholder="password"> 
           <input class="form-buttons" type="text" id="artistName" name="artistName" placeholder="artist name"> 
@@ -1295,6 +1354,21 @@ $(document).ready(function () {
   
         `;
         $('#updateArtistProfile').click(function (event) {
+            newName = $('#editName').val();
+            newEmail = $('#email').val();
+            newPassword = $('#password').val();
+            newArtistName = $('#artistName').val();
+            newBio = $('#editBio').val();
+            newInstagram = $('#editInst').val();
+
+            if(!newName) newName = artist.name;
+            if(!newEmail) newEmail = artist.email;
+            if(!newPassword) newEmail = artist.password;
+            if(!newArtistName) newArtistName = artist.artistname;
+            if(!newBio) newBio = artist.bio;
+            if(!newInstagram) newInstagram = artist.instagram;
+
+                updateArtistProfile(artist._id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram)
             alert("Your artist profile has been updated");
 
         });
@@ -1785,13 +1859,14 @@ $(document).ready(function () {
 
     // Edit Collector Profile Function 
 
-    function editCollectorProfile() {
+   async function editCollectorProfile() {
+        let collector = await getSingleCollector(sessionStorage.getItem('userID'));
+       
         let editCollectorProfile = document.getElementById('offCanvasContentContainer');
         editCollectorProfile.innerHTML = `
         <h1 class="form-options mt-5">Edit Profile</h1> 
         <div class="w-100 text-center mt-5"> 
-          <input class="form-buttons" type="text" id="firstName" name="firstName" placeholder="first name"> 
-          <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
+          <input class="form-buttons" type="text" id="name" name="name" placeholder="name"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
           <input class="form-buttons mb-5" type="text" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="updateCollectorProfile">submit</button> 
@@ -1799,7 +1874,17 @@ $(document).ready(function () {
     
         `;
         $('#updateCollectorProfile').click(function (event) {
-            alert("Your collector profile has been updated");
+          
+
+            newName = $('#name').val();
+            newEmail = $('#email').val();
+            newPassword = $('#password').val();
+            
+            if(!newName) newName = collector.name;
+            if(!newEmail) newEmail = collector.email;
+            if(!newPassword) newEmail = collector.password;
+            
+            updateCollectorProfile(collector._id, newName, newEmail, newPassword)
 
         });
 
