@@ -510,13 +510,17 @@ $(document).ready(function () {
     // Populate Artist Menu Function 
 
     async function populateArtistMenu() {
+        let artistList = $('#artistList');
+            let artistListMobile = $('#artistListMobile');
+
+            artistList.innerHTML = ''
+            artistListMobile.innerHTML = ''
 
         let vendors = await getAllVendors();
 
         vendors.forEach(vendor => {
             let vendorName = vendor.artistname;
-            let artistList = $('#artistList');
-            let artistListMobile = $('#artistListMobile');
+            
 
             artistList.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
             artistListMobile.append(`<li class="artist-link vendor-link" data-vendorID='${vendor._id}'>${vendorName}</li>`);
