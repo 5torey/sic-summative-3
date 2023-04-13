@@ -320,7 +320,7 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', vendor['name']);
                         sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
-                        populateArtistMenu()
+                        populateArtistMenu();
 
                         artistDashboard();
                     } else {
@@ -404,10 +404,10 @@ $(document).ready(function () {
 
             },
             success: async function (result) {
-                sessionStorage.setItem('artistname', newArtistName)
+                sessionStorage.setItem('artistname', newArtistName);
                
                 artistDashboard();
-                let artist =  await getSingleVendor(id)
+                let artist =  await getSingleVendor(id);
                 console.log(artist.name);
 
             },
@@ -433,7 +433,7 @@ $(document).ready(function () {
                 },
                 success: function (result) {
                     
-                    sessionStorage.setItem('name', newName)
+                    sessionStorage.setItem('name', newName);
                     collectorDashboard();
                 },
                 error: function () {
@@ -484,7 +484,7 @@ $(document).ready(function () {
             error: function(){
                 console.error('error');
             }
-        })
+        });
     }
 
 
@@ -503,7 +503,7 @@ $(document).ready(function () {
     <div class="image-container" id="imageContainerHome"></div >
         `);
 
-        populateHomeImages()
+        populateHomeImages();
 
     }
 
@@ -601,8 +601,8 @@ $(document).ready(function () {
 
        populateImageContainer(vendor._id);
        setTimeout(()=>{
-        openProductPageImageContainer()
-    }, 2000)
+        openProductPageImageContainer();
+    }, 2000);
 
     }
 
@@ -629,7 +629,7 @@ $(document).ready(function () {
 
         setTimeout(()=>{
             openProductPage();
-        }, 2000)
+        }, 2000);
 
     }
 
@@ -657,7 +657,7 @@ $(document).ready(function () {
 
         setTimeout(()=>{
             openProductPage();
-        }, 2000)
+        }, 2000);
 
     }
 
@@ -707,7 +707,7 @@ $(document).ready(function () {
         });
         setTimeout(()=>{
             openProductPage();
-        }, 2000)
+        }, 2000);
 
 
     }
@@ -745,8 +745,8 @@ $(document).ready(function () {
     // Populate Product Page Function 
 
     async function populateProductPage(productID) {
-        let product = await getSingleProduct(productID)
-        let artist = await getSingleVendor(product.user_id)
+        let product = await getSingleProduct(productID);
+        let artist = await getSingleVendor(product.user_id);
         
         let contentContainer = $('#contentContainer');
         contentContainer.html(' ');
@@ -781,12 +781,12 @@ $(document).ready(function () {
   </div>
 
         
-        `)
+        `);
 
-        populateImageContainer(artist._id)
+        populateImageContainer(artist._id);
         setTimeout(()=>{
-            openProductPageImageContainer()
-        }, 2000)
+            openProductPageImageContainer();
+        }, 2000);
 
      
 
@@ -795,7 +795,7 @@ $(document).ready(function () {
     $("#reviewBtn").click(function () {
         slideUp($("#commentsContainer"));
         setTimeout(() => {
-            populateCommentContainer(productID)
+            populateCommentContainer(productID);
         }, 1500);
 
     });
@@ -810,8 +810,8 @@ $(document).ready(function () {
     });
 
     $('#artistName').click(function(){
-        populateArtistPage(artist._id)
-    })
+        populateArtistPage(artist._id);
+    });
 
     }
     
@@ -873,8 +873,8 @@ $(document).ready(function () {
 
        
         setTimeout(()=>{
-            openProductPageImageContainer()
-        }, 2000)
+            openProductPageImageContainer();
+        }, 2000);
 
         
 
@@ -934,21 +934,21 @@ $(document).ready(function () {
             
             // let productID = '642c9e70fc5019d6c3d932c9';
             
-            addComment(comment, author, productID)
-            reloadComments(productID)
+            addComment(comment, author, productID);
+            reloadComments(productID);
             $('#commentInput').val('');
 
         });
 
        
-        reloadComments(productID)
+        reloadComments(productID);
        
     }
 
     async function reloadComments(productID){
         let allCommentsContainer = $("#allCommentsContainer");
         let comments =  await getComments(productID);
-        allCommentsContainer.html('')
+        allCommentsContainer.html('');
 
         comments.forEach(comment => {
 
@@ -959,13 +959,13 @@ $(document).ready(function () {
                 let date = comment.time;
                 let dateObject = new Date(date);
                 let hour = dateObject.getHours();
-                let minutes = dateObject.getMinutes()
+                let minutes = dateObject.getMinutes();
                 let day = dateObject.getDate();
                 let month = dateObject.getMonth();
     
                 
                 let year = dateObject.getFullYear();
-                let formattedDate = `${day}/${month}/${year} ${hour}:${minutes}`
+                let formattedDate = `${day}/${month}/${year} ${hour}:${minutes}`;
     
     
                 allCommentsContainer.append(`
@@ -975,14 +975,14 @@ $(document).ready(function () {
             <p class="comment-content">${comment.text}</p>
     
         </div>
-            `)
+            `);
 
 
             } 
 
           
         
-    })
+    });
 
     }
 
@@ -1261,7 +1261,7 @@ $(document).ready(function () {
             $("#logOut").click(function () {
                 logout();
             });
-        };
+        }
     
 
     // Artist Dashboard Function 
@@ -1336,7 +1336,7 @@ $(document).ready(function () {
             logout();
         });
 
-    }; // End of Artist Dashboard Function
+    } // End of Artist Dashboard Function
 
 
     //  Edit Artist Profile Function 
@@ -1344,7 +1344,7 @@ $(document).ready(function () {
     async function editArtistProfile() {
         // need to get the artist details from mongo and populate
         // on click of the save button update their details in mongo
-        let artist = await getSingleVendor(sessionStorage.getItem('userID'))
+        let artist = await getSingleVendor(sessionStorage.getItem('userID'));
         let newName, newEmail, newPassword, newArtistName, newBio, newInstagram;
         let editArtistProfile = document.getElementById('offCanvasContentContainer');
         editArtistProfile.innerHTML =
@@ -1389,7 +1389,7 @@ $(document).ready(function () {
                 newInstagram = artist.instagram;
             } 
 
-                updateArtistProfile(artist._id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram)
+                updateArtistProfile(artist._id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram);
             alert("Your artist profile has been updated");
             
         });
@@ -1566,7 +1566,7 @@ $(document).ready(function () {
             } else {
                 let createListing = document.getElementById('offCanvasContentContainerExt');
                 createListing.innerHTML = '';
-                artistDashboard()
+                artistDashboard();
                 alert('New listing added');
 
                 addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
@@ -1622,8 +1622,8 @@ $(document).ready(function () {
         products.forEach(product => {
             listingsDropdown.append(`
             <option value="${product._id}">${product.name}</option> 
-            `)
-        })
+            `);
+        });
         
         // on selection of a product to edit, 
         listingsDropdown.change(async function (event) {
@@ -1854,8 +1854,8 @@ $(document).ready(function () {
         products.forEach(product => {
             listingsDropdown.append(`
             <option value="${product._id}">${product.name}</option> 
-            `)
-        })
+            `);
+        });
 
         // on slection of a product to delete, 
         listingsDropdown.change(function (event) {
@@ -1866,7 +1866,7 @@ $(document).ready(function () {
                 if (checkbox) {
                     // call delete function
                     deleteProduct(id);
-                    artistDashboard()
+                    artistDashboard();
                     alert("delete successful");
                 } else {
                     alert("please check the confirm delete box");
@@ -1923,7 +1923,7 @@ $(document).ready(function () {
             console.log(newPassword);
 
             
-            updateCollectorProfile(collector._id, newName, newEmail, newPassword)
+            updateCollectorProfile(collector._id, newName, newEmail, newPassword);
 
         });
 
@@ -1962,8 +1962,8 @@ $(document).ready(function () {
     });
 
     $('#goHome').click(function (){
-        populateHomePage()
-    })
+        populateHomePage();
+    });
 
 
 
@@ -2026,7 +2026,7 @@ $(document).ready(function () {
                 } else{
                     populateSubCategory(name);
                 }
-            })
+            });
             
             
         });
