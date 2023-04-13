@@ -89,7 +89,7 @@ app.post('/addProduct', (req, res) => {
 })
 
 // ------------ UPDATE PRODUCT -----------------
-app.patch('updateProduct/:id', (req, res) => {
+app.patch('/updateProduct/:id', (req, res) => {
     const idParam = req.params.id;
     Product.findById(idParam, (err, product) => {
         const updatedProduct = {
@@ -157,7 +157,7 @@ app.post('/registerVendor', (req, res) => {
 
 // -------------- UPDATE VENDOR --------------------
 
-app.patch('updateVendor/:id', (req, res) => {
+app.patch('/updateVendor/:id', (req, res) => {
     const idParam = req.params.id;
     Vendor.findById(idParam, (err, vendor) => {
         const hash = bcrypt.hashSync(req.body.password)
