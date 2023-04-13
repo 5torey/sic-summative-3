@@ -192,12 +192,12 @@ app.post('/registerCollector', (req, res) => {
             const user = new User({
                 _id: new mongoose.Types.ObjectId,
                 name: req.body.name,
-                password: hash,
                 email: req.body.email,
+                password: hash,
             })
             user.save()
                 .then(result => {
-                    console.log(vendor, result);
+                    console.log(user, result);
                     res.send(result);
                 }).catch(err => {
                     res.send(err)

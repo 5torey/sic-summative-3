@@ -364,6 +364,8 @@ $(document).ready(function () {
                 success: function (collector) {
 
                     if (collector != 'This email has already been registered. Please sign in or use a different email') {
+                        console.log(collector);
+                        console.log(collector._id);
                         sessionStorage.setItem('userID', collector['_id']);
                         sessionStorage.setItem('name', name);
                         sessionStorage.setItem('userType', 'Collector');
@@ -1363,12 +1365,25 @@ $(document).ready(function () {
             newBio = $('#editBio').val();
             newInstagram = $('#editInst').val();
 
-            if(newName === '') newName = artist.name;
-            if(newEmail === '') newEmail = artist.email;
-            if(newPassword === '') newEmail = artist.password;
-            if(newArtistName === '') newArtistName = artist.artistname;
-            if(newBio === '') newBio = artist.bio;
-            if(newInstagram === '') newInstagram = artist.instagram;
+            if(newName === ''){
+                newName = artist.name;
+            }
+            if(newEmail === '') {
+                newEmail = artist.email;
+            } 
+            if(newPassword === '') {
+                newPassword = artist.password;
+            } 
+            if(newArtistName === '') {
+                newArtistName = artist.artistname;
+            }
+            if(newBio === '') {
+                newBio = artist.bio;
+             }
+              
+            if(newInstagram === '') {
+                newInstagram = artist.instagram;
+            } 
 
                 updateArtistProfile(artist._id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram)
             alert("Your artist profile has been updated");
@@ -1878,21 +1893,31 @@ $(document).ready(function () {
         <div class="w-100 text-center mt-5"> 
           <input class="form-buttons" type="text" id="name" name="name" placeholder="name"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
-          <input class="form-buttons mb-5" type="text" id="password" name="password" placeholder="password"><br>
+          <input class="form-buttons mb-5" type="password" id="password" name="password" placeholder="password"><br>
           <button class="submit-button mt-5" id="updateCollectorProfile">submit</button> 
         </div>
     
         `;
         $('#updateCollectorProfile').click(function (event) {
           
-
+            console.log(collector);
             newName = $('#name').val();
             newEmail = $('#email').val();
             newPassword = $('#password').val();
             
-            if(!newName) newName = collector.name;
-            if(!newEmail) newEmail = collector.email;
-            if(!newPassword) newEmail = collector.password;
+            if(newName === ''){
+                newName = collector.name;
+            } 
+            if(newEmail === ''){
+                newEmail = collector.email;
+            } 
+            if(newPassword === '') {
+                newPassword = collector.password;
+            } 
+            console.log(newName);
+            console.log(newEmail);
+            console.log(newPassword);
+
             
             updateCollectorProfile(collector._id, newName, newEmail, newPassword)
 
