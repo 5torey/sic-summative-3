@@ -240,6 +240,7 @@ $(document).ready(function () {
                         console.log("you are getting the sesh");
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('name', user['name']);
+                        sessionStorage.setItem('artistname', user['artistname']);
                         sessionStorage.setItem('userType', `${userTypeString}`);
 
 
@@ -267,9 +268,8 @@ $(document).ready(function () {
 
         let firstName = $('#firstName').val();
         let lastName = $('#lastName').val();
-
-
         let name = firstName + ' ' + lastName;
+        let artistName = $('#artistname').val();
         let email = $('#email').val();
         let password = $('#password').val();
         let bio = $('#bio').val();
@@ -287,7 +287,7 @@ $(document).ready(function () {
                     name: name,
                     email: email,
                     password: password,
-                    bio: bio,
+                    artistname: artistName,
                     instagram: instagram
                 },
                 success: function (vendor) {
@@ -295,7 +295,9 @@ $(document).ready(function () {
                     if (vendor != 'This email has already been registered. Please sign in or use a different email') {
                         sessionStorage.setItem('userID', vendor['_id']);
                         sessionStorage.setItem('name', vendor['name']);
+                        sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
+                        console.log(sessionStorage.getItem(artistname));
 
                         artistDashboard();
                     } else {
@@ -360,6 +362,34 @@ $(document).ready(function () {
 
     }
 
+    // Update Artist Profile 
+
+    function updateArtistProfile(id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram) {
+
+        $.ajax({
+            url: `http://${url}/updateVendor/${id}`,
+            type: 'PATCH',
+            dataType: 'json',
+            data: {
+                name: newName,
+                email: newEmail,
+                password: newPassword,
+                artistname: newArtistName,
+                bio: newBio,
+                instgram: newInstagram
+
+            },
+            success: function (result) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    // Get Comments Function 
+    
     async function getComments() {
 
       
@@ -1080,7 +1110,7 @@ $(document).ready(function () {
             <input class="form-buttons" type="text" id="lastName" name="lastName" placeholder="last name"> 
             <input class="form-buttons" type="email" id="email" name="email" placeholder="email"> 
             <input class="form-buttons" type="password" id="password" name="password" placeholder="password"> 
-            <input class="form-buttons py-5" type="textarea" id="bio" name="bio" placeholder="bio"> 
+            <input class="form-buttons" type="text" id="artistname" name="artistName" placeholder="artist name"> 
             <input class="form-buttons" type="text" id="instagram" name="instagram" placeholder="instagram"><br> 
             <button class="submit-button mt-5" id="registerArtist">submit</button> 
         </div>
@@ -1113,7 +1143,7 @@ $(document).ready(function () {
 
     }
 
-    // Collector Registor Form Function 
+    // Collector Register Form Function 
 
     function collectorRegisterForm() {
         let collectorRegister = document.getElementById('offCanvasContentContainer');
@@ -1187,8 +1217,9 @@ $(document).ready(function () {
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
+        // console.log(sessionStorage.getItem(artistname)); 
         artistOptions.innerHTML = `
-            <h1 class="form-options pt-5">${sessionStorage.getItem('name')}</h1> 
+            <h1 class="form-options pt-5">${sessionStorage.getItem('artistname')}</h1> 
             <div class="w-100 text-center pt-2"> 
               <button id="editProfile" class="form-buttons">edit profile</button><br> 
               <button id="createListing" class="form-buttons">create listing</button><br> 
@@ -1287,6 +1318,7 @@ $(document).ready(function () {
           <input class="form-buttons" type="text" id="editName" name="editName" placeholder="edit artist name"> 
           <input class="form-buttons" type="text" id="email" name="email" placeholder="email"> 
           <input class="form-buttons" type="text" id="password" name="password" placeholder="password"> 
+          <input class="form-buttons" type="text" id="artistName" name="artistName" placeholder="artist name"> 
           <input class="form-buttons py-5" type="text" id="editBio" name="editBio" placeholder="edit bio"> 
           <input class="form-buttons" type="text" id="editInst" name="editInst" placeholder="edit instagram"><br>
           <button class="submit-button mt-5" id="updateArtistProfile">submit</button> 
@@ -1815,7 +1847,6 @@ $(document).ready(function () {
         let screenWidth = $(window).width();
         let offcanvas = $("#offCanvasRight");
         let background = $('#backgroundOverlay');
-        console.log(subcategories);
 
         subcategories.forEach(subcategory => {
 

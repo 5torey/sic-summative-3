@@ -390,7 +390,7 @@ cursor: pointer;
     .hamburger-menu {
         position: relative;
        
-        @include center-items;
+        align-items: center;
         width: 100%;
         padding-left: none;
         padding: 5%;
@@ -411,6 +411,12 @@ cursor: pointer;
 }
 
 .offcanvas-content-container{
+    overflow-y: scroll;
+    margin-bottom: 100px;
+}
+
+#offCanvasContentContainer {
+    align-items: center;
     overflow-y: scroll;
     margin-bottom: 100px;
 }
