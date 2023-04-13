@@ -8,7 +8,7 @@ const vendorSchema = new mongoose.Schema({
     email: String, 
     password: String, 
     artistname: String,
-  
+    bio: String,
     instagram: String
 })
 

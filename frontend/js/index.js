@@ -399,13 +399,15 @@ $(document).ready(function () {
                 password: newPassword,
                 artistname: newArtistName,
                 bio: newBio,
-                instgram: newInstagram
+                instagram: newInstagram
 
             },
-            success: function (result) {
+            success: async function (result) {
                 sessionStorage.setItem('artistname', newArtistName)
                
                 artistDashboard();
+                let artist =  await getSingleVendor(id)
+                console.log(artist.name);
 
             },
             error: function () {
@@ -511,7 +513,7 @@ $(document).ready(function () {
         let vendors = await getAllVendors();
 
         vendors.forEach(vendor => {
-            let vendorName = vendor.name;
+            let vendorName = vendor.artistname;
             let artistList = $('#artistList');
             let artistListMobile = $('#artistListMobile');
 
@@ -575,7 +577,7 @@ $(document).ready(function () {
  
         <div class="listing-info">
         
-         <h1 class="listing-title">${vendor.name}</h1>
+         <h1 class="listing-title">${vendor.artistname}</h1>
      
          <p class="listing-bio">${vendor.bio}</p>
          <h5 ><a href="${vendor.instagram}">Instagram</a></h5>
@@ -1361,16 +1363,16 @@ $(document).ready(function () {
             newBio = $('#editBio').val();
             newInstagram = $('#editInst').val();
 
-            if(!newName) newName = artist.name;
-            if(!newEmail) newEmail = artist.email;
-            if(!newPassword) newEmail = artist.password;
-            if(!newArtistName) newArtistName = artist.artistname;
-            if(!newBio) newBio = artist.bio;
-            if(!newInstagram) newInstagram = artist.instagram;
+            if(newName === '') newName = artist.name;
+            if(newEmail === '') newEmail = artist.email;
+            if(newPassword === '') newEmail = artist.password;
+            if(newArtistName === '') newArtistName = artist.artistname;
+            if(newBio === '') newBio = artist.bio;
+            if(newInstagram === '') newInstagram = artist.instagram;
 
                 updateArtistProfile(artist._id, newName, newEmail, newPassword, newArtistName, newBio, newInstagram)
             alert("Your artist profile has been updated");
-
+            
         });
 
     }
