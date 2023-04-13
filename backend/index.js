@@ -141,7 +141,7 @@ app.post('/registerVendor', (req, res) => {
                 name: req.body.name,
                 password: hash,
                 email: req.body.email,
-                bio: req.body.bio,
+                artistname: req.body.artistname,
                 instagram: req.body.instagram
             })
             vendor.save()
@@ -154,6 +154,30 @@ app.post('/registerVendor', (req, res) => {
         }
     })
 })
+
+// -------------- UPDATE VENDOR --------------------
+
+app.patch('updateVendor/:id', (req, res) => {
+    const idParam = req.params.id;
+    Vendor.findById(idParam, (err, vendor) => {
+        const hash = bcrypt.hashSync(req.body.password)
+        const updatedVendor = {
+            name: req.body.name,
+            email: req.body.email, 
+            password: hash, 
+            artistname: req.body.artistname, 
+            instagram: req.body.instagram,
+            bio: req.body.bio
+        }
+        Vendor.updateOne({
+            _id: idParam
+        }, updatedVendor).
+        then(result => {
+            res.send(result);
+        }).catch(err => res.send(err))
+    })
+})
+
 
 // ------------ REGISTER COLLECTOR -----------------
 app.post('/registerCollector', (req, res) => {
@@ -181,6 +205,27 @@ app.post('/registerCollector', (req, res) => {
     })
 })
 
+// -------------- UPDATE COLLECTOR --------------------
+
+app.patch('updateUser/:id', (req, res) => {
+    const idParam = req.params.id;
+    User.findById(idParam, (err, user) => {
+        const hash = bcrypt.hashSync(req.body.password)
+        const updatedUser = {
+            name: req.body.name,
+            email: req.body.email, 
+            password: hash, 
+        }
+        User.updateOne({
+            _id: idParam
+        }, updatedUser).
+        then(result => {
+            res.send(result);
+        }).catch(err => res.send(err))
+    })
+})
+
+
 // ------------ LOGIN VENDOR -----------------
 app.post('/loginVendor', (req, res) => {
     Vendor.findOne({email:req.body.email}, (err, userResult) => {
@@ -196,7 +241,7 @@ app.post('/loginVendor', (req, res) => {
     })
 })
 
-// ------------ LOGIN VENDOR -----------------
+// ------------ LOGIN COLLECTOR -----------------
 app.post('/loginCollector', (req, res) => {
     User.findOne({email:req.body.email}, (err, userResult) => {
         if (userResult) {
