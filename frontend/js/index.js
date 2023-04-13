@@ -270,7 +270,6 @@ $(document).ready(function () {
 
 
                         if (userType === 'Vendor') {
-
                             artistDashboard();
                         } if (userType === 'Collector'){
                             collectorDashboard();
@@ -321,6 +320,7 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', vendor['name']);
                         sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
+                        populateArtistMenu()
 
 
                         artistDashboard();
