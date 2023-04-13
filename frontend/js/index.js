@@ -242,6 +242,9 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', user['name']);
                         sessionStorage.setItem('artistname', user['artistname']);
                         sessionStorage.setItem('userType', `${userTypeString}`);
+                        console.log(user.artistname);
+                        console.log(user._id);
+                        console.log(sessionStorage.getItem('name'));
 
 
 
