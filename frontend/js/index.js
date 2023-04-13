@@ -677,7 +677,7 @@ $(document).ready(function () {
         </div>
         <div class="listing-heading">
         <h6>${product.name}</h6>
-        <h6>${artist.name}</h6>
+        <h6>${artist.artistname}</h6>
         </div>
         </div>
         </div>
