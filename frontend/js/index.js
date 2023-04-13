@@ -1,8 +1,10 @@
 /*jshint esversion: 6 */
-
-
+// const mongoose = require('mongoose');
+// import { ObjectId } from 'mongodb';
 
 $(document).ready(function () {
+    let globalProduct;
+    // const { ObjectID } = require('mongodb');
 
     let url;
 
@@ -66,21 +68,24 @@ $(document).ready(function () {
 
     // Get Single Product Function
 
-    function getSingleProduct(id) {
-        $.ajax({
-            url: `http://${url}/singleProcuct/${id}`,
-            type: 'GET',
-            dataType: 'json',
-
-            success: function (product) {
-
-                return product;
-            },
-            error: function () {
-                alert('Unable to get this product');
-            }
-        });
+    async function getSingleProduct(id) { 
+        
+        let product; 
+        
+        try{ 
+            product = await $.ajax({ 
+                url: `http://${url}/singleProduct/${id}`, 
+                type: 'GET', 
+                dataType: 'json', 
+            }); 
+            console.log("here" + product.name);
+            return product; 
+        } catch (error) { 
+            console.error(error); 
+        } 
     }
+
+
 
     // Get Single Vendor Function
 
@@ -116,6 +121,7 @@ $(document).ready(function () {
                 dataType: 'json',
 
             });
+            console.log("called products");
 
 
             allProducts.forEach(product => {
@@ -123,7 +129,7 @@ $(document).ready(function () {
                 if (id == product.user_id) {
 
                     products.push(product);
-
+                    console.log("into the next bit");
                 }
             });
 
@@ -172,6 +178,7 @@ $(document).ready(function () {
             type: 'PATCH',
             dataType: 'json',
             data: {
+                user_id: userid,
                 name: newTitle,
                 price: newPrice,
                 image: newImage,
@@ -181,7 +188,7 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-
+                console.log("here in the update");
             },
             error: function () {
                 console.log("Unable to update product");
@@ -233,7 +240,6 @@ $(document).ready(function () {
                         $('#email').val('');
                         $('#password').val('');
                     } else {
-                        console.log("you are getting the sesh");
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('name', user['name']);
                         sessionStorage.setItem('userType', `${userType}`);
@@ -247,7 +253,6 @@ $(document).ready(function () {
                 }, 
                 error: function () {
                     console.log('error: cannot call api');
-                    alert('Unable to login - unable to call api');
                 }
             }); 
         }
@@ -953,25 +958,7 @@ $(document).ready(function () {
         
         // Edit Listing 
         $("#editListing").click(function () {
-            // editListing();
             editListing1();
-            editListing2();
-            document.getElementById("category").onchange = function() {
-                categorySelected = document.getElementById('category').value;
-                if (categorySelected == 'accessories') {
-                    editListing2Acc();
-                } else if (categorySelected == 'art') {
-                    editListing2Art();
-                } else if (categorySelected == 'garments') {
-                    editListing2Gar();
-                } else if (categorySelected == 'homewares') {
-                    editListing2Home();
-                } else if (categorySelected == 'jewellery') {
-                    editListing2Jewel();
-                } else {
-                    alert("Please select a valid sub-category");
-                }
-            };
 
         });
         // end of edit listing
@@ -980,7 +967,7 @@ $(document).ready(function () {
         $("#deleteListing").click(function () {
             deleteListing();
         });
-        // end of edit lidting
+        // end of delete listing
         
         // Logout 
         $("#logOut").click(function () {
@@ -1171,7 +1158,6 @@ $(document).ready(function () {
         $('#createListingBtn').click(function (event) {
             event.preventDefault();
             userid = sessionStorage.getItem('userID');
-            console.log(userid);
             newTitle = $('#listingName').val(); 
             newCategory = $('#category').val();
             newSubCategory = $('#subCategory').val();
@@ -1185,7 +1171,6 @@ $(document).ready(function () {
                 alert('New listing added');
                 
                 addProduct(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
-                console.log(userid, newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
             }
         });
     }
@@ -1193,19 +1178,19 @@ $(document).ready(function () {
 
     // Edit Listing Function 
 
-    function editListing1() {
+    async function editListing1() {
+        id = sessionStorage.getItem('userID');
+        let products = await getVendorProducts(id);
+
         let editListing = document.getElementById('offCanvasContentContainer');
         editListing.innerHTML =
             `
-        <h1 class="form-options pt-5">Create Listing</h1> 
+        <h1 class="form-options pt-5">Edit Listing</h1> 
         <div class="w-100 text-center pt-2"> 
-        <select class="form-buttons center-dropdown" id="category" name="category">
+           <select class="form-buttons center-dropdown" id="listings" name="listings">
             <option disabled selected hidden>select listing</option> 
-            <option value="listing1">listing 1</option> 
-            <option value="listing2">listing 2</option> 
-            <option value="listing3">listing 3</option> 
-        </select><br> 
 
+          </select><br> 
           <input class="form-buttons" type="text" id="listingName" name="listingName" placeholder="listing name"><br> 
           <select class="form-buttons center-dropdown" id="category" name="category"> 
             <option disabled selected hidden>category</option> 
@@ -1216,11 +1201,9 @@ $(document).ready(function () {
             <option value="jewellery">jewellery</option> 
           </select> 
         </div>`;
-    }
 
-    function editListing2() {
         let categorySelected;
-        let editListing = document.getElementById('offCanvasContentContainerExt');
+        editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
         `<div class="w-100 text-center pt-2"> 
           <select class="form-buttons center-dropdown" id="subCategoryNull" name="subCategoryNull"> 
@@ -1233,10 +1216,46 @@ $(document).ready(function () {
           <button class="submit-button mt-5" id="editListingBtn">submit</button> 
         </div>
         `;
-        editListingButton();
-    }
 
-    function editListing2Acc() {
+        // Populate the vendor's listing options
+        let listingsDropdown = $('#listings');
+        products.forEach(product => {
+            listingsDropdown.append(`
+            <option value="${product._id}">${product.name}</option> 
+            `)
+        })
+        
+        // on selection of a product to edit, 
+        listingsDropdown.change(async function (event) {
+            let id = $('#listings :selected').val();
+            // get product details from getSingleProduct()
+            let product = await getSingleProduct(id);
+            globalProduct = product;
+            editListingButton(product);
+
+        });
+        
+        document.getElementById("category").onchange = function() {
+            categorySelected = document.getElementById('category').value;
+            if (categorySelected == 'accessories') {
+                editListing2Acc(globalProduct);
+            } else if (categorySelected == 'art') {
+                editListing2Art(globalProduct);
+            } else if (categorySelected == 'garments') {
+                editListing2Gar(globalProduct);
+            } else if (categorySelected == 'homewares') {
+                editListing2Home(globalProduct);
+            } else if (categorySelected == 'jewellery') {
+                editListing2Jewel(globalProduct);
+            } else {
+                alert("Please select a valid sub-category");
+            }
+        };
+   
+    }
+    
+
+    function editListing2Acc(product) {
         let categorySelected;
         let editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
@@ -1254,10 +1273,10 @@ $(document).ready(function () {
         
         </div>
         `;
-        editListingButton();
+        editListingButton(product);
     }
 
-    function editListing2Art() {
+    function editListing2Art(product) {
         let categorySelected;
         let editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
@@ -1276,10 +1295,10 @@ $(document).ready(function () {
         
         </div>
         `;
-        editListingButton();
+        editListingButton(product);
     }
 
-    function editListing2Gar() {
+    function editListing2Gar(product) {
         let categorySelected;
         let editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
@@ -1299,10 +1318,10 @@ $(document).ready(function () {
         
         </div>
         `;
-        editListingButton();
+        editListingButton(product);
     }
 
-    function editListing2Home() {
+    function editListing2Home(product) {
         let categorySelected;
         let editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
@@ -1323,10 +1342,10 @@ $(document).ready(function () {
         
         </div>
         `;
-        editListingButton();
+        editListingButton(product);
     }
 
-    function editListing2Jewel() {
+    function editListing2Jewel(product) {
         let categorySelected;
         let editListing = document.getElementById('offCanvasContentContainerExt');
         editListing.innerHTML =
@@ -1345,57 +1364,74 @@ $(document).ready(function () {
         
         </div>
         `;
-        editListingButton();
+        editListingButton(product);
 
     }
 
-
-
-    function editListingButton() {
-
-        $('#editListingBtn').click(function (event) {
+    function editListingButton(product) {
+        $('#editListingBtn').click(function (event, product) {
             event.preventDefault();
-            // userid = sessionStorage.getItem('userID');
-            // console.log(userid);
-            // newTitle = $('#listingName').val(); 
-            // newCategory = $('#category').val();
-            // newSubCategory = $('#subCategory').val();
-            // newDescription = $('#listingDesc').val();
-            // newPrice = $('#listingPrice').val();
-            // newImage = $('#listingImage').val();
-            // console.log(newTitle, newCategory, newSubCategory, newDescription);
-            // console.log(newTitle, newPrice, newImage);
 
-            // if (newTitle == '' || newPrice == '' || newImage == '') {
-            //     alert('Please enter ALL listing details');
-            // } else {
-            //     alert('New listing added');
+            let editTitle = $('#listingName').val(); 
+            if (editTitle !== "") {
+                globalProduct.title = editTitle;
                 
-            //     addProduct(newTitle, newPrice, newImage, newDescription, newCategory, newSubCategory);
+            } 
 
-            // }
+            let editCategory = $('#category').val();
+            if (editCategory !== null) {
+                globalProduct.Category = editCategory;
+            } 
+
+            let editSubCategory = $('#subCategory').val();
+            if (editSubCategory !== null) {
+                globalProduct[7] = editSubCategory;
+            } 
+
+            let editDescription = $('#listingDesc').val();
+            if (editDescription !== "") {
+                globalProduct[4] = editDescription;
+            } 
+
+            let editPrice = $('#listingPrice').val();
+            if (editPrice !== "") {
+                globalProduct[3] = editPrice;
+            } 
+
+            let editImage = $('#listingImage').val();
+            if (editImage !== "") {
+                globalProduct[3] = editImage;
+            } 
+
+            // call ajax update product
+
+            id = globalProduct._id;
+            userid = globalProduct.user_id;
+            newTitle = globalProduct.title;
+            newPrice = globalProduct.price;
+            newImage = globalProduct.image;
+            newDescription = globalProduct.description;
+            newCategory = globalProduct.category;
+            newSubCategory = globalProduct.sub_category;
+
+            updateProduct(id); 
+
         });
     }
     // End of edit / update listing
 
-
-
-
-
-
-
     // Delete Listing Function 
 
-    function deleteListing() {
+    async function deleteListing() {
+        id = sessionStorage.getItem('userID');
+        let products = await getVendorProducts(id);
+
         let deleteListing = document.getElementById('offCanvasContentContainer');
         deleteListing.innerHTML = `
         <h1 class="form-options pt-5">Delete Listing</h1> 
         <div class="w-100 text-center pt-5 pb-5">
-          <select class="form-buttons center-dropdown" id="category" name="category">
+          <select class="form-buttons center-dropdown" id="listings" name="listings">
             <option disabled selected hidden>select listing</option>
-            <option value="listing1">listing 1</option> 
-            <option value="listing2">listing 2</option> 
-            <option value="listing3">listing 3</option> 
           </select><br> 
         <div> 
         <label class="container-cb mb-5" for="confirmListingDelete"> * please select to confirm you wish to delete this listing 
@@ -1408,16 +1444,31 @@ $(document).ready(function () {
   
         `;
 
-        // Delete Listing Button
-        $('#deleteListingBtn').click(function (event) {
-            let checkbox = document.getElementById('confirmListingDelete').checked;
-            if (checkbox) {
-                alert("delete successful");
-            } else {
-                alert("please check the confirm delete box");
-            }
-        });
+        // Populate the vendor's listing options
 
+        let listingsDropdown = $('#listings');
+        products.forEach(product => {
+            listingsDropdown.append(`
+            <option value="${product._id}">${product.name}</option> 
+            `)
+        })
+
+        // on slection of a product to delete, 
+        listingsDropdown.change(function (event) {
+            let id = $('#listings :selected').val();
+            // Delete Listing Button
+            $('#deleteListingBtn').click(function (event) {
+                let checkbox = document.getElementById('confirmListingDelete').checked;
+                if (checkbox) {
+                    // call delete function
+                    deleteProduct(id);
+                    alert("delete successful");
+                } else {
+                    alert("please check the confirm delete box");
+                }
+            });
+
+        });
     }
 
     // Logout Function

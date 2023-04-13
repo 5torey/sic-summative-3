@@ -89,11 +89,12 @@ app.post('/addProduct', (req, res) => {
 })
 
 // ------------ UPDATE PRODUCT -----------------
-app.patch('updateProduct/:id', (req, res) => {
+app.patch('/updateProduct/:id', (req, res) => {
     const idParam = req.params.id;
     Product.findById(idParam, (err, product) => {
         const updatedProduct = {
-            name: req.body.name,
+        user_id: req.body.user_id, 
+        name: req.body.name,
         price: req.body.price,
         description: req.body.description,
         image: req.body.image,
