@@ -136,6 +136,8 @@ cursor: pointer;
 
 // SIDEBAR STYLING
 
+
+
 .sidebar {
     display: flex;
     @include flex-column;
@@ -434,6 +436,19 @@ cursor: pointer;
     width: 100%;
     margin-top: 100px;
     background-color: $white;
+}
+
+.mobile-logo{
+   
+    text-align: center;
+    position: fixed;
+    bottom: 5px;
+    font-family: "GutenbergA";
+    font-size: 80px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px;
+ 
 }
 
 .off-canvas-right {
@@ -1261,6 +1276,10 @@ transition: all 0.5s ease;
     body {
         @include flex-row;
         overflow-y: hidden;
+    }
+
+    .mobile-logo{
+        display: none;
     }
 
     .shopall-listing {
