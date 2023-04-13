@@ -78,7 +78,7 @@ $(document).ready(function () {
                 type: 'GET', 
                 dataType: 'json', 
             }); 
-         
+
             return product; 
         } catch (error) { 
             console.error(error); 
@@ -139,7 +139,7 @@ $(document).ready(function () {
                 dataType: 'json',
 
             });
-         
+
 
 
             allProducts.forEach(product => {
@@ -147,7 +147,7 @@ $(document).ready(function () {
                 if (id == product.user_id) {
 
                     products.push(product);
-                   
+
                 }
             });
 
@@ -206,7 +206,10 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-               
+
+                alert("Product has been updated");
+                artistDashboard();
+
             },
             error: function () {
 
@@ -263,7 +266,7 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', user['name']);
                         sessionStorage.setItem('artistname', user['artistname']);
                         sessionStorage.setItem('userType', `${userTypeString}`);
-                     
+
 
 
                         if (userType === 'Vendor') {
@@ -318,7 +321,7 @@ $(document).ready(function () {
                         sessionStorage.setItem('name', vendor['name']);
                         sessionStorage.setItem('artistname', vendor['artistname']);
                         sessionStorage.setItem('userType', 'Vendor');
-                     
+
 
                         artistDashboard();
                     } else {
@@ -450,7 +453,7 @@ $(document).ready(function () {
                 dataType: 'json',
 
             });
-     
+
            
             return comments;
         } catch (error) {
@@ -538,7 +541,7 @@ $(document).ready(function () {
                 let vendorID = link.dataset.vendorid;
 
                 if (screenWidth <= 425){
-                   
+
                     populateArtistPage(vendorID);
                     offcanvas.css('left', '130vw');
                     offcanvas.addClass('closed');
@@ -612,7 +615,7 @@ $(document).ready(function () {
         products.forEach(product => {
            
             if (category === product.category) {
-               
+
                 populateSingleListing(product);
             }
         });
@@ -637,11 +640,10 @@ $(document).ready(function () {
         <div class="listing-container mt-5" id="listingContainer">
               
     `);
-    
 
         products.forEach(product => {
             if (subcategory === product.sub_category) {
-             
+
                 populateSingleListing(product);
             }
         });
@@ -655,7 +657,7 @@ $(document).ready(function () {
     // Populate Single Listing Function 
 
     async function populateSingleListing(product) {
-       
+
         let artist = await getSingleVendor(product.user_id);
         
     let listingContainer = $('#listingContainer');
@@ -900,8 +902,10 @@ $(document).ready(function () {
     }
 
     // Populate Comment Container Function 
-    async function populateCommentContainer(productID) {  
-        let commentContainer = $("#commentsContainer");   
+
+    async function populateCommentContainer(productID) {
+        let commentContainer = $("#commentsContainer");
+
         commentContainer.html(`
         <i class="fa-solid fa-xmark" id="closeComments"></i>
         <div class="all-comments" id="allCommentsContainer">
@@ -940,7 +944,6 @@ $(document).ready(function () {
         allCommentsContainer.html('')
 
         comments.forEach(comment => {
-            
 
             if(comment.product_id === productID ){
 
@@ -1258,7 +1261,7 @@ $(document).ready(function () {
 
     function artistDashboard() {
         let artistOptions = document.getElementById('offCanvasContentContainer');
-       
+
         artistOptions.innerHTML = `
             <h1 class="form-options pt-5">${sessionStorage.getItem('artistname')}</h1> 
             <div class="w-100 text-center pt-2"> 
@@ -1324,9 +1327,9 @@ $(document).ready(function () {
         $("#logOut").click(function () {
             logout();
         });
-// Test
-    };
-// Test
+
+    }; // End of Artist Dashboard Function
+
 
     //  Edit Artist Profile Function 
 
@@ -1753,27 +1756,27 @@ $(document).ready(function () {
 
             let editCategory = $('#category').val();
             if (editCategory !== null) {
-                globalProduct.Category = editCategory;
+                globalProduct.category = editCategory;
             } 
 
             let editSubCategory = $('#subCategory').val();
             if (editSubCategory !== null) {
-                globalProduct[7] = editSubCategory;
+                globalProduct.sub_category = editSubCategory;
             } 
 
             let editDescription = $('#listingDesc').val();
             if (editDescription !== "") {
-                globalProduct[4] = editDescription;
+                globalProduct.description = editDescription;
             } 
 
             let editPrice = $('#listingPrice').val();
             if (editPrice !== "") {
-                globalProduct[3] = editPrice;
+                globalProduct.price = editPrice;
             } 
 
             let editImage = $('#listingImage').val();
             if (editImage !== "") {
-                globalProduct[3] = editImage;
+                globalProduct.image = editImage;
             } 
 
             // call ajax update product

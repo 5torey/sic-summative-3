@@ -419,8 +419,9 @@ cursor: pointer;
 #offCanvasContentContainer {
     align-items: center;
     overflow-y: scroll;
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
 }
+
 
 .logo-offcanvas {
 
@@ -431,7 +432,7 @@ cursor: pointer;
     font-size: 30px;
     justify-content: center;
     width: 100%;
-
+    margin-top: 100px;
 }
 
 .off-canvas-right {
