@@ -397,6 +397,7 @@ cursor: pointer;
         width: 100%;
         padding-left: none;
         padding: 5%;
+        padding-bottom: 10px;
 
         img {
             padding-left: 0;
@@ -421,6 +422,9 @@ cursor: pointer;
 #offCanvasContentContainer {
     align-items: center;
     overflow-y: scroll;
+    height: 75vh;
+    margin-bottom: 20px;
+    z-index: 5;
     // margin-bottom: 100px;
 }
 
